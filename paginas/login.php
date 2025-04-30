@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -84,6 +84,11 @@
             border: 1px solid #BC0A11;
             color: #BC0A11;
         }
+        a{
+            outline: none;
+            text-decoration: none;
+            color: white;
+        }
     </style>
 </head>
 <body>
@@ -91,7 +96,7 @@
 <form method="POST" action="session.php">
 <div id="logo"><a href="inicio.html"><img src="recursos/img/main-logo.png"></a></div>
 
-    <div id="registro"><p>REGÍSTRESE AHORA</p></div>
+    <a id="registro" href="registro.php">Registrese ahora</a>
     <h2>Inicia sesión con tu email</h2>
     <table>
         <tr>
