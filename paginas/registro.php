@@ -54,7 +54,7 @@
             margin-right: auto;
             margin-left: auto;
         }
-        #enviar{
+        #registrarse{
             align-items: center;
             justify-content: center;
             text-align: center;
@@ -80,21 +80,30 @@
             cursor: pointer;
             height: 56px;
         }
-        #enviar:hover{
+        #registrarse:hover{
             border: 1px solid #BC0A11;
             color: #BC0A11;
+        }
+        h1{
+            color:#E21921;
+            font-size: 1rem;
         }
     </style>
 </head>
 <body>
 <div id="contenedor">
-<form method="POST" action="session.php">
+<form method="POST" action="registro_usuario.php">
 <div id="logo"><a href="inicio.html"><img src="recursos/img/main-logo.png"></a></div>
     <h2>Rellene el formulario para crear su cuenta:</h2>
+    
     <table>
         <tr>
-            <td><label for="user">Correo electrónico</label></td>
-            <td><input name="user" type="text" id="user"></td>
+        <td><label for="nombre">nombre de usuario</label></td>
+        <td><input name="nombre" type="text" id="nombre"></td>
+        </tr>
+        <tr>
+            <td><label for="correo">Correo electrónico</label></td>
+            <td><input name="correo" type="text" id="correo"></td>
         </tr>
         <tr>
             <td><label for="pw">Contraseña</label></td>
@@ -109,8 +118,14 @@
             <td><input name="tlfn" type="tel" id="tlfn" pattern="[+][0-9]{2}[ ][0-9]{9}"></td>
         </tr>
     </table>
-    <input name="enviar" type="submit" id="enviar" value="Regristar Cuenta">
+    <input name="registrarse" type="submit" id="registrarse" value="Regristar Cuenta">
 </form>
+<?php
+    if(isset($_GET['vacio']) && ($_GET['vacio']==1)){echo "<h1> complete todos los datos del formulario </h1>";}
+    if(isset($_GET['correoexistente']) && ($_GET['correoexistente']==1)){echo "<h1> este correo electrónico ya ha sido registrado </h1>";}
+    if(isset($_GET['dni']) && ($_GET['dni']==1)){echo "<h1> este dni esta en uso por otro usuario </h1>";}
+
+    ?>
 </div>
 </body>
 </html>
