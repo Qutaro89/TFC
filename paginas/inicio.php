@@ -38,25 +38,24 @@
         }
     </style>
 </head>
-<!-- PENDIENTE ARREGLAR SESIONES -->
 <body>
     <header>
         <table id="cabecera">
             <tr>
                 <td style="background-color: black;"></td>
                 <td>Tienda Online</td>
-                <td>Tienda Oficial</td>
+                <td><a href="https://www.rayovallecano.es/tienda-oficial"> Tienda Oficial</a></td>
                 <td><a href="https://www.digimobil.es/fibra-movil?fibra=1320&movil=1326&utm_source=">Contrata Digi</a></td>
                 <td><a href="https://www.ffluzon.org/colabora/">Colabora con la Fundación Luzón</a></td>
-                <td style="background-color: blueviolet;">Compra tus entradas</td>
+                <td style="background-color: blueviolet;"><a href="seleccionarPartido.php"> Compra tus entradas</a></td>
                 <td colspan="2"></td>
                 <?php
                 session_start();
-                if(isset($_SESSION['login'])){
-                    echo "<td><a href='cerrarsesion.php'>Cerrar sesión</a></td>";
-                }
                 if(!isset($_SESSION['login'])){
                     echo"<td><a href='login.php'>Iniciar sesión</a></td>";
+                }
+                if(isset($_SESSION['login'])){
+                    echo "<td><a href='cerrarsesion.php'>Cerrar sesión</a></td>";
                 }
                 ?>
                 <td style="background-color: black;"></td>

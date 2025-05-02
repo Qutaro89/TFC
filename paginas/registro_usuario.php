@@ -21,11 +21,11 @@ $vacio=false;
                 foreach($correos as $correo){
                     if($correo['CORREO_USUARIO']==$_POST['correo']){
                         header("location: registro.php?correoexistente=1");
-                        break;
+                        exit();
                     }
                     if($correo['DNI_USUARIO']==$_POST['DNI']){
                         header("location: registro.php?dni=1");
-                        break;
+                        exit();
                     }
                 }
                 $user_contador=$correos->rowCount();

@@ -15,7 +15,7 @@ if(isset($_POST['iniciar'])){
                 session_unset();
                 session_destroy();
                 header("location: login.php?usuario=1");
-                break;
+                exit();
             }
             if($usuario["PS_USUARIO"]==$_POST["pw"]){
                 session_regenerate_id();
@@ -27,7 +27,7 @@ if(isset($_POST['iniciar'])){
                 session_unset();
                 session_destroy();
                 header("location: login.php?err=1");
-                break;
+                exit();
             }
         }
 
