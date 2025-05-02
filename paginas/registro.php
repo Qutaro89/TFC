@@ -93,7 +93,7 @@
 <body>
 <div id="contenedor">
 <form method="POST" action="registro_usuario.php">
-<div id="logo"><a href="inicio.html"><img src="recursos/img/main-logo.png"></a></div>
+<div id="logo"><a href="inicio.php"><img src="recursos/img/main-logo.png"></a></div>
     <h2>Rellene el formulario para crear su cuenta:</h2>
     
     <table>

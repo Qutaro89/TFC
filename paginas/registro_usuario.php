@@ -11,7 +11,6 @@ error_reporting (E_ALL);
 require("conexion.php");
 $bd=conectar();
 $vacio=false;
-$existente=false;
     if(isset($_POST['registrarse'])){
         if(empty($_POST['nombre']) OR empty($_POST['correo']) OR empty($_POST['pw']) OR empty($_POST['DNI']) OR empty($_POST['tlfn'])){
             $vacio = true;
@@ -30,9 +29,13 @@ $existente=false;
                     }
                 }
                 $user_contador=$correos->rowCount();
-
                 $user_temp=$bd->prepare("SELECT NUM_USUARIO, NOMBRE_USUARIO, PS_USUARIO, DNI_USUARIO, TLFN_USUARIO, CORREO_USUARIO, FECHA_ALTA_USUARIO FROM USUARIOS");
 $sql="INSERT INTO `tfc`.`USUARIOS`(`NUM_USUARIO`, `NOMBRE_USUARIO`, `PS_USUARIO`, `DNI_USUARIO`, `TLFN_USUARIO`, `CORREO_USUARIO`, `FECHA_ALTA_USUARIO`) VALUES('".$user_contador."', '".$_POST['nombre']."', '".$_POST['pw']."', '".$_POST['DNI']."', '".$_POST['tlfn']."', '".$_POST['correo']."' , '".date('Y-m-d')."')";
                 $insertar=$bd->query($sql);
-                header("location: inicio.html");
+                session_start();
+                session_regenerate_id();
+                    $_SESSION['login'] = true;
+                    $_SESSION['correo']= $_POST["correo"];
+                    $_SESSION['id']="id";
+                header("location: inicio.php");
     }

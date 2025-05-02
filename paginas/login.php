@@ -94,22 +94,26 @@
 <body>
 <div id="contenedor">
 <form method="POST" action="session.php">
-<div id="logo"><a href="inicio.html"><img src="recursos/img/main-logo.png"></a></div>
+<div id="logo"><a href="inicio.php"><img src="recursos/img/main-logo.png"></a></div>
 
     <a id="registro" href="registro.php">Registrese ahora</a>
     <h2>Inicia sesión con tu email</h2>
     <table>
         <tr>
-            <td><label for="user">Correo electrónico</label></td>
-            <td><input name="user" type="text" id="user"></td>
-            <td rowspan="2";><?php if(isset($_GET['err']) && ($_GET['err']==1)){echo "<h2> Contraseña incorrecta </h2>";}?></td>
+        <td rowspan="4";><?php if(isset($_GET['vacio']) && ($_GET['vacio']==1)){echo "Faltan datos";}?></td>
+        </tr>
+        <tr>
+            <td><label for="correo">Correo electrónico</label></td>
+            <td><input name="correo" type="text" id="correo"></td>
+            <td rowspan="2";><?php if(isset($_GET['usuario']) && ($_GET['usuario']==1)){echo "el correo introducido no esta registrado ";}?></td>
         </tr>
         <tr>
             <td><label for="pw">Contraseña</label></td>
             <td><input name="pw" type="password" id="pw"></td>
+            <td rowspan="2";><?php if(isset($_GET['err']) && ($_GET['err']==1)){echo "Contraseña incorrecta";}?></td>
         </tr>
     </table>
-    <input name="enviar" type="submit" id="enviar" value="Iniciar sesión">
+    <input name="iniciar" type="submit" id="enviar" value="Iniciar sesión">
 </form>
 </div>
 </body>
