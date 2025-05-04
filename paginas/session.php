@@ -17,11 +17,11 @@ if(isset($_POST['iniciar'])){
                 header("location: login.php?usuario=1");
                 exit();
             }
-            if($usuario["PS_USUARIO"]==$_POST["pw"]){
+            if($usuario['PS_USUARIO']==$_POST['pw']){
                 session_regenerate_id();
                 $_SESSION['login'] = true;
-                $_SESSION['correo']= $_POST["correo"];
-                $_SESSION['id']="id";
+                $_SESSION['correo']= $_POST['correo'];
+                $_SESSION['id']=$usuario['ID_USUARIO'];
                 header("location: inicio.php");
             }else{
                 session_unset();

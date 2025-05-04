@@ -35,6 +35,9 @@ session_start();
         }
         #partidos td{
             border:1px solid black;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
         }
     </style>
 </head>
@@ -72,10 +75,12 @@ session_start();
         </table>
     </header>
     <hr>
+    <form method="POST" action="seleccionarTribuna.php">
     <table id="partidos">
         <tr>
             <td>partido</td>
             <td>fecha y hora del partido</td>
+            <td></td>
     <?php
         error_reporting (E_ALL);
         require("conexion.php");
@@ -83,12 +88,17 @@ session_start();
         $partidos=$bd->prepare("SELECT * FROM PARTIDOS");
         $partidos->execute(array());
         foreach($partidos as $partido){
-            echo"<tr><td>".$partido['EQUIPO_LOCAL']."-".$partido['EQUIPO_VISITANTE']."</td><td>".$partido['FECHA_HORA_PARTIDO']."</td></tr>";
-
-
+            echo"<tr>
+                    <td>".$partido['EQUIPO_LOCAL']."-".$partido['EQUIPO_VISITANTE']."</td>
+                    <td>".$partido['FECHA_HORA_PARTIDO']."</td>
+                    <td><input type='radio' id='id_partido' name='id_partido' value='".$partido["ID_PARTIDO"]."'></td>
+                </tr>";
         }
     ?>
-    </table>
+    <tr>
+        <td colspan=3><input name="partido" type="submit" id="partido" value="Seleccionar tribuna"></td>
+    </table >
+    
     
 </body>
 </html>
