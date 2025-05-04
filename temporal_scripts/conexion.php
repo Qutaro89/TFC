@@ -1,6 +1,6 @@
 <?php
 function error(){
-    echo "Error al leer el fichero";
+    console.log("Error al leer el fichero");
 }
 function conectar(){
     $datos = simplexml_load_file("config.xml");
@@ -13,6 +13,5 @@ function conectar(){
     $ps=$datos->xpath('//pw')[0];
     $datos_conexion = 'mysql:dbname='.$bdname.';host='.$host;
     $conexion=new PDO($datos_conexion,$user,$ps);
-    echo "<p> se ha creado con exito la conexion con ".$datos_conexion."<br>Administrador ".$user." |pw ".$ps."</p>";
     return $conexion;
 }
