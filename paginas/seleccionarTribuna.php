@@ -178,7 +178,7 @@ session_start();
         </table>
     </header>
     <hr>
-    <form method="POST" id="fondo" action="seleccionarTribuna.php">
+    <form method="POST" id="fondo" action="butacas.php">
         <?php echo "<input name='id_partido' type='text' value='".$_POST["id_partido"]."'>"; ?>
         <input type="submit" name="TRIBUNA" value="TRIBUNA ALTA LATERAL" id="AL">
         <input type="submit" name="TRIBUNA" value="TRIBUNA LATERAL CUBIERTA" id="LC">
@@ -188,8 +188,8 @@ session_start();
         <input type="submit" name="TRIBUNA" value="GRADA DE PREFERENCIA" id="GP">
         <input type="submit" name="TRIBUNA" value="TRIBUNA CENTRAL" id="TCa">
         <input type="submit" name="TRIBUNA" value="PALCO CENTRAL" id="PC">
-        <input type="submit" name="TRIBUNA" value="PALCO HONOR" id="PH">
+        <input type="submit" name="TRIBUNA" value="PALCO DE HONOR" id="PH">
         <input type="submit" name="TRIBUNA" value="TRIBUNA CENTRAL" id="TCb">
-        <input type="submit" name="TRIBUNA" value="GRADA ALTA PREFERENCIA" id="GAP">
+        <input type="submit" name="TRIBUNA" value="TRIBUNA ALTA PREFERENCIA" id="GAP">
 </body>
 </html>
