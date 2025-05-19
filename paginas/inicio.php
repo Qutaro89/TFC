@@ -55,6 +55,7 @@
                     echo"<td><a href='login.php'>Iniciar sesión</a></td>";
                 }
                 if(isset($_SESSION['login'])){
+                    echo "<td><a href='area_personal.php'>Área personal</a></td>";
                     echo "<td><a href='cerrarsesion.php'>Cerrar sesión</a></td>";
                 }
                 ?>
