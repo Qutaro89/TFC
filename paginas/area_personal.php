@@ -25,7 +25,7 @@ $zona_butaca = '';
 $puerta_butaca = '';
 $id_butaca = '';
 if ($num_abonado) {
-    $abono = $bd->prepare("SELECT USUARIOS_NUM_USUARIO, BUTACAS_ID_BUTACA FROM ABONOS WHERE USUARIOS_NUM_USUARIO = :num LIMIT 1");
+    $abono = $bd->prepare("SELECT BUTACAS_ID_BUTACA FROM ABONOS WHERE USUARIOS_NUM_USUARIO = :num LIMIT 1");
     $abono->execute([':num' => $num_abonado]);
     $datos_abono = $abono->fetch();
     if ($datos_abono) {
@@ -175,7 +175,12 @@ if ($num_abonado) {
                     <div class="dato"><strong>Correo Electrónico:</strong> <?php echo htmlspecialchars($correo_usuario); ?></div>
                     <div class="dato"><strong>DNI:</strong> <?php echo htmlspecialchars($dni_usuario); ?></div>
                     <div class="dato"><strong>Telefono:</strong> <?php echo htmlspecialchars($tlfn_usuario); ?></div>
-                    <div class="dato"><strong>Socio desde el </strong> <?php echo htmlspecialchars($fecha_alta_usuario); ?></div>
+                    <div class="dato"><strong>Socio desde el </strong> <?php 
+                        if ($fecha_alta_usuario) {
+                            $fecha_socio = new DateTime($fecha_alta_usuario);
+                            echo $fecha_socio->format('d/m/Y');
+                        }
+                    ?></div>
                 </div>
             </div>
         </div>
