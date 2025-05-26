@@ -8,7 +8,7 @@ require_once("conexion.php");
 $bd = conectar();
 
 
-$correo = $_SESSION['login'];
+$correo = $_SESSION['correo'];
 $usuario = $bd->prepare("SELECT NUM_USUARIO, NOMBRE_USUARIO, CORREO_USUARIO, DNI_USUARIO, TLFN_USUARIO, FECHA_ALTA_USUARIO FROM USUARIOS WHERE CORREO_USUARIO = :correo LIMIT 1");
 $usuario->execute([':correo' => $correo]);
 $datos_usuario = $usuario->fetch();
@@ -25,7 +25,7 @@ $zona_butaca = '';
 $puerta_butaca = '';
 $id_butaca = '';
 if ($num_abonado) {
-    $abono = $bd->prepare("SELECT BUTACAS_ID_BUTACA FROM ABONOS WHERE USUARIOS_NUM_USUARIO = :num LIMIT 1");
+    $abono = $bd->prepare("SELECT USUARIOS_NUM_USUARIO, BUTACAS_ID_BUTACA FROM ABONOS WHERE USUARIOS_NUM_USUARIO = :num LIMIT 1");
     $abono->execute([':num' => $num_abonado]);
     $datos_abono = $abono->fetch();
     if ($datos_abono) {
