@@ -39,6 +39,66 @@ session_start();
             justify-content: center;
             text-align: center;
         }
+        .partidos-container {
+            margin: 10% auto 0 auto;
+            max-width: 900px;
+            background: #fff;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            padding: 30px 20px;
+            border: 2px solid #222;
+        }
+        .partido-card {
+            display: flex;
+            align-items: center;
+            border-bottom: 1px solid #e0e0e0;
+            padding: 20px 0;
+        }
+        .partido-card:last-child {
+            border-bottom: none;
+        }
+        .escudos {
+            display: flex;
+            align-items: center;
+            min-width: 120px;
+            justify-content: center;
+        }
+        .escudos img {
+            width: 55px;
+            height: 55px;
+            object-fit: contain;
+            margin: 0 8px;
+        }
+        .info-partido {
+            flex: 1;
+            padding-left: 20px;
+        }
+        .nombre-partido {
+            font-size: 1.2em;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        .detalle-partido {
+            color: #666;
+            font-size: 0.95em;
+            margin-bottom: 2px;
+        }
+        .seleccionar-btn {
+            background: #d32f2f;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            padding: 10px 18px;
+            font-size: 1em;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        .seleccionar-btn:hover {
+            background: #b71c1c;
+        }
+        .radio-partido {
+            margin-right: 10px;
+        }
     </style>
 </head>
 <body>
@@ -55,6 +115,7 @@ session_start();
                 if(!isset($_SESSION['login'])){
                     echo"<td><a href='login.php'>Iniciar sesión</a></td>";
                 }else{
+                    echo "<td><a href='area_personal.php'>Área personal</a></td>";
                     echo "<td><a href='cerrarsesion.php'>Cerrar sesión</a></td>";
                 }
                 ?>
@@ -76,11 +137,7 @@ session_start();
     </header>
     <hr>
     <form method="POST" action="seleccionarTribuna.php">
-    <table id="partidos">
-        <tr>
-            <td>partido</td>
-            <td>fecha y hora del partido</td>
-            <td></td>
+    <div class="partidos-container">
     <?php
         error_reporting (E_ALL);
         require("conexion.php");
@@ -88,17 +145,43 @@ session_start();
         $partidos=$bd->prepare("SELECT * FROM PARTIDOS");
         $partidos->execute(array());
         foreach($partidos as $partido){
-            echo"<tr>
-                    <td>".$partido['EQUIPO_LOCAL']."-".$partido['EQUIPO_VISITANTE']."</td>
-                    <td>".$partido['FECHA_HORA_PARTIDO']."</td>
-                    <td><input type='radio' id='id_partido' name='id_partido' value='".$partido["ID_PARTIDO"]."'></td>
-                </tr>";
+            $escudo_local = "recursos/img/RAYO.png";
+            $escudo_visitante1 = "recursos/img/GETAFE.png";
+            $escudo_visitante2 = "recursos/img/BETIS.png";
+            $escudo_visitante3 = "recursos/img/MALLORCA.png";
+
+            if ($partido['EQUIPO_VISITANTE'] == "GETAFE") {
+                $escudo_visitante = $escudo_visitante1;
+            } elseif ($partido['EQUIPO_VISITANTE'] == "BETIS") {
+                $escudo_visitante = $escudo_visitante2;
+            } else {
+                $escudo_visitante = $escudo_visitante3;
+            }
+
+            preg_match('/J-(\\d+)/', $partido['ID_PARTIDO'], $matches);
+            $jornada = isset($matches[1]) ? $matches[1] : '';
+
+            $fechaHora = new DateTime($partido['FECHA_HORA_PARTIDO']);
+            $fecha_es = $fechaHora->format('d/m/Y');
+            $hora_es = $fechaHora->format('H:i');
+
+            echo "<div class='partido-card'>
+                    <div class='escudos'>
+                        <img src='".$escudo_local."' alt='".$partido['EQUIPO_LOCAL']."'>
+                        <img src='".$escudo_visitante."' alt='".$partido['EQUIPO_VISITANTE']."'>
+                    </div>
+                    <div class='info-partido'>
+                        <div class='nombre-partido'>".$partido['EQUIPO_LOCAL']." - ".$partido['EQUIPO_VISITANTE']."</div>
+                        <div class='detalle-partido'>Jornada ".$jornada." - La Liga</div>
+                        <div class='detalle-partido'>".$fecha_es." - ".$hora_es."</div>
+                    </div>
+                    <div>
+                        <button class='seleccionar-btn' type='submit' name='id_partido' value='".$partido["ID_PARTIDO"]."'>Comprar entradas</button>
+                    </div>
+                </div>";
         }
     ?>
-    <tr>
-        <td colspan=3><input name="partido" type="submit" id="partido" value="Seleccionar tribuna"></td>
-    </table >
-    
-    
+    </div>
+    </form>
 </body>
 </html>
