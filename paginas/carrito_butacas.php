@@ -6,7 +6,7 @@ session_start();
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Taquilla entradas</title>
+    <title>Carrito de entradas</title>
     <style>
         a{
             outline: none;
@@ -33,20 +33,41 @@ session_start();
         #tribuna{visibility: hidden;}
         #contenedor{
             position: absolute;
-            top:20%;
-            height:20%;
-            width:75%;
-            left:1%;
-            border-collapse:collapse;
+            top: 20%;
+            width: 90%;
+            left: 5%;
+            border-collapse: collapse;
+            background-color: white;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        #contenedor tr:first-child {
+            background-color: #2c3e50;
+            color: white;
+            font-weight: bold;
+            text-transform: uppercase;
+            font-size: 1.1em;
         }
         #contenedor td{
-            height:0.1%;
-            width: auto;
-            text-align:center;
-            border:1px solid black;
+            padding: 15px;
+            text-align: center;
+            border-bottom: 1px solid #ddd;
+        }
+        #contenedor tr:last-child td {
+            border-bottom: none;
+            font-weight: bold;
+            background-color: #f8f8f8;
+        }
+        #contenedor tr:not(:first-child):hover {
+            background-color: #f5f5f5;
         }
         td table{
-            border-collapse:collapse;
+            border-collapse: collapse;
+        }
+        .total-row {
+            font-size: 1.2em;
+            color: #E21921;
         }
     </style>
 </head>
@@ -88,12 +109,12 @@ session_start();
     <hr>
     <table id='contenedor'>
         <tr>
-            <td>partido</td>
-            <td>fecha hora</td>
-            <td>butaca</td>
-            <td>tribuna</td>
-            <td>puerta</td>
-            <td>precio</td>
+            <td>Partido</td>
+            <td>Fecha y Hora</td>
+            <td>Butaca</td>
+            <td>Tribuna</td>
+            <td>Puerta</td>
+            <td>Precio</td>
         </tr>
         <?php
             $total=0;
@@ -114,9 +135,12 @@ session_start();
                     if($butaca["ID_BUTACA"]==$_POST['butaca'.$entrada.'']){
                     $entrada++;
                     }else{
+                        $fechaHora = new DateTime($partido['FECHA_HORA_PARTIDO']);
+                        $fecha_es = $fechaHora->format('d/m/Y');
+                        $hora_es = $fechaHora->format('H:i');
                         echo"<tr>";
-                        echo"<td>".$partido['ID_PARTIDO']."</td>";
-                        echo"<td>".$partido['FECHA_HORA_PARTIDO']."</td>";
+                        echo"<td>vs ".$partido['EQUIPO_VISITANTE']."</td>";
+                        echo"<td>".$fecha_es." - ".$hora_es."</td>";
                         echo"<td>".$butaca['ID_BUTACA']."</td>";
                         echo"<td>".$butaca['ZONA_BUTACA']."</td>";
                         echo"<td>".$butaca['PUERTA_BUTACA']."</td>";
@@ -127,4 +151,4 @@ session_start();
                         $entrada++;
                     }
                 }}}
-                echo"<tr><td colspan=5>TOTAL:</td><td>".$total."€</td></tr>";
+                echo"<tr class='total-row'><td colspan=5>TOTAL:</td><td>".$total."€</td></tr>";
