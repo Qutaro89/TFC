@@ -41,18 +41,39 @@ session_start();
         }
         .partidos-container {
             margin: 10% auto 0 auto;
-            max-width: 900px;
+            max-width: 1000px;
             background: #fff;
-            border-radius: 10px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
-            padding: 30px 20px;
-            border: 2px solid #222;
+            border-radius: 15px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            padding: 40px 30px 30px 30px;
+            border: 1.5px solid #222;
+            position: relative;
+        }
+        .titulo-partidos {
+            text-align: center;
+            font-size: 2.8em;
+            font-family: 'Arial Black', Arial, sans-serif;
+            font-weight: bold;
+            color: #111;
+            margin-bottom: 0.2em;
+            margin-top: 0.2em;
+            letter-spacing: 1px;
+            position: relative;
+        }
+        .subrayado-rojo {
+            display: block;
+            width: 85%;
+            height: 6px;
+            background: #d32f2f;
+            margin: 0 auto 2.5em auto;
+            border-radius: 3px;
         }
         .partido-card {
             display: flex;
             align-items: center;
             border-bottom: 1px solid #e0e0e0;
-            padding: 20px 0;
+            padding: 25px 0 25px 0;
+            background: transparent;
         }
         .partido-card:last-child {
             border-bottom: none;
@@ -62,42 +83,52 @@ session_start();
             align-items: center;
             min-width: 120px;
             justify-content: center;
+            gap: 18px;
         }
         .escudos img {
-            width: 55px;
-            height: 55px;
+            width: 60px;
+            height: 60px;
             object-fit: contain;
-            margin: 0 8px;
         }
         .info-partido {
             flex: 1;
             padding-left: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
         }
         .nombre-partido {
-            font-size: 1.2em;
+            font-size: 1.25em;
+            font-family: 'Arial Black', Arial, sans-serif;
             font-weight: bold;
             margin-bottom: 5px;
+            color: #111;
         }
         .detalle-partido {
-            color: #666;
-            font-size: 0.95em;
+            color: #222;
+            font-size: 1em;
             margin-bottom: 2px;
         }
         .seleccionar-btn {
             background: #d32f2f;
             color: #fff;
             border: none;
-            border-radius: 5px;
-            padding: 10px 18px;
-            font-size: 1em;
+            border-radius: 8px;
+            padding: 12px 28px;
+            font-size: 1.1em;
             cursor: pointer;
             transition: background 0.2s;
+            font-weight: 500;
+            margin-left: 30px;
         }
         .seleccionar-btn:hover {
             background: #b71c1c;
         }
-        .radio-partido {
-            margin-right: 10px;
+        @media (max-width: 700px) {
+            .partidos-container { padding: 10px; }
+            .partido-card { flex-direction: column; align-items: flex-start; }
+            .seleccionar-btn { margin-left: 0; margin-top: 10px; width: 100%; }
+            .escudos { margin-bottom: 10px; }
         }
     </style>
 </head>
@@ -113,8 +144,7 @@ session_start();
                 <td colspan="3"></td>
                 <?php
                 if(!isset($_SESSION['login'])){
-                    header('Location: login.php');
-                    exit();
+                    echo"<td><a href='login.php'>Iniciar sesión</a></td>";
                 }else{
                     echo "<td><a href='area_personal.php'>Área personal</a></td>";
                     echo "<td><a href='cerrarsesion.php'>Cerrar sesión</a></td>";
@@ -139,6 +169,8 @@ session_start();
     <hr>
     <form method="POST" action="seleccionarTribuna.php">
     <div class="partidos-container">
+        <div class="titulo-partidos">PARTIDOS</div>
+        <span class="subrayado-rojo"></span>
     <?php
         error_reporting (E_ALL);
         require("conexion.php");
