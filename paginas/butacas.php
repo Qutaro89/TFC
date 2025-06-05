@@ -195,9 +195,9 @@ session_start();
                     }
                     }
                     if($contador != $limite){
-                        echo"<td id='libre'><input  type='checkbox' name='butaca".$pedido."' value='".$filas[$contador]['ID_BUTACA']."'></td>";
+                    $contador++;
+                    echo"<td id='libre'><input  type='checkbox' name='butaca".$pedido."' value='".$filas[$contador]['ID_BUTACA']."'></td>";
                     $pedido++;
-                    $contador=$contador+1;
                     }
                 }
                 echo "</tr>";
@@ -231,9 +231,9 @@ session_start();
                     }
                     }
                     if($contador != $limite){
-                        echo"<td id='libre'><input  type='checkbox' name='butaca".$pedido."' value='".$filas[$contador]['ID_BUTACA']."'></td>";
+                    $contador++;
+                    echo"<td id='libre'><input  type='checkbox' name='butaca".$pedido."' value='".$filas[$contador]['ID_BUTACA']."'></td>";
                     $pedido++;
-                    $contador=$contador+1;
                     }
                 }
             echo "</tr>";
@@ -272,9 +272,9 @@ session_start();
                     }
                     }
                     if($contador != $limite){
-                        echo"<td id='libre'><input  type='checkbox' name='butaca".$pedido."' value='".$filas[$contador]['ID_BUTACA']."'></td>";
+                    $contador++;
+                    echo"<td id='libre'><input  type='checkbox' name='butaca".$pedido."' value='".$filas[$contador]['ID_BUTACA']."'></td>";
                     $pedido++;
-                    $contador=$contador+1;
                     }
                 }
                 echo "</tr>";
@@ -308,9 +308,9 @@ session_start();
                     }
                     }
                     if($contador != $limite){
-                        echo"<td id='libre'><input  type='checkbox' name='butaca".$pedido."' value='".$filas[$contador]['ID_BUTACA']."'></td>";
+                    $contador++;
+                    echo"<td id='libre'><input  type='checkbox' name='butaca".$pedido."' value='".$filas[$contador]['ID_BUTACA']."'></td>";
                     $pedido++;
-                    $contador=$contador+1;
                     }
                 }
             echo "</tr>";
@@ -349,9 +349,9 @@ session_start();
                     }
                     }
                     if($contador != $limite){
-                        echo"<td id='libre'><input  type='checkbox' name='butaca".$pedido."' value='".$filas[$contador]['ID_BUTACA']."'></td>";
+                    $contador++;
+                    echo"<td id='libre'><input  type='checkbox' name='butaca".$pedido."' value='".$filas[$contador]['ID_BUTACA']."'></td>";
                     $pedido++;
-                    $contador=$contador+1;
                     }
                 }
                 echo "</tr>";
@@ -385,9 +385,9 @@ session_start();
                     }
                     }
                     if($contador != $limite){
-                        echo"<td id='libre'><input  type='checkbox' name='butaca".$pedido."' value='".$filas[$contador]['ID_BUTACA']."'></td>";
+                    $contador++;
+                    echo"<td id='libre'><input  type='checkbox' name='butaca".$pedido."' value='".$filas[$contador]['ID_BUTACA']."'></td>";
                     $pedido++;
-                    $contador=$contador+1;
                     }
                 }
             echo "</tr>";
@@ -426,9 +426,9 @@ session_start();
                     }
                     }
                     if($contador != $limite){
-                        echo"<td id='libre'><input  type='checkbox' name='butaca".$pedido."' value='".$filas[$contador]['ID_BUTACA']."'></td>";
+                    $contador++;
+                    echo"<td id='libre'><input  type='checkbox' name='butaca".$pedido."' value='".$filas[$contador]['ID_BUTACA']."'></td>";
                     $pedido++;
-                    $contador=$contador+1;
                     }
                 }
                 echo "</tr>";
@@ -462,9 +462,9 @@ session_start();
                     }
                     }
                     if($contador != $limite){
-                        echo"<td id='libre'><input  type='checkbox' name='butaca".$pedido."' value='".$filas[$contador]['ID_BUTACA']."'></td>";
+                    $contador++;
+                    echo"<td id='libre'><input  type='checkbox' name='butaca".$pedido."' value='".$filas[$contador]['ID_BUTACA']."'></td>";
                     $pedido++;
-                    $contador=$contador+1;
                     }
                 }
             echo "</tr>";
@@ -503,9 +503,9 @@ session_start();
                     }
                     }
                     if($contador != $limite){
-                        echo"<td id='libre'><input  type='checkbox' name='butaca".$pedido."' value='".$filas[$contador]['ID_BUTACA']."'></td>";
+                    $contador++;
+                    echo"<td id='libre'><input  type='checkbox' name='butaca".$pedido."' value='".$filas[$contador]['ID_BUTACA']."'></td>";
                     $pedido++;
-                    $contador=$contador+1;
                     }
                 }
             }
@@ -537,9 +537,9 @@ session_start();
                     }
                     }
                     if($contador != $limite){
-                        echo"<td id='libre'><input  type='checkbox' name='butaca".$pedido."' value='".$filas[$contador]['ID_BUTACA']."'></td>";
+                    $contador++;
+                    echo"<td id='libre'><input  type='checkbox' name='butaca".$pedido."' value='".$filas[$contador]['ID_BUTACA']."'></td>";
                     $pedido++;
-                    $contador=$contador+1;
                     }
                 }
             }
@@ -571,9 +571,9 @@ session_start();
                     }
                     }
                     if($contador != $limite){
-                        echo"<td id='libre'><input  type='checkbox' name='butaca".$pedido."' value='".$filas[$contador]['ID_BUTACA']."'></td>";
+                    $contador++;
+                    echo"<td id='libre'><input  type='checkbox' name='butaca".$pedido."' value='".$filas[$contador]['ID_BUTACA']."'></td>";
                     $pedido++;
-                    $contador=$contador+1;
                     }
                 }
             }
@@ -605,9 +605,9 @@ session_start();
                     }
                     }
                     if($contador != $limite){
-                        echo"<td id='libre'><input  type='checkbox' name='butaca".$pedido."' value='".$filas[$contador]['ID_BUTACA']."'></td>";
+                    $contador++;
+                    echo"<td id='libre'><input  type='checkbox' name='butaca".$pedido."' value='".$filas[$contador]['ID_BUTACA']."'></td>";
                     $pedido++;
-                    $contador=$contador+1;
                     }
                 }
             }
@@ -639,9 +639,9 @@ session_start();
                     }
                     }
                     if($contador != $limite){
-                        echo"<td id='libre'><input  type='checkbox' name='butaca".$pedido."' value='".$filas[$contador]['ID_BUTACA']."'></td>";
+                    $contador++;
+                    echo"<td id='libre'><input  type='checkbox' name='butaca".$pedido."' value='".$filas[$contador]['ID_BUTACA']."'></td>";
                     $pedido++;
-                    $contador=$contador+1;
                     }
                 }
             }
@@ -673,9 +673,9 @@ session_start();
                     }
                     }
                     if($contador != $limite){
-                        echo"<td id='libre'><input  type='checkbox' name='butaca".$pedido."' value='".$filas[$contador]['ID_BUTACA']."'></td>";
+                    $contador++;
+                    echo"<td id='libre'><input  type='checkbox' name='butaca".$pedido."' value='".$filas[$contador]['ID_BUTACA']."'></td>";
                     $pedido++;
-                    $contador=$contador+1;
                     }
                 }
             }
@@ -709,9 +709,9 @@ session_start();
                     }
                     }
                     if($contador != $limite){
-                        echo"<td id='libre'><input  type='checkbox' name='butaca".$pedido."' value='".$filas[$contador]['ID_BUTACA']."'></td>";
+                    $contador++;
+                    echo"<td id='libre'><input  type='checkbox' name='butaca".$pedido."' value='".$filas[$contador]['ID_BUTACA']."'></td>";
                     $pedido++;
-                    $contador=$contador+1;
                     }
                 }
             echo "</tr>";
@@ -745,9 +745,9 @@ session_start();
                     }
                     }
                     if($contador != $limite){
-                        echo"<td id='libre'><input  type='checkbox' name='butaca".$pedido."' value='".$filas[$contador]['ID_BUTACA']."'></td>";
+                    $contador++;
+                    echo"<td id='libre'><input  type='checkbox' name='butaca".$pedido."' value='".$filas[$contador]['ID_BUTACA']."'></td>";
                     $pedido++;
-                    $contador=$contador+1;
                     }
                 }
             echo "</tr>";
@@ -782,9 +782,9 @@ session_start();
                     }
                     }
                     if($contador != $limite){
-                        echo"<td id='libre'><input  type='checkbox' name='butaca".$pedido."' value='".$filas[$contador]['ID_BUTACA']."'></td>";
+                    $contador++;
+                    echo"<td id='libre'><input  type='checkbox' name='butaca".$pedido."' value='".$filas[$contador]['ID_BUTACA']."'></td>";
                     $pedido++;
-                    $contador=$contador+1;
                     }
                 }
             echo "<td></td></tr>";
@@ -816,81 +816,9 @@ session_start();
                     }
                     }
                     if($contador != $limite){
-                        echo"<td id='libre'><input  type='checkbox' name='butaca".$pedido."' value='".$filas[$contador]['ID_BUTACA']."'></td>";
+                    $contador++;
+                    echo"<td id='libre'><input  type='checkbox' name='butaca".$pedido."' value='".$filas[$contador]['ID_BUTACA']."'></td>";
                     $pedido++;
-                    $contador=$contador+1;
-                    }
-                }
-            echo "</tr>";
-            }
-        }
-        echo"</table></td><td><table id='D'>";
-        for($i=0;$i<11;$i++){
-            if($i==10){
-                echo "<tr><td></td>";
-                for($b=0;$b<9;$b++){
-                    foreach($estado_butacas as $butac4){
-                        if($filas[$contador]['ID_BUTACA']== $butac4['ID_BUTACA']){
-                            if($butac4['ESTADO_BUTACA']=='RESERVADA'){
-                            $reserva = true;
-                            }
-                            if($butac4['ESTADO_BUTACA']=='OCUPADA'){
-                            $ocupada = true;
-                        }
-                    if($reserva == true){
-                        $contador=$contador+1;
-                        $pedido++;
-                        $b++;
-                        echo "<td id='reservada'></td>";
-                        $reserva=false;
-                    }
-                    if($ocupada == true){
-                        echo "<td id='ocupada'></td>";
-                        $contador=$contador+1;
-                        $pedido++;
-                        $b++;
-                        $ocupada=false;
-                    }
-                    }
-                    }
-                    if($contador != $limite){
-                        echo"<td id='libre'><input  type='checkbox' name='butaca".$pedido."' value='".$filas[$contador]['ID_BUTACA']."'></td>";
-                    $pedido++;
-                    $contador=$contador+1;
-                    }
-                }
-            echo "<td></td></tr>";
-            }else{
-            echo "<tr>";
-                for($b=0;$b<11;$b++){
-                    foreach($estado_butacas as $butac4){
-                        if($filas[$contador]['ID_BUTACA']== $butac4['ID_BUTACA']){
-                            if($butac4['ESTADO_BUTACA']=='RESERVADA'){
-                            $reserva = true;
-                            }
-                            if($butac4['ESTADO_BUTACA']=='OCUPADA'){
-                            $ocupada = true;
-                        }
-                    if($reserva == true){
-                        $contador=$contador+1;
-                        $pedido++;
-                        $b++;
-                        echo "<td id='reservada'></td>";
-                        $reserva=false;
-                    }
-                    if($ocupada == true){
-                        echo "<td id='ocupada'></td>";
-                        $contador=$contador+1;
-                        $pedido++;
-                        $b++;
-                        $ocupada=false;
-                    }
-                    }
-                    }
-                    if($contador != $limite){
-                        echo"<td id='libre'><input  type='checkbox' name='butaca".$pedido."' value='".$filas[$contador]['ID_BUTACA']."'></td>";
-                    $pedido++;
-                    $contador=$contador+1;
                     }
                 }
             echo "</tr>";
@@ -926,9 +854,9 @@ session_start();
                     }
                     }
                     if($contador != $limite){
-                        echo"<td id='libre'><input  type='checkbox' name='butaca".$pedido."' value='".$filas[$contador]['ID_BUTACA']."'></td>";
+                    $contador++;
+                    echo"<td id='libre'><input  type='checkbox' name='butaca".$pedido."' value='".$filas[$contador]['ID_BUTACA']."'></td>";
                     $pedido++;
-                    $contador=$contador+1;
                     }
                 }
             echo "<td></td></tr>";
@@ -960,9 +888,81 @@ session_start();
                     }
                     }
                     if($contador != $limite){
-                        echo"<td id='libre'><input  type='checkbox' name='butaca".$pedido."' value='".$filas[$contador]['ID_BUTACA']."'></td>";
+                    $contador++;
+                    echo"<td id='libre'><input  type='checkbox' name='butaca".$pedido."' value='".$filas[$contador]['ID_BUTACA']."'></td>";
                     $pedido++;
-                    $contador=$contador+1;
+                    }
+                }
+            echo "</tr>";
+            }
+        }
+        echo"</table></td><td><table id='D'>";
+        for($i=0;$i<11;$i++){
+            if($i==10){
+                echo "<tr><td></td>";
+                for($b=0;$b<9;$b++){
+                    foreach($estado_butacas as $butac4){
+                        if($filas[$contador]['ID_BUTACA']== $butac4['ID_BUTACA']){
+                            if($butac4['ESTADO_BUTACA']=='RESERVADA'){
+                            $reserva = true;
+                            }
+                            if($butac4['ESTADO_BUTACA']=='OCUPADA'){
+                            $ocupada = true;
+                        }
+                    if($reserva == true){
+                        $contador=$contador+1;
+                        $pedido++;
+                        $b++;
+                        echo "<td id='reservada'></td>";
+                        $reserva=false;
+                    }
+                    if($ocupada == true){
+                        echo "<td id='ocupada'></td>";
+                        $contador=$contador+1;
+                        $pedido++;
+                        $b++;
+                        $ocupada=false;
+                    }
+                    }
+                    }
+                    if($contador != $limite){
+                    $contador++;
+                    echo"<td id='libre'><input  type='checkbox' name='butaca".$pedido."' value='".$filas[$contador]['ID_BUTACA']."'></td>";
+                    $pedido++;
+                    }
+                }
+            echo "<td></td></tr>";
+            }else{
+            echo "<tr>";
+                for($b=0;$b<11;$b++){
+                    foreach($estado_butacas as $butac4){
+                        if($filas[$contador]['ID_BUTACA']== $butac4['ID_BUTACA']){
+                            if($butac4['ESTADO_BUTACA']=='RESERVADA'){
+                            $reserva = true;
+                            }
+                            if($butac4['ESTADO_BUTACA']=='OCUPADA'){
+                            $ocupada = true;
+                        }
+                    if($reserva == true){
+                        $contador=$contador+1;
+                        $pedido++;
+                        $b++;
+                        echo "<td id='reservada'></td>";
+                        $reserva=false;
+                    }
+                    if($ocupada == true){
+                        echo "<td id='ocupada'></td>";
+                        $contador=$contador+1;
+                        $pedido++;
+                        $b++;
+                        $ocupada=false;
+                    }
+                    }
+                    }
+                    if($contador != $limite){
+                    $contador++;
+                    echo"<td id='libre'><input  type='checkbox' name='butaca".$pedido."' value='".$filas[$contador]['ID_BUTACA']."'></td>";
+                    $pedido++;
                     }
                 }
             echo "</tr>";
@@ -997,9 +997,9 @@ session_start();
                     }
                     }
                     if($contador != $limite){
-                        echo"<td id='libre'><input  type='checkbox' name='butaca".$pedido."' value='".$filas[$contador]['ID_BUTACA']."'></td>";
+                    $contador++;
+                    echo"<td id='libre'><input  type='checkbox' name='butaca".$pedido."' value='".$filas[$contador]['ID_BUTACA']."'></td>";
                     $pedido++;
-                    $contador=$contador+1;
                     }
                 }
             echo "</tr>";
@@ -1034,9 +1034,9 @@ session_start();
                     }
                     }
                     if($contador != $limite){
-                        echo"<td id='libre'><input  type='checkbox' name='butaca".$pedido."' value='".$filas[$contador]['ID_BUTACA']."'></td>";
+                    $contador++;
+                    echo"<td id='libre'><input  type='checkbox' name='butaca".$pedido."' value='".$filas[$contador]['ID_BUTACA']."'></td>";
                     $pedido++;
-                    $contador=$contador+1;
                     }
                 }
             }
@@ -1068,9 +1068,9 @@ session_start();
                     }
                     }
                     if($contador != $limite){
-                        echo"<td id='libre'><input  type='checkbox' name='butaca".$pedido."' value='".$filas[$contador]['ID_BUTACA']."'></td>";
+                    $contador++;
+                    echo"<td id='libre'><input  type='checkbox' name='butaca".$pedido."' value='".$filas[$contador]['ID_BUTACA']."'></td>";
                     $pedido++;
-                    $contador=$contador+1;
                     }
                 }
             }
@@ -1102,9 +1102,9 @@ session_start();
                     }
                     }
                     if($contador != $limite){
-                        echo"<td id='libre'><input  type='checkbox' name='butaca".$pedido."' value='".$filas[$contador]['ID_BUTACA']."'></td>";
+                    $contador++;
+                    echo"<td id='libre'><input  type='checkbox' name='butaca".$pedido."' value='".$filas[$contador]['ID_BUTACA']."'></td>";
                     $pedido++;
-                    $contador=$contador+1;
                     }
                 }
             }
@@ -1136,9 +1136,9 @@ session_start();
                     }
                     }
                     if($contador != $limite){
-                        echo"<td id='libre'><input  type='checkbox' name='butaca".$pedido."' value='".$filas[$contador]['ID_BUTACA']."'></td>";
+                    $contador++;
+                    echo"<td id='libre'><input  type='checkbox' name='butaca".$pedido."' value='".$filas[$contador]['ID_BUTACA']."'></td>";
                     $pedido++;
-                    $contador=$contador+1;
                     }
                 }
             }
@@ -1170,9 +1170,9 @@ session_start();
                     }
                     }
                     if($contador != $limite){
-                        echo"<td id='libre'><input  type='checkbox' name='butaca".$pedido."' value='".$filas[$contador]['ID_BUTACA']."'></td>";
+                    $contador++;
+                    echo"<td id='libre'><input  type='checkbox' name='butaca".$pedido."' value='".$filas[$contador]['ID_BUTACA']."'></td>";
                     $pedido++;
-                    $contador=$contador+1;
                     }
                 }
             }
@@ -1204,9 +1204,9 @@ session_start();
                     }
                     }
                     if($contador != $limite){
-                        echo"<td id='libre'><input  type='checkbox' name='butaca".$pedido."' value='".$filas[$contador]['ID_BUTACA']."'></td>";
+                    $contador++;
+                    echo"<td id='libre'><input  type='checkbox' name='butaca".$pedido."' value='".$filas[$contador]['ID_BUTACA']."'></td>";
                     $pedido++;
-                    $contador=$contador+1;
                     }
                 }
             }
@@ -1244,9 +1244,9 @@ session_start();
                     }
                     }
                     if($contador != $limite){
-                        echo"<td id='libre'><input  type='checkbox' name='butaca".$pedido."' value='".$filas[$contador]['ID_BUTACA']."'></td>";
+                    $contador++;
+                    echo"<td id='libre'><input  type='checkbox' name='butaca".$pedido."' value='".$filas[$contador]['ID_BUTACA']."'></td>";
                     $pedido++;
-                    $contador=$contador+1;
                     }
                 }
             echo "</tr>";
@@ -1285,9 +1285,9 @@ session_start();
                     }
                     }
                     if($contador != $limite){
-                        echo"<td id='libre'><input  type='checkbox' name='butaca".$pedido."' value='".$filas[$contador]['ID_BUTACA']."'></td>";
+                    $contador++;
+                    echo"<td id='libre'><input  type='checkbox' name='butaca".$pedido."' value='".$filas[$contador]['ID_BUTACA']."'></td>";
                     $pedido++;
-                    $contador=$contador+1;
                     }
                 }
                 echo "</tr>";
@@ -1308,9 +1308,9 @@ session_start();
                     }
                     }
                     if($contador != $limite){
-                        echo"<td id='libre'><input  type='checkbox' name='butaca".$pedido."' value='".$filas[$contador]['ID_BUTACA']."'></td>";
+                    $contador++;
+                    echo"<td id='libre'><input  type='checkbox' name='butaca".$pedido."' value='".$filas[$contador]['ID_BUTACA']."'></td>";
                     $pedido++;
-                    $contador=$contador+1;
                     }
                 }
             echo "</tr>";
@@ -1351,9 +1351,9 @@ session_start();
                     }
                     }
                     if($contador != $limite){
-                        echo"<td id='libre'><input  type='checkbox' name='butaca".$pedido."' value='".$filas[$contador]['ID_BUTACA']."'></td>";
+                    $contador++;
+                    echo"<td id='libre'><input  type='checkbox' name='butaca".$pedido."' value='".$filas[$contador]['ID_BUTACA']."'></td>";
                     $pedido++;
-                    $contador=$contador+1;
                     }
                 }
             echo "</tr>";
@@ -1392,9 +1392,9 @@ session_start();
                     }
                     }
                     if($contador != $limite){
-                        echo"<td id='libre'><input  type='checkbox' name='butaca".$pedido."' value='".$filas[$contador]['ID_BUTACA']."'></td>";
+                    $contador++;
+                    echo"<td id='libre'><input  type='checkbox' name='butaca".$pedido."' value='".$filas[$contador]['ID_BUTACA']."'></td>";
                     $pedido++;
-                    $contador=$contador+1;
                     }
                 }
                 echo "</tr>";
@@ -1428,9 +1428,9 @@ session_start();
                     }
                     }
                     if($contador != $limite){
-                        echo"<td id='libre'><input  type='checkbox' name='butaca".$pedido."' value='".$filas[$contador]['ID_BUTACA']."'></td>";
+                    $contador++;
+                    echo"<td id='libre'><input  type='checkbox' name='butaca".$pedido."' value='".$filas[$contador]['ID_BUTACA']."'></td>";
                     $pedido++;
-                    $contador=$contador+1;
                     }
                 }
             echo "</tr>";
@@ -1468,9 +1468,9 @@ session_start();
                     }
                     }
                     if($contador != $limite){
-                        echo"<td id='libre'><input  type='checkbox' name='butaca".$pedido."' value='".$filas[$contador]['ID_BUTACA']."'></td>";
+                    $contador++;
+                    echo"<td id='libre'><input  type='checkbox' name='butaca".$pedido."' value='".$filas[$contador]['ID_BUTACA']."'></td>";
                     $pedido++;
-                    $contador=$contador+1;
                     }
                 }
             echo "</tr>";
@@ -1506,9 +1506,9 @@ session_start();
                     }
                     }
                     if($contador != $limite){
-                        echo"<td id='libre'><input  type='checkbox' name='butaca".$pedido."' value='".$filas[$contador]['ID_BUTACA']."'></td>";
+                    $contador++;
+                    echo"<td id='libre'><input  type='checkbox' name='butaca".$pedido."' value='".$filas[$contador]['ID_BUTACA']."'></td>";
                     $pedido++;
-                    $contador=$contador+1;
                     }
                 }
                 echo"<td></td>";
@@ -1538,9 +1538,9 @@ session_start();
                     }
                     }
                     if($contador != $limite){
-                        echo"<td id='libre'><input  type='checkbox' name='butaca".$pedido."' value='".$filas[$contador]['ID_BUTACA']."'></td>";
+                    $contador++;
+                    echo"<td id='libre'><input  type='checkbox' name='butaca".$pedido."' value='".$filas[$contador]['ID_BUTACA']."'></td>";
                     $pedido++;
-                    $contador=$contador+1;
                     }
                 }
                 echo"<td></td>";
@@ -1570,9 +1570,9 @@ session_start();
                     }
                     }
                     if($contador != $limite){
-                        echo"<td id='libre'><input  type='checkbox' name='butaca".$pedido."' value='".$filas[$contador]['ID_BUTACA']."'></td>";
+                    $contador++;
+                    echo"<td id='libre'><input  type='checkbox' name='butaca".$pedido."' value='".$filas[$contador]['ID_BUTACA']."'></td>";
                     $pedido++;
-                    $contador=$contador+1;
                     }
                 }echo "</tr>";
                 }
@@ -1604,9 +1604,9 @@ session_start();
                     }
                     }
                     if($contador != $limite){
-                        echo"<td id='libre'><input  type='checkbox' name='butaca".$pedido."' value='".$filas[$contador]['ID_BUTACA']."'></td>";
+                    $contador++;
+                    echo"<td id='libre'><input  type='checkbox' name='butaca".$pedido."' value='".$filas[$contador]['ID_BUTACA']."'></td>";
                     $pedido++;
-                    $contador=$contador+1;
                     }
                 }
                 echo "<td colspan=6></td>";
@@ -1636,9 +1636,9 @@ session_start();
                     }
                     }
                     if($contador != $limite){
-                        echo"<td id='libre'><input  type='checkbox' name='butaca".$pedido."' value='".$filas[$contador]['ID_BUTACA']."'></td>";
+                    $contador++;
+                    echo"<td id='libre'><input  type='checkbox' name='butaca".$pedido."' value='".$filas[$contador]['ID_BUTACA']."'></td>";
                     $pedido++;
-                    $contador=$contador+1;
                     }
                 }
                 echo "<td></td></tr>";
@@ -1671,9 +1671,9 @@ session_start();
                     }
                     }
                     if($contador != $limite){
-                        echo"<td id='libre'><input  type='checkbox' name='butaca".$pedido."' value='".$filas[$contador]['ID_BUTACA']."'></td>";
+                    $contador++;
+                    echo"<td id='libre'><input  type='checkbox' name='butaca".$pedido."' value='".$filas[$contador]['ID_BUTACA']."'></td>";
                     $pedido++;
-                    $contador=$contador+1;
                     }
                 }
                 echo "<td colspan=6></td>";
@@ -1703,9 +1703,9 @@ session_start();
                     }
                     }
                     if($contador != $limite){
-                        echo"<td id='libre'><input  type='checkbox' name='butaca".$pedido."' value='".$filas[$contador]['ID_BUTACA']."'></td>";
+                    $contador++;
+                    echo"<td id='libre'><input  type='checkbox' name='butaca".$pedido."' value='".$filas[$contador]['ID_BUTACA']."'></td>";
                     $pedido++;
-                    $contador=$contador+1;
                     }
                 }
                 echo "<td></td></tr>";
@@ -1738,9 +1738,9 @@ session_start();
                     }
                     }
                     if($contador != $limite){
-                        echo"<td id='libre'><input  type='checkbox' name='butaca".$pedido."' value='".$filas[$contador]['ID_BUTACA']."'></td>";
+                    $contador++;
+                    echo"<td id='libre'><input  type='checkbox' name='butaca".$pedido."' value='".$filas[$contador]['ID_BUTACA']."'></td>";
                     $pedido++;
-                    $contador=$contador+1;
                     }
                 }
                 echo "</td></tr>";
@@ -1775,9 +1775,9 @@ session_start();
                     }
                     }
                     if($contador != $limite){
-                        echo"<td id='libre'><input  type='checkbox' name='butaca".$pedido."' value='".$filas[$contador]['ID_BUTACA']."'></td>";
+                    $contador++;
+                    echo"<td id='libre'><input  type='checkbox' name='butaca".$pedido."' value='".$filas[$contador]['ID_BUTACA']."'></td>";
                     $pedido++;
-                    $contador=$contador+1;
                     }
                 }
             echo "</tr>";
@@ -1815,9 +1815,9 @@ session_start();
                     }
                     }
                     if($contador != $limite){
-                        echo"<td id='libre'><input  type='checkbox' name='butaca".$pedido."' value='".$filas[$contador]['ID_BUTACA']."'></td>";
+                    $contador++;
+                    echo"<td id='libre'><input  type='checkbox' name='butaca".$pedido."' value='".$filas[$contador]['ID_BUTACA']."'></td>";
                     $pedido++;
-                    $contador=$contador+1;
                     }
                 }
             echo "</tr>";
@@ -1851,9 +1851,9 @@ session_start();
                     }
                     }
                     if($contador != $limite){
-                        echo"<td id='libre'><input  type='checkbox' name='butaca".$pedido."' value='".$filas[$contador]['ID_BUTACA']."'></td>";
+                    $contador++;
+                    echo"<td id='libre'><input  type='checkbox' name='butaca".$pedido."' value='".$filas[$contador]['ID_BUTACA']."'></td>";
                     $pedido++;
-                    $contador=$contador+1;
                     }
                 }
                 echo "</td></tr>";
@@ -1888,9 +1888,9 @@ session_start();
                     }
                     }
                     if($contador != $limite){
-                        echo"<td id='libre'><input  type='checkbox' name='butaca".$pedido."' value='".$filas[$contador]['ID_BUTACA']."'></td>";
+                    $contador++;
+                    echo"<td id='libre'><input  type='checkbox' name='butaca".$pedido."' value='".$filas[$contador]['ID_BUTACA']."'></td>";
                     $pedido++;
-                    $contador=$contador+1;
                     }
                 }
             echo "</tr>";
