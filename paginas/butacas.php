@@ -138,22 +138,26 @@ session_start();
                             $ocupada = true;
                         }
                     if($reserva == true){
-                        echo "<td id='reservada'></td>";
-                        $contador++;
+                        $contador=$contador+1;
+                        $pedido++;
                         $b++;
+                        echo "<td id='reservada'></td>";
                         $reserva=false;
                     }
                     if($ocupada == true){
                         echo "<td id='ocupada'></td>";
-                        $contador++;
+                        $contador=$contador+1;
+                        $pedido++;
                         $b++;
                         $ocupada=false;
                     }
                     }
                     }
-                    echo"<td id='libre'><input  type='checkbox' name='butaca".$pedido."' id='butaca".$pedido."' value='".$filas[$contador]['ID_BUTACA']."'></td>";
-                    $pedido++;
-                    $contador++;
+                    if($contador != $limite){
+                        $contador++;
+                        echo"<td id='libre'><input  type='checkbox' name='butaca".$pedido."' value='".$filas[$contador]['ID_BUTACA']."'></td>";
+                        $pedido++;
+                    }else{echo"</tr>";}
                 }
             echo "</tr>";
             }
@@ -175,22 +179,26 @@ session_start();
                             $ocupada = true;
                         }
                     if($reserva == true){
-                        echo "<td id='reservada'></td>";
-                        $contador++;
+                        $contador=$contador+1;
+                        $pedido++;
                         $b++;
+                        echo "<td id='reservada'></td>";
                         $reserva=false;
                     }
                     if($ocupada == true){
                         echo "<td id='ocupada'></td>";
-                        $contador++;
+                        $contador=$contador+1;
+                        $pedido++;
                         $b++;
                         $ocupada=false;
                     }
                     }
                     }
-                    echo"<td id='libre'><input  type='checkbox' name='butaca".$pedido."' id='butaca".$pedido."' value='".$filas[$contador]['ID_BUTACA']."'></td>";
+                    if($contador != $limite){
+                        echo"<td id='libre'><input  type='checkbox' name='butaca".$pedido."' value='".$filas[$contador]['ID_BUTACA']."'></td>";
                     $pedido++;
-                    $contador++;
+                    $contador=$contador+1;
+                    }
                 }
                 echo "</tr>";
             }
@@ -207,22 +215,26 @@ session_start();
                             $ocupada = true;
                         }
                     if($reserva == true){
-                        echo "<td id='reservada'></td>";
-                        $contador++;
+                        $contador=$contador+1;
+                        $pedido++;
                         $b++;
+                        echo "<td id='reservada'></td>";
                         $reserva=false;
                     }
                     if($ocupada == true){
                         echo "<td id='ocupada'></td>";
-                        $contador++;
+                        $contador=$contador+1;
+                        $pedido++;
                         $b++;
                         $ocupada=false;
                     }
                     }
                     }
-                    echo"<td id='libre'><input  type='checkbox' name='butaca".$pedido."' id='butaca".$pedido."' value='".$filas[$contador]['ID_BUTACA']."'></td>";
+                    if($contador != $limite){
+                        echo"<td id='libre'><input  type='checkbox' name='butaca".$pedido."' value='".$filas[$contador]['ID_BUTACA']."'></td>";
                     $pedido++;
-                    $contador++;
+                    $contador=$contador+1;
+                    }
                 }
             echo "</tr>";
             }
@@ -244,22 +256,26 @@ session_start();
                             $ocupada = true;
                         }
                     if($reserva == true){
-                        echo "<td id='reservada'></td>";
-                        $contador++;
+                        $contador=$contador+1;
+                        $pedido++;
                         $b++;
+                        echo "<td id='reservada'></td>";
                         $reserva=false;
                     }
                     if($ocupada == true){
                         echo "<td id='ocupada'></td>";
-                        $contador++;
+                        $contador=$contador+1;
+                        $pedido++;
                         $b++;
                         $ocupada=false;
                     }
                     }
                     }
-                    echo"<td id='libre'><input  type='checkbox' name='butaca".$pedido."' id='butaca".$pedido."' value='".$filas[$contador]['ID_BUTACA']."'></td>";
+                    if($contador != $limite){
+                        echo"<td id='libre'><input  type='checkbox' name='butaca".$pedido."' value='".$filas[$contador]['ID_BUTACA']."'></td>";
                     $pedido++;
-                    $contador++;
+                    $contador=$contador+1;
+                    }
                 }
                 echo "</tr>";
             }
@@ -276,22 +292,26 @@ session_start();
                             $ocupada = true;
                         }
                     if($reserva == true){
-                        echo "<td id='reservada'></td>";
-                        $contador++;
+                        $contador=$contador+1;
+                        $pedido++;
                         $b++;
+                        echo "<td id='reservada'></td>";
                         $reserva=false;
                     }
                     if($ocupada == true){
                         echo "<td id='ocupada'></td>";
-                        $contador++;
+                        $contador=$contador+1;
+                        $pedido++;
                         $b++;
                         $ocupada=false;
                     }
                     }
                     }
-                    echo"<td id='libre'><input  type='checkbox' name='butaca".$pedido."' id='butaca".$pedido."' value='".$filas[$contador]['ID_BUTACA']."'></td>";
+                    if($contador != $limite){
+                        echo"<td id='libre'><input  type='checkbox' name='butaca".$pedido."' value='".$filas[$contador]['ID_BUTACA']."'></td>";
                     $pedido++;
-                    $contador++;
+                    $contador=$contador+1;
+                    }
                 }
             echo "</tr>";
             }
@@ -313,22 +333,26 @@ session_start();
                             $ocupada = true;
                         }
                     if($reserva == true){
-                        echo "<td id='reservada'></td>";
-                        $contador++;
+                        $contador=$contador+1;
+                        $pedido++;
                         $b++;
+                        echo "<td id='reservada'></td>";
                         $reserva=false;
                     }
                     if($ocupada == true){
                         echo "<td id='ocupada'></td>";
-                        $contador++;
+                        $contador=$contador+1;
+                        $pedido++;
                         $b++;
                         $ocupada=false;
                     }
                     }
                     }
-                    echo"<td id='libre'><input  type='checkbox' name='butaca".$pedido."' id='butaca".$pedido."' value='".$filas[$contador]['ID_BUTACA']."'></td>";
+                    if($contador != $limite){
+                        echo"<td id='libre'><input  type='checkbox' name='butaca".$pedido."' value='".$filas[$contador]['ID_BUTACA']."'></td>";
                     $pedido++;
-                    $contador++;
+                    $contador=$contador+1;
+                    }
                 }
                 echo "</tr>";
             }
@@ -345,22 +369,26 @@ session_start();
                             $ocupada = true;
                         }
                     if($reserva == true){
-                        echo "<td id='reservada'></td>";
-                        $contador++;
+                        $contador=$contador+1;
+                        $pedido++;
                         $b++;
+                        echo "<td id='reservada'></td>";
                         $reserva=false;
                     }
                     if($ocupada == true){
                         echo "<td id='ocupada'></td>";
-                        $contador++;
+                        $contador=$contador+1;
+                        $pedido++;
                         $b++;
                         $ocupada=false;
                     }
                     }
                     }
-                    echo"<td id='libre'><input  type='checkbox' name='butaca".$pedido."' id='butaca".$pedido."' value='".$filas[$contador]['ID_BUTACA']."'></td>";
+                    if($contador != $limite){
+                        echo"<td id='libre'><input  type='checkbox' name='butaca".$pedido."' value='".$filas[$contador]['ID_BUTACA']."'></td>";
                     $pedido++;
-                    $contador++;
+                    $contador=$contador+1;
+                    }
                 }
             echo "</tr>";
             }
@@ -382,22 +410,26 @@ session_start();
                             $ocupada = true;
                         }
                     if($reserva == true){
-                        echo "<td id='reservada'></td>";
-                        $contador++;
+                        $contador=$contador+1;
+                        $pedido++;
                         $b++;
+                        echo "<td id='reservada'></td>";
                         $reserva=false;
                     }
                     if($ocupada == true){
                         echo "<td id='ocupada'></td>";
-                        $contador++;
+                        $contador=$contador+1;
+                        $pedido++;
                         $b++;
                         $ocupada=false;
                     }
                     }
                     }
-                    echo"<td id='libre'><input  type='checkbox' name='butaca".$pedido."' id='butaca".$pedido."' value='".$filas[$contador]['ID_BUTACA']."'></td>";
+                    if($contador != $limite){
+                        echo"<td id='libre'><input  type='checkbox' name='butaca".$pedido."' value='".$filas[$contador]['ID_BUTACA']."'></td>";
                     $pedido++;
-                    $contador++;
+                    $contador=$contador+1;
+                    }
                 }
                 echo "</tr>";
             }
@@ -414,22 +446,26 @@ session_start();
                             $ocupada = true;
                         }
                     if($reserva == true){
-                        echo "<td id='reservada'></td>";
-                        $contador++;
+                        $contador=$contador+1;
+                        $pedido++;
                         $b++;
+                        echo "<td id='reservada'></td>";
                         $reserva=false;
                     }
                     if($ocupada == true){
                         echo "<td id='ocupada'></td>";
-                        $contador++;
+                        $contador=$contador+1;
+                        $pedido++;
                         $b++;
                         $ocupada=false;
                     }
                     }
                     }
-                    echo"<td id='libre'><input  type='checkbox' name='butaca".$pedido."' id='butaca".$pedido."' value='".$filas[$contador]['ID_BUTACA']."'></td>";
+                    if($contador != $limite){
+                        echo"<td id='libre'><input  type='checkbox' name='butaca".$pedido."' value='".$filas[$contador]['ID_BUTACA']."'></td>";
                     $pedido++;
-                    $contador++;
+                    $contador=$contador+1;
+                    }
                 }
             echo "</tr>";
             }
@@ -451,22 +487,26 @@ session_start();
                             $ocupada = true;
                         }
                     if($reserva == true){
-                        echo "<td id='reservada'></td>";
-                        $contador++;
+                        $contador=$contador+1;
+                        $pedido++;
                         $b++;
+                        echo "<td id='reservada'></td>";
                         $reserva=false;
                     }
                     if($ocupada == true){
                         echo "<td id='ocupada'></td>";
-                        $contador++;
+                        $contador=$contador+1;
+                        $pedido++;
                         $b++;
                         $ocupada=false;
                     }
                     }
                     }
-                    echo"<td id='libre'><input  type='checkbox' name='butaca".$pedido."' id='butaca".$pedido."' value='".$filas[$contador]['ID_BUTACA']."'></td>";
+                    if($contador != $limite){
+                        echo"<td id='libre'><input  type='checkbox' name='butaca".$pedido."' value='".$filas[$contador]['ID_BUTACA']."'></td>";
                     $pedido++;
-                    $contador++;
+                    $contador=$contador+1;
+                    }
                 }
             }
                     if($i==1){
@@ -481,22 +521,26 @@ session_start();
                             $ocupada = true;
                         }
                     if($reserva == true){
-                        echo "<td id='reservada'></td>";
-                        $contador++;
+                        $contador=$contador+1;
+                        $pedido++;
                         $b++;
+                        echo "<td id='reservada'></td>";
                         $reserva=false;
                     }
                     if($ocupada == true){
                         echo "<td id='ocupada'></td>";
-                        $contador++;
+                        $contador=$contador+1;
+                        $pedido++;
                         $b++;
                         $ocupada=false;
                     }
                     }
                     }
-                    echo"<td id='libre'><input  type='checkbox' name='butaca".$pedido."' id='butaca".$pedido."' value='".$filas[$contador]['ID_BUTACA']."'></td>";
+                    if($contador != $limite){
+                        echo"<td id='libre'><input  type='checkbox' name='butaca".$pedido."' value='".$filas[$contador]['ID_BUTACA']."'></td>";
                     $pedido++;
-                    $contador++;
+                    $contador=$contador+1;
+                    }
                 }
             }
                     if($i==2){
@@ -511,22 +555,26 @@ session_start();
                             $ocupada = true;
                         }
                     if($reserva == true){
-                        echo "<td id='reservada'></td>";
-                        $contador++;
+                        $contador=$contador+1;
+                        $pedido++;
                         $b++;
+                        echo "<td id='reservada'></td>";
                         $reserva=false;
                     }
                     if($ocupada == true){
                         echo "<td id='ocupada'></td>";
-                        $contador++;
+                        $contador=$contador+1;
+                        $pedido++;
                         $b++;
                         $ocupada=false;
                     }
                     }
                     }
-                    echo"<td id='libre'><input  type='checkbox' name='butaca".$pedido."' id='butaca".$pedido."' value='".$filas[$contador]['ID_BUTACA']."'></td>";
+                    if($contador != $limite){
+                        echo"<td id='libre'><input  type='checkbox' name='butaca".$pedido."' value='".$filas[$contador]['ID_BUTACA']."'></td>";
                     $pedido++;
-                    $contador++;
+                    $contador=$contador+1;
+                    }
                 }
             }
                     if($i==3){
@@ -541,22 +589,26 @@ session_start();
                             $ocupada = true;
                         }
                     if($reserva == true){
-                        echo "<td id='reservada'></td>";
-                        $contador++;
+                        $contador=$contador+1;
+                        $pedido++;
                         $b++;
+                        echo "<td id='reservada'></td>";
                         $reserva=false;
                     }
                     if($ocupada == true){
                         echo "<td id='ocupada'></td>";
-                        $contador++;
+                        $contador=$contador+1;
+                        $pedido++;
                         $b++;
                         $ocupada=false;
                     }
                     }
                     }
-                    echo"<td id='libre'><input  type='checkbox' name='butaca".$pedido."' id='butaca".$pedido."' value='".$filas[$contador]['ID_BUTACA']."'></td>";
+                    if($contador != $limite){
+                        echo"<td id='libre'><input  type='checkbox' name='butaca".$pedido."' value='".$filas[$contador]['ID_BUTACA']."'></td>";
                     $pedido++;
-                    $contador++;
+                    $contador=$contador+1;
+                    }
                 }
             }
                     if($i>=4 && $i <7){
@@ -571,22 +623,26 @@ session_start();
                             $ocupada = true;
                         }
                     if($reserva == true){
-                        echo "<td id='reservada'></td>";
-                        $contador++;
+                        $contador=$contador+1;
+                        $pedido++;
                         $b++;
+                        echo "<td id='reservada'></td>";
                         $reserva=false;
                     }
                     if($ocupada == true){
                         echo "<td id='ocupada'></td>";
-                        $contador++;
+                        $contador=$contador+1;
+                        $pedido++;
                         $b++;
                         $ocupada=false;
                     }
                     }
                     }
-                    echo"<td id='libre'><input  type='checkbox' name='butaca".$pedido."' id='butaca".$pedido."' value='".$filas[$contador]['ID_BUTACA']."'></td>";
+                    if($contador != $limite){
+                        echo"<td id='libre'><input  type='checkbox' name='butaca".$pedido."' value='".$filas[$contador]['ID_BUTACA']."'></td>";
                     $pedido++;
-                    $contador++;
+                    $contador=$contador+1;
+                    }
                 }
             }
                     if($i>=7){
@@ -601,22 +657,26 @@ session_start();
                             $ocupada = true;
                         }
                     if($reserva == true){
-                        echo "<td id='reservada'></td>";
-                        $contador++;
+                        $contador=$contador+1;
+                        $pedido++;
                         $b++;
+                        echo "<td id='reservada'></td>";
                         $reserva=false;
                     }
                     if($ocupada == true){
                         echo "<td id='ocupada'></td>";
-                        $contador++;
+                        $contador=$contador+1;
+                        $pedido++;
                         $b++;
                         $ocupada=false;
                     }
                     }
                     }
-                    echo"<td id='libre'><input  type='checkbox' name='butaca".$pedido."' id='butaca".$pedido."' value='".$filas[$contador]['ID_BUTACA']."'></td>";
+                    if($contador != $limite){
+                        echo"<td id='libre'><input  type='checkbox' name='butaca".$pedido."' value='".$filas[$contador]['ID_BUTACA']."'></td>";
                     $pedido++;
-                    $contador++;
+                    $contador=$contador+1;
+                    }
                 }
             }
         }
@@ -633,22 +693,26 @@ session_start();
                             $ocupada = true;
                         }
                     if($reserva == true){
-                        echo "<td id='reservada'></td>";
-                        $contador++;
+                        $contador=$contador+1;
+                        $pedido++;
                         $b++;
+                        echo "<td id='reservada'></td>";
                         $reserva=false;
                     }
                     if($ocupada == true){
                         echo "<td id='ocupada'></td>";
-                        $contador++;
+                        $contador=$contador+1;
+                        $pedido++;
                         $b++;
                         $ocupada=false;
                     }
                     }
                     }
-                    echo"<td id='libre'><input  type='checkbox' name='butaca".$pedido."' id='butaca".$pedido."' value='".$filas[$contador]['ID_BUTACA']."'></td>";
+                    if($contador != $limite){
+                        echo"<td id='libre'><input  type='checkbox' name='butaca".$pedido."' value='".$filas[$contador]['ID_BUTACA']."'></td>";
                     $pedido++;
-                    $contador++;
+                    $contador=$contador+1;
+                    }
                 }
             echo "</tr>";
         }
@@ -665,22 +729,26 @@ session_start();
                             $ocupada = true;
                         }
                     if($reserva == true){
-                        echo "<td id='reservada'></td>";
-                        $contador++;
+                        $contador=$contador+1;
+                        $pedido++;
                         $b++;
+                        echo "<td id='reservada'></td>";
                         $reserva=false;
                     }
                     if($ocupada == true){
                         echo "<td id='ocupada'></td>";
-                        $contador++;
+                        $contador=$contador+1;
+                        $pedido++;
                         $b++;
                         $ocupada=false;
                     }
                     }
                     }
-                    echo"<td id='libre'><input  type='checkbox' name='butaca".$pedido."' id='butaca".$pedido."' value='".$filas[$contador]['ID_BUTACA']."'></td>";
+                    if($contador != $limite){
+                        echo"<td id='libre'><input  type='checkbox' name='butaca".$pedido."' value='".$filas[$contador]['ID_BUTACA']."'></td>";
                     $pedido++;
-                    $contador++;
+                    $contador=$contador+1;
+                    }
                 }
             echo "</tr>";
         }
@@ -698,22 +766,26 @@ session_start();
                             $ocupada = true;
                         }
                     if($reserva == true){
-                        echo "<td id='reservada'></td>";
-                        $contador++;
+                        $contador=$contador+1;
+                        $pedido++;
                         $b++;
+                        echo "<td id='reservada'></td>";
                         $reserva=false;
                     }
                     if($ocupada == true){
                         echo "<td id='ocupada'></td>";
-                        $contador++;
+                        $contador=$contador+1;
+                        $pedido++;
                         $b++;
                         $ocupada=false;
                     }
                     }
                     }
-                    echo"<td id='libre'><input  type='checkbox' name='butaca".$pedido."' id='butaca".$pedido."' value='".$filas[$contador]['ID_BUTACA']."'></td>";
+                    if($contador != $limite){
+                        echo"<td id='libre'><input  type='checkbox' name='butaca".$pedido."' value='".$filas[$contador]['ID_BUTACA']."'></td>";
                     $pedido++;
-                    $contador++;
+                    $contador=$contador+1;
+                    }
                 }
             echo "<td></td></tr>";
             }else{
@@ -728,86 +800,26 @@ session_start();
                             $ocupada = true;
                         }
                     if($reserva == true){
-                        echo "<td id='reservada'></td>";
-                        $contador++;
+                        $contador=$contador+1;
+                        $pedido++;
                         $b++;
+                        echo "<td id='reservada'></td>";
                         $reserva=false;
                     }
                     if($ocupada == true){
                         echo "<td id='ocupada'></td>";
-                        $contador++;
+                        $contador=$contador+1;
+                        $pedido++;
                         $b++;
                         $ocupada=false;
                     }
                     }
                     }
-                    echo"<td id='libre'><input  type='checkbox' name='butaca".$pedido."' id='butaca".$pedido."' value='".$filas[$contador]['ID_BUTACA']."'></td>";
+                    if($contador != $limite){
+                        echo"<td id='libre'><input  type='checkbox' name='butaca".$pedido."' value='".$filas[$contador]['ID_BUTACA']."'></td>";
                     $pedido++;
-                    $contador++;
-                }
-            echo "</tr>";
-            }
-        }
-        echo"</table></td><td><table id='D'>";
-        for($i=0;$i<11;$i++){
-            if($i==10){
-                echo "<tr><td></td>";
-                for($b=0;$b<9;$b++){
-                    foreach($estado_butacas as $butac4){
-                        if($filas[$contador]['ID_BUTACA']== $butac4['ID_BUTACA']){
-                            if($butac4['ESTADO_BUTACA']=='RESERVADA'){
-                            $reserva = true;
-                            }
-                            if($butac4['ESTADO_BUTACA']=='OCUPADA'){
-                            $ocupada = true;
-                        }
-                    if($reserva == true){
-                        echo "<td id='reservada'></td>";
-                        $contador++;
-                        $b++;
-                        $reserva=false;
+                    $contador=$contador+1;
                     }
-                    if($ocupada == true){
-                        echo "<td id='ocupada'></td>";
-                        $contador++;
-                        $b++;
-                        $ocupada=false;
-                    }
-                    }
-                    }
-                    echo"<td id='libre'><input  type='checkbox' name='butaca".$pedido."' id='butaca".$pedido."' value='".$filas[$contador]['ID_BUTACA']."'></td>";
-                    $pedido++;
-                    $contador++;
-                }
-            echo "<td></td></tr>";
-            }else{
-            echo "<tr>";
-                for($b=0;$b<11;$b++){
-                    foreach($estado_butacas as $butac4){
-                        if($filas[$contador]['ID_BUTACA']== $butac4['ID_BUTACA']){
-                            if($butac4['ESTADO_BUTACA']=='RESERVADA'){
-                            $reserva = true;
-                            }
-                            if($butac4['ESTADO_BUTACA']=='OCUPADA'){
-                            $ocupada = true;
-                        }
-                    if($reserva == true){
-                        echo "<td id='reservada'></td>";
-                        $contador++;
-                        $b++;
-                        $reserva=false;
-                    }
-                    if($ocupada == true){
-                        echo "<td id='ocupada'></td>";
-                        $contador++;
-                        $b++;
-                        $ocupada=false;
-                    }
-                    }
-                    }
-                    echo"<td id='libre'><input  type='checkbox' name='butaca".$pedido."' id='butaca".$pedido."' value='".$filas[$contador]['ID_BUTACA']."'></td>";
-                    $pedido++;
-                    $contador++;
                 }
             echo "</tr>";
             }
@@ -826,22 +838,26 @@ session_start();
                             $ocupada = true;
                         }
                     if($reserva == true){
-                        echo "<td id='reservada'></td>";
-                        $contador++;
+                        $contador=$contador+1;
+                        $pedido++;
                         $b++;
+                        echo "<td id='reservada'></td>";
                         $reserva=false;
                     }
                     if($ocupada == true){
                         echo "<td id='ocupada'></td>";
-                        $contador++;
+                        $contador=$contador+1;
+                        $pedido++;
                         $b++;
                         $ocupada=false;
                     }
                     }
                     }
-                    echo"<td id='libre'><input  type='checkbox' name='butaca".$pedido."' id='butaca".$pedido."' value='".$filas[$contador]['ID_BUTACA']."'></td>";
+                    if($contador != $limite){
+                        echo"<td id='libre'><input  type='checkbox' name='butaca".$pedido."' value='".$filas[$contador]['ID_BUTACA']."'></td>";
                     $pedido++;
-                    $contador++;
+                    $contador=$contador+1;
+                    }
                 }
             echo "<td></td></tr>";
             }else{
@@ -856,22 +872,98 @@ session_start();
                             $ocupada = true;
                         }
                     if($reserva == true){
-                        echo "<td id='reservada'></td>";
-                        $contador++;
+                        $contador=$contador+1;
+                        $pedido++;
                         $b++;
+                        echo "<td id='reservada'></td>";
                         $reserva=false;
                     }
                     if($ocupada == true){
                         echo "<td id='ocupada'></td>";
-                        $contador++;
+                        $contador=$contador+1;
+                        $pedido++;
                         $b++;
                         $ocupada=false;
                     }
                     }
                     }
-                    echo"<td id='libre'><input  type='checkbox' name='butaca".$pedido."' id='butaca".$pedido."' value='".$filas[$contador]['ID_BUTACA']."'></td>";
+                    if($contador != $limite){
+                        echo"<td id='libre'><input  type='checkbox' name='butaca".$pedido."' value='".$filas[$contador]['ID_BUTACA']."'></td>";
                     $pedido++;
-                    $contador++;
+                    $contador=$contador+1;
+                    }
+                }
+            echo "</tr>";
+            }
+        }
+        echo"</table></td><td><table id='D'>";
+        for($i=0;$i<11;$i++){
+            if($i==10){
+                echo "<tr><td></td>";
+                for($b=0;$b<9;$b++){
+                    foreach($estado_butacas as $butac4){
+                        if($filas[$contador]['ID_BUTACA']== $butac4['ID_BUTACA']){
+                            if($butac4['ESTADO_BUTACA']=='RESERVADA'){
+                            $reserva = true;
+                            }
+                            if($butac4['ESTADO_BUTACA']=='OCUPADA'){
+                            $ocupada = true;
+                        }
+                    if($reserva == true){
+                        $contador=$contador+1;
+                        $pedido++;
+                        $b++;
+                        echo "<td id='reservada'></td>";
+                        $reserva=false;
+                    }
+                    if($ocupada == true){
+                        echo "<td id='ocupada'></td>";
+                        $contador=$contador+1;
+                        $pedido++;
+                        $b++;
+                        $ocupada=false;
+                    }
+                    }
+                    }
+                    if($contador != $limite){
+                        echo"<td id='libre'><input  type='checkbox' name='butaca".$pedido."' value='".$filas[$contador]['ID_BUTACA']."'></td>";
+                    $pedido++;
+                    $contador=$contador+1;
+                    }
+                }
+            echo "<td></td></tr>";
+            }else{
+            echo "<tr>";
+                for($b=0;$b<11;$b++){
+                    foreach($estado_butacas as $butac4){
+                        if($filas[$contador]['ID_BUTACA']== $butac4['ID_BUTACA']){
+                            if($butac4['ESTADO_BUTACA']=='RESERVADA'){
+                            $reserva = true;
+                            }
+                            if($butac4['ESTADO_BUTACA']=='OCUPADA'){
+                            $ocupada = true;
+                        }
+                    if($reserva == true){
+                        $contador=$contador+1;
+                        $pedido++;
+                        $b++;
+                        echo "<td id='reservada'></td>";
+                        $reserva=false;
+                    }
+                    if($ocupada == true){
+                        echo "<td id='ocupada'></td>";
+                        $contador=$contador+1;
+                        $pedido++;
+                        $b++;
+                        $ocupada=false;
+                    }
+                    }
+                    }
+                    if($contador != $limite){
+                        echo"<td id='libre'><input  type='checkbox' name='butaca".$pedido."' value='".$filas[$contador]['ID_BUTACA']."'></td>";
+                    $pedido++;
+                    $contador=$contador+1;
+                    }
                 }
             echo "</tr>";
             }
@@ -889,22 +981,26 @@ session_start();
                             $ocupada = true;
                         }
                     if($reserva == true){
-                        echo "<td id='reservada'></td>";
-                        $contador++;
+                        $contador=$contador+1;
+                        $pedido++;
                         $b++;
+                        echo "<td id='reservada'></td>";
                         $reserva=false;
                     }
                     if($ocupada == true){
                         echo "<td id='ocupada'></td>";
-                        $contador++;
+                        $contador=$contador+1;
+                        $pedido++;
                         $b++;
                         $ocupada=false;
                     }
                     }
                     }
-                    echo"<td id='libre'><input  type='checkbox' name='butaca".$pedido."' id='butaca".$pedido."' value='".$filas[$contador]['ID_BUTACA']."'></td>";
+                    if($contador != $limite){
+                        echo"<td id='libre'><input  type='checkbox' name='butaca".$pedido."' value='".$filas[$contador]['ID_BUTACA']."'></td>";
                     $pedido++;
-                    $contador++;
+                    $contador=$contador+1;
+                    }
                 }
             echo "</tr>";
         }
@@ -922,22 +1018,26 @@ session_start();
                             $ocupada = true;
                         }
                     if($reserva == true){
-                        echo "<td id='reservada'></td>";
-                        $contador++;
+                        $contador=$contador+1;
+                        $pedido++;
                         $b++;
+                        echo "<td id='reservada'></td>";
                         $reserva=false;
                     }
                     if($ocupada == true){
                         echo "<td id='ocupada'></td>";
-                        $contador++;
+                        $contador=$contador+1;
+                        $pedido++;
                         $b++;
                         $ocupada=false;
                     }
                     }
                     }
-                    echo"<td id='libre'><input  type='checkbox' name='butaca".$pedido."' id='butaca".$pedido."' value='".$filas[$contador]['ID_BUTACA']."'></td>";
+                    if($contador != $limite){
+                        echo"<td id='libre'><input  type='checkbox' name='butaca".$pedido."' value='".$filas[$contador]['ID_BUTACA']."'></td>";
                     $pedido++;
-                    $contador++;
+                    $contador=$contador+1;
+                    }
                 }
             }
                     if($i==1){
@@ -952,22 +1052,26 @@ session_start();
                             $ocupada = true;
                         }
                     if($reserva == true){
-                        echo "<td id='reservada'></td>";
-                        $contador++;
+                        $contador=$contador+1;
+                        $pedido++;
                         $b++;
+                        echo "<td id='reservada'></td>";
                         $reserva=false;
                     }
                     if($ocupada == true){
                         echo "<td id='ocupada'></td>";
-                        $contador++;
+                        $contador=$contador+1;
+                        $pedido++;
                         $b++;
                         $ocupada=false;
                     }
                     }
                     }
-                    echo"<td id='libre'><input  type='checkbox' name='butaca".$pedido."' id='butaca".$pedido."' value='".$filas[$contador]['ID_BUTACA']."'></td>";
+                    if($contador != $limite){
+                        echo"<td id='libre'><input  type='checkbox' name='butaca".$pedido."' value='".$filas[$contador]['ID_BUTACA']."'></td>";
                     $pedido++;
-                    $contador++;
+                    $contador=$contador+1;
+                    }
                 }
             }
                     if($i==2){
@@ -982,22 +1086,26 @@ session_start();
                             $ocupada = true;
                         }
                     if($reserva == true){
-                        echo "<td id='reservada'></td>";
-                        $contador++;
+                        $contador=$contador+1;
+                        $pedido++;
                         $b++;
+                        echo "<td id='reservada'></td>";
                         $reserva=false;
                     }
                     if($ocupada == true){
                         echo "<td id='ocupada'></td>";
-                        $contador++;
+                        $contador=$contador+1;
+                        $pedido++;
                         $b++;
                         $ocupada=false;
                     }
                     }
                     }
-                    echo"<td id='libre'><input  type='checkbox' name='butaca".$pedido."' id='butaca".$pedido."' value='".$filas[$contador]['ID_BUTACA']."'></td>";
+                    if($contador != $limite){
+                        echo"<td id='libre'><input  type='checkbox' name='butaca".$pedido."' value='".$filas[$contador]['ID_BUTACA']."'></td>";
                     $pedido++;
-                    $contador++;
+                    $contador=$contador+1;
+                    }
                 }
             }
                     if($i==3){
@@ -1012,22 +1120,26 @@ session_start();
                             $ocupada = true;
                         }
                     if($reserva == true){
-                        echo "<td id='reservada'></td>";
-                        $contador++;
+                        $contador=$contador+1;
+                        $pedido++;
                         $b++;
+                        echo "<td id='reservada'></td>";
                         $reserva=false;
                     }
                     if($ocupada == true){
                         echo "<td id='ocupada'></td>";
-                        $contador++;
+                        $contador=$contador+1;
+                        $pedido++;
                         $b++;
                         $ocupada=false;
                     }
                     }
                     }
-                    echo"<td id='libre'><input  type='checkbox' name='butaca".$pedido."' id='butaca".$pedido."' value='".$filas[$contador]['ID_BUTACA']."'></td>";
+                    if($contador != $limite){
+                        echo"<td id='libre'><input  type='checkbox' name='butaca".$pedido."' value='".$filas[$contador]['ID_BUTACA']."'></td>";
                     $pedido++;
-                    $contador++;
+                    $contador=$contador+1;
+                    }
                 }
             }
                     if($i>=4 && $i <7){
@@ -1042,22 +1154,26 @@ session_start();
                             $ocupada = true;
                         }
                     if($reserva == true){
-                        echo "<td id='reservada'></td>";
-                        $contador++;
+                        $contador=$contador+1;
+                        $pedido++;
                         $b++;
+                        echo "<td id='reservada'></td>";
                         $reserva=false;
                     }
                     if($ocupada == true){
                         echo "<td id='ocupada'></td>";
-                        $contador++;
+                        $contador=$contador+1;
+                        $pedido++;
                         $b++;
                         $ocupada=false;
                     }
                     }
                     }
-                    echo"<td id='libre'><input  type='checkbox' name='butaca".$pedido."' id='butaca".$pedido."' value='".$filas[$contador]['ID_BUTACA']."'></td>";
+                    if($contador != $limite){
+                        echo"<td id='libre'><input  type='checkbox' name='butaca".$pedido."' value='".$filas[$contador]['ID_BUTACA']."'></td>";
                     $pedido++;
-                    $contador++;
+                    $contador=$contador+1;
+                    }
                 }
             }
                     if($i>=7){
@@ -1072,28 +1188,32 @@ session_start();
                             $ocupada = true;
                         }
                     if($reserva == true){
-                        echo "<td id='reservada'></td>";
-                        $contador++;
+                        $contador=$contador+1;
+                        $pedido++;
                         $b++;
+                        echo "<td id='reservada'></td>";
                         $reserva=false;
                     }
                     if($ocupada == true){
                         echo "<td id='ocupada'></td>";
-                        $contador++;
+                        $contador=$contador+1;
+                        $pedido++;
                         $b++;
                         $ocupada=false;
                     }
                     }
                     }
-                    echo"<td id='libre'><input  type='checkbox' name='butaca".$pedido."' id='butaca".$pedido."' value='".$filas[$contador]['ID_BUTACA']."'></td>";
+                    if($contador != $limite){
+                        echo"<td id='libre'><input  type='checkbox' name='butaca".$pedido."' value='".$filas[$contador]['ID_BUTACA']."'></td>";
                     $pedido++;
-                    $contador++;
+                    $contador=$contador+1;
+                    }
                 }
             }
         }
         echo "</table></td>";
         }
-        //TRIBUNA CENTRAL
+    //TRIBUNA CENTRAL
     if(($_POST['TRIBUNA']=='TRIBUNA CENTRAL')){
         echo"<td><table id='A'>";
         for($i=0;$i<9;$i++){
@@ -1108,22 +1228,26 @@ session_start();
                             $ocupada = true;
                         }
                     if($reserva == true){
-                        echo "<td id='reservada'></td>";
-                        $contador++;
+                        $contador=$contador+1;
+                        $pedido++;
                         $b++;
+                        echo "<td id='reservada'></td>";
                         $reserva=false;
                     }
                     if($ocupada == true){
                         echo "<td id='ocupada'></td>";
-                        $contador++;
+                        $contador=$contador+1;
+                        $pedido++;
                         $b++;
                         $ocupada=false;
                     }
                     }
                     }
-                    echo"<td id='libre'><input  type='checkbox' name='butaca".$pedido."' id='butaca".$pedido."' value='".$filas[$contador]['ID_BUTACA']."'></td>";
+                    if($contador != $limite){
+                        echo"<td id='libre'><input  type='checkbox' name='butaca".$pedido."' value='".$filas[$contador]['ID_BUTACA']."'></td>";
                     $pedido++;
-                    $contador++;
+                    $contador=$contador+1;
+                    }
                 }
             echo "</tr>";
         }
@@ -1145,22 +1269,26 @@ session_start();
                             $ocupada = true;
                         }
                     if($reserva == true){
-                        echo "<td id='reservada'></td>";
-                        $contador++;
+                        $contador=$contador+1;
+                        $pedido++;
                         $b++;
+                        echo "<td id='reservada'></td>";
                         $reserva=false;
                     }
                     if($ocupada == true){
                         echo "<td id='ocupada'></td>";
-                        $contador++;
+                        $contador=$contador+1;
+                        $pedido++;
                         $b++;
                         $ocupada=false;
                     }
                     }
                     }
-                    echo"<td id='libre'><input  type='checkbox' name='butaca".$pedido."' id='butaca".$pedido."' value='".$filas[$contador]['ID_BUTACA']."'></td>";
+                    if($contador != $limite){
+                        echo"<td id='libre'><input  type='checkbox' name='butaca".$pedido."' value='".$filas[$contador]['ID_BUTACA']."'></td>";
                     $pedido++;
-                    $contador++;
+                    $contador=$contador+1;
+                    }
                 }
                 echo "</tr>";
         }
@@ -1179,9 +1307,11 @@ session_start();
                             }
                     }
                     }
-                    echo"<td id='libre'><input  type='checkbox' name='butaca".$pedido."' id='butaca".$pedido."' value='".$filas[$contador]['ID_BUTACA']."'></td>";
+                    if($contador != $limite){
+                        echo"<td id='libre'><input  type='checkbox' name='butaca".$pedido."' value='".$filas[$contador]['ID_BUTACA']."'></td>";
                     $pedido++;
-                    $contador++;
+                    $contador=$contador+1;
+                    }
                 }
             echo "</tr>";
         }
@@ -1205,22 +1335,26 @@ session_start();
                             $ocupada = true;
                         }
                     if($reserva == true){
-                        echo "<td id='reservada'></td>";
-                        $contador++;
+                        $contador=$contador+1;
+                        $pedido++;
                         $b++;
+                        echo "<td id='reservada'></td>";
                         $reserva=false;
                     }
                     if($ocupada == true){
                         echo "<td id='ocupada'></td>";
-                        $contador++;
+                        $contador=$contador+1;
+                        $pedido++;
                         $b++;
                         $ocupada=false;
                     }
                     }
                     }
-                    echo"<td id='libre'><input  type='checkbox' name='butaca".$pedido."' id='butaca".$pedido."' value='".$filas[$contador]['ID_BUTACA']."'></td>";
+                    if($contador != $limite){
+                        echo"<td id='libre'><input  type='checkbox' name='butaca".$pedido."' value='".$filas[$contador]['ID_BUTACA']."'></td>";
                     $pedido++;
-                    $contador++;
+                    $contador=$contador+1;
+                    }
                 }
             echo "</tr>";
         }
@@ -1242,22 +1376,26 @@ session_start();
                             $ocupada = true;
                         }
                     if($reserva == true){
-                        echo "<td id='reservada'></td>";
-                        $contador++;
+                        $contador=$contador+1;
+                        $pedido++;
                         $b++;
+                        echo "<td id='reservada'></td>";
                         $reserva=false;
                     }
                     if($ocupada == true){
                         echo "<td id='ocupada'></td>";
-                        $contador++;
+                        $contador=$contador+1;
+                        $pedido++;
                         $b++;
                         $ocupada=false;
                     }
                     }
                     }
-                    echo"<td id='libre'><input  type='checkbox' name='butaca".$pedido."' id='butaca".$pedido."' value='".$filas[$contador]['ID_BUTACA']."'></td>";
+                    if($contador != $limite){
+                        echo"<td id='libre'><input  type='checkbox' name='butaca".$pedido."' value='".$filas[$contador]['ID_BUTACA']."'></td>";
                     $pedido++;
-                    $contador++;
+                    $contador=$contador+1;
+                    }
                 }
                 echo "</tr>";
         }
@@ -1274,22 +1412,26 @@ session_start();
                             $ocupada = true;
                         }
                     if($reserva == true){
-                        echo "<td id='reservada'></td>";
-                        $contador++;
+                        $contador=$contador+1;
+                        $pedido++;
                         $b++;
+                        echo "<td id='reservada'></td>";
                         $reserva=false;
                     }
                     if($ocupada == true){
                         echo "<td id='ocupada'></td>";
-                        $contador++;
+                        $contador=$contador+1;
+                        $pedido++;
                         $b++;
                         $ocupada=false;
                     }
                     }
                     }
-                    echo"<td id='libre'><input  type='checkbox' name='butaca".$pedido."' id='butaca".$pedido."' value='".$filas[$contador]['ID_BUTACA']."'></td>";
+                    if($contador != $limite){
+                        echo"<td id='libre'><input  type='checkbox' name='butaca".$pedido."' value='".$filas[$contador]['ID_BUTACA']."'></td>";
                     $pedido++;
-                    $contador++;
+                    $contador=$contador+1;
+                    }
                 }
             echo "</tr>";
         }
@@ -1310,22 +1452,26 @@ session_start();
                             $ocupada = true;
                         }
                     if($reserva == true){
-                        echo "<td id='reservada'></td>";
-                        $contador++;
+                        $contador=$contador+1;
+                        $pedido++;
                         $b++;
+                        echo "<td id='reservada'></td>";
                         $reserva=false;
                     }
                     if($ocupada == true){
                         echo "<td id='ocupada'></td>";
-                        $contador++;
+                        $contador=$contador+1;
+                        $pedido++;
                         $b++;
                         $ocupada=false;
                     }
                     }
                     }
+                    if($contador != $limite){
+                        echo"<td id='libre'><input  type='checkbox' name='butaca".$pedido."' value='".$filas[$contador]['ID_BUTACA']."'></td>";
                     $pedido++;
-                    echo"<td  id='libre'><input  type='checkbox' name='butaca".$pedido."' id='butaca".$pedido."' value='".$filas[$contador]['ID_BUTACA']."'></td>";
-                    $contador++;
+                    $contador=$contador+1;
+                    }
                 }
             echo "</tr>";
         }
@@ -1344,22 +1490,26 @@ session_start();
                             $ocupada = true;
                         }
                     if($reserva == true){
-                        echo "<td id='reservada'></td>";
-                        $contador++;
+                        $contador=$contador+1;
+                        $pedido++;
                         $b++;
+                        echo "<td id='reservada'></td>";
                         $reserva=false;
                     }
                     if($ocupada == true){
                         echo "<td id='ocupada'></td>";
-                        $contador++;
+                        $contador=$contador+1;
+                        $pedido++;
                         $b++;
                         $ocupada=false;
                     }
                     }
                     }
+                    if($contador != $limite){
+                        echo"<td id='libre'><input  type='checkbox' name='butaca".$pedido."' value='".$filas[$contador]['ID_BUTACA']."'></td>";
                     $pedido++;
-                    echo"<td  id='libre'><input  type='checkbox' name='butaca".$pedido."' id='butaca".$pedido."' value='".$filas[$contador]['ID_BUTACA']."'></td>";
-                    $contador++;
+                    $contador=$contador+1;
+                    }
                 }
                 echo"<td></td>";
                 for($b=0; $b<2; $b++){
@@ -1372,22 +1522,26 @@ session_start();
                             $ocupada = true;
                         }
                     if($reserva == true){
-                        echo "<td id='reservada'></td>";
-                        $contador++;
+                        $contador=$contador+1;
+                        $pedido++;
                         $b++;
+                        echo "<td id='reservada'></td>";
                         $reserva=false;
                     }
                     if($ocupada == true){
                         echo "<td id='ocupada'></td>";
-                        $contador++;
+                        $contador=$contador+1;
+                        $pedido++;
                         $b++;
                         $ocupada=false;
                     }
                     }
                     }
+                    if($contador != $limite){
+                        echo"<td id='libre'><input  type='checkbox' name='butaca".$pedido."' value='".$filas[$contador]['ID_BUTACA']."'></td>";
                     $pedido++;
-                    echo"<td  id='libre'><input  type='checkbox' name='butaca".$pedido."' id='butaca".$pedido."' value='".$filas[$contador]['ID_BUTACA']."'></td>";
-                    $contador++;
+                    $contador=$contador+1;
+                    }
                 }
                 echo"<td></td>";
                 for($b=0; $b<4; $b++){
@@ -1400,22 +1554,26 @@ session_start();
                             $ocupada = true;
                         }
                     if($reserva == true){
-                        echo "<td id='reservada'></td>";
-                        $contador++;
+                        $contador=$contador+1;
+                        $pedido++;
                         $b++;
+                        echo "<td id='reservada'></td>";
                         $reserva=false;
                     }
                     if($ocupada == true){
                         echo "<td id='ocupada'></td>";
-                        $contador++;
+                        $contador=$contador+1;
+                        $pedido++;
                         $b++;
                         $ocupada=false;
                     }
                     }
                     }
+                    if($contador != $limite){
+                        echo"<td id='libre'><input  type='checkbox' name='butaca".$pedido."' value='".$filas[$contador]['ID_BUTACA']."'></td>";
                     $pedido++;
-                    echo"<td  id='libre'><input  type='checkbox' name='butaca".$pedido."' id='butaca".$pedido."' value='".$filas[$contador]['ID_BUTACA']."'></td>";
-                    $contador++;
+                    $contador=$contador+1;
+                    }
                 }echo "</tr>";
                 }
                 if($i==1){
@@ -1430,22 +1588,26 @@ session_start();
                             $ocupada = true;
                         }
                     if($reserva == true){
-                        echo "<td id='reservada'></td>";
-                        $contador++;
+                        $contador=$contador+1;
+                        $pedido++;
                         $b++;
+                        echo "<td id='reservada'></td>";
                         $reserva=false;
                     }
                     if($ocupada == true){
                         echo "<td id='ocupada'></td>";
-                        $contador++;
+                        $contador=$contador+1;
+                        $pedido++;
                         $b++;
                         $ocupada=false;
                     }
                     }
                     }
+                    if($contador != $limite){
+                        echo"<td id='libre'><input  type='checkbox' name='butaca".$pedido."' value='".$filas[$contador]['ID_BUTACA']."'></td>";
                     $pedido++;
-                    echo"<td  id='libre'><input  type='checkbox' name='butaca".$pedido."' id='butaca".$pedido."' value='".$filas[$contador]['ID_BUTACA']."'></td>";
-                    $contador++;
+                    $contador=$contador+1;
+                    }
                 }
                 echo "<td colspan=6></td>";
                 for($b=0; $b<3; $b++){
@@ -1458,22 +1620,26 @@ session_start();
                             $ocupada = true;
                         }
                     if($reserva == true){
-                        echo "<td id='reservada'></td>";
-                        $contador++;
+                        $contador=$contador+1;
+                        $pedido++;
                         $b++;
+                        echo "<td id='reservada'></td>";
                         $reserva=false;
                     }
                     if($ocupada == true){
                         echo "<td id='ocupada'></td>";
-                        $contador++;
+                        $contador=$contador+1;
+                        $pedido++;
                         $b++;
                         $ocupada=false;
                     }
                     }
                     }
+                    if($contador != $limite){
+                        echo"<td id='libre'><input  type='checkbox' name='butaca".$pedido."' value='".$filas[$contador]['ID_BUTACA']."'></td>";
                     $pedido++;
-                    echo"<td  id='libre'><input  type='checkbox' name='butaca".$pedido."' id='butaca".$pedido."' value='".$filas[$contador]['ID_BUTACA']."'></td>";
-                    $contador++;
+                    $contador=$contador+1;
+                    }
                 }
                 echo "<td></td></tr>";
                 }
@@ -1489,22 +1655,26 @@ session_start();
                             $ocupada = true;
                         }
                     if($reserva == true){
-                        echo "<td id='reservada'></td>";
-                        $contador++;
+                        $contador=$contador+1;
+                        $pedido++;
                         $b++;
+                        echo "<td id='reservada'></td>";
                         $reserva=false;
                     }
                     if($ocupada == true){
                         echo "<td id='ocupada'></td>";
-                        $contador++;
+                        $contador=$contador+1;
+                        $pedido++;
                         $b++;
                         $ocupada=false;
                     }
                     }
                     }
+                    if($contador != $limite){
+                        echo"<td id='libre'><input  type='checkbox' name='butaca".$pedido."' value='".$filas[$contador]['ID_BUTACA']."'></td>";
                     $pedido++;
-                    echo"<td  id='libre'><input  type='checkbox' name='butaca".$pedido."' id='butaca".$pedido."' value='".$filas[$contador]['ID_BUTACA']."'></td>";
-                    $contador++;
+                    $contador=$contador+1;
+                    }
                 }
                 echo "<td colspan=6></td>";
                 for($b=0; $b<3; $b++){
@@ -1517,22 +1687,26 @@ session_start();
                             $ocupada = true;
                         }
                     if($reserva == true){
-                        echo "<td id='reservada'></td>";
-                        $contador++;
+                        $contador=$contador+1;
+                        $pedido++;
                         $b++;
+                        echo "<td id='reservada'></td>";
                         $reserva=false;
                     }
                     if($ocupada == true){
                         echo "<td id='ocupada'></td>";
-                        $contador++;
+                        $contador=$contador+1;
+                        $pedido++;
                         $b++;
                         $ocupada=false;
                     }
                     }
                     }
+                    if($contador != $limite){
+                        echo"<td id='libre'><input  type='checkbox' name='butaca".$pedido."' value='".$filas[$contador]['ID_BUTACA']."'></td>";
                     $pedido++;
-                    echo"<td  id='libre'><input  type='checkbox' name='butaca".$pedido."' id='butaca".$pedido."' value='".$filas[$contador]['ID_BUTACA']."'></td>";
-                    $contador++;
+                    $contador=$contador+1;
+                    }
                 }
                 echo "<td></td></tr>";
                 }
@@ -1548,22 +1722,26 @@ session_start();
                             $ocupada = true;
                         }
                     if($reserva == true){
-                        echo "<td id='reservada'></td>";
-                        $contador++;
+                        $contador=$contador+1;
+                        $pedido++;
                         $b++;
+                        echo "<td id='reservada'></td>";
                         $reserva=false;
                     }
                     if($ocupada == true){
                         echo "<td id='ocupada'></td>";
-                        $contador++;
+                        $contador=$contador+1;
+                        $pedido++;
                         $b++;
                         $ocupada=false;
                     }
                     }
                     }
+                    if($contador != $limite){
+                        echo"<td id='libre'><input  type='checkbox' name='butaca".$pedido."' value='".$filas[$contador]['ID_BUTACA']."'></td>";
                     $pedido++;
-                    echo"<td  id='libre'><input  type='checkbox' name='butaca".$pedido."' id='butaca".$pedido."' value='".$filas[$contador]['ID_BUTACA']."'></td>";
-                    $contador++;
+                    $contador=$contador+1;
+                    }
                 }
                 echo "</td></tr>";
                 }
@@ -1581,22 +1759,26 @@ session_start();
                             $ocupada = true;
                         }
                     if($reserva == true){
-                        echo "<td id='reservada'></td>";
-                        $contador++;
+                        $contador=$contador+1;
+                        $pedido++;
                         $b++;
+                        echo "<td id='reservada'></td>";
                         $reserva=false;
                     }
                     if($ocupada == true){
                         echo "<td id='ocupada'></td>";
-                        $contador++;
+                        $contador=$contador+1;
+                        $pedido++;
                         $b++;
                         $ocupada=false;
                     }
                     }
                     }
+                    if($contador != $limite){
+                        echo"<td id='libre'><input  type='checkbox' name='butaca".$pedido."' value='".$filas[$contador]['ID_BUTACA']."'></td>";
                     $pedido++;
-                    echo"<td  id='libre'><input  type='checkbox' name='butaca".$pedido."' id='butaca".$pedido."' value='".$filas[$contador]['ID_BUTACA']."'></td>";
-                    $contador++;
+                    $contador=$contador+1;
+                    }
                 }
             echo "</tr>";
         }
@@ -1617,22 +1799,26 @@ session_start();
                             $ocupada = true;
                         }
                     if($reserva == true){
-                        echo "<td id='reservada'></td>";
-                        $contador++;
+                        $contador=$contador+1;
+                        $pedido++;
                         $b++;
+                        echo "<td id='reservada'></td>";
                         $reserva=false;
                     }
                     if($ocupada == true){
                         echo "<td id='ocupada'></td>";
-                        $contador++;
+                        $contador=$contador+1;
+                        $pedido++;
                         $b++;
                         $ocupada=false;
                     }
                     }
                     }
+                    if($contador != $limite){
+                        echo"<td id='libre'><input  type='checkbox' name='butaca".$pedido."' value='".$filas[$contador]['ID_BUTACA']."'></td>";
                     $pedido++;
-                    echo"<td  id='libre'><input  type='checkbox' name='butaca".$pedido."' id='butaca".$pedido."' value='".$filas[$contador]['ID_BUTACA']."'></td>";
-                    $contador++;
+                    $contador=$contador+1;
+                    }
                 }
             echo "</tr>";
         }
@@ -1649,22 +1835,26 @@ session_start();
                             $ocupada = true;
                         }
                     if($reserva == true){
-                        echo "<td id='reservada'></td>";
-                        $contador++;
+                        $contador=$contador+1;
+                        $pedido++;
                         $b++;
+                        echo "<td id='reservada'></td>";
                         $reserva=false;
                     }
                     if($ocupada == true){
                         echo "<td id='ocupada'></td>";
-                        $contador++;
+                        $contador=$contador+1;
+                        $pedido++;
                         $b++;
                         $ocupada=false;
                     }
                     }
                     }
+                    if($contador != $limite){
+                        echo"<td id='libre'><input  type='checkbox' name='butaca".$pedido."' value='".$filas[$contador]['ID_BUTACA']."'></td>";
                     $pedido++;
-                    echo"<td  id='libre'><input  type='checkbox' name='butaca".$pedido."' id='butaca".$pedido."' value='".$filas[$contador]['ID_BUTACA']."'></td>";
-                    $contador++;
+                    $contador=$contador+1;
+                    }
                 }
                 echo "</td></tr>";
                 
@@ -1682,22 +1872,26 @@ session_start();
                             $ocupada = true;
                         }
                     if($reserva == true){
-                        echo "<td id='reservada'></td>";
-                        $contador++;
+                        $contador=$contador+1;
+                        $pedido++;
                         $b++;
+                        echo "<td id='reservada'></td>";
                         $reserva=false;
                     }
                     if($ocupada == true){
                         echo "<td id='ocupada'></td>";
-                        $contador++;
+                        $contador=$contador+1;
+                        $pedido++;
                         $b++;
                         $ocupada=false;
                     }
                     }
                     }
+                    if($contador != $limite){
+                        echo"<td id='libre'><input  type='checkbox' name='butaca".$pedido."' value='".$filas[$contador]['ID_BUTACA']."'></td>";
                     $pedido++;
-                    echo"<td  id='libre'><input  type='checkbox' name='butaca".$pedido."' id='butaca".$pedido."' value='".$filas[$contador]['ID_BUTACA']."'></td>";
-                    $contador++;
+                    $contador=$contador+1;
+                    }
                 }
             echo "</tr>";
         }

@@ -118,7 +118,7 @@ session_start();
         </tr>
         <?php
             $total=0;
-            $entrada=1;
+            $entrada=0;
             error_reporting (E_ALL);
             require("conexion.php");
             $bd=conectar();
@@ -139,7 +139,7 @@ session_start();
                         $fecha_es = $fechaHora->format('d/m/Y');
                         $hora_es = $fechaHora->format('H:i');
                         echo"<tr>";
-                        echo"<td>vs ".$partido['EQUIPO_VISITANTE']."</td>";
+                        echo"<td>".$partido['EQUIPO_LOCAL']." VS ".$partido['EQUIPO_VISITANTE']."</td>";
                         echo"<td>".$fecha_es." - ".$hora_es."</td>";
                         echo"<td>".$butaca['ID_BUTACA']."</td>";
                         echo"<td>".$butaca['ZONA_BUTACA']."</td>";
@@ -152,3 +152,4 @@ session_start();
                     }
                 }}}
                 echo"<tr class='total-row'><td colspan=5>TOTAL:</td><td>".$total."€</td></tr>";
+        ?>
