@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Rayo Vallecano | Web Oficial</title>
+    <title> Web Oficial | Rayo Vallecano</title>
     <style>
         a{
             outline: none;
@@ -20,11 +20,25 @@
             top: 0%;
             left: 0%;
             font-size: 15px;
+            z-index: 1000;
         }
         #cabecera td{
             width: 9%;
             text-align: center;
-            font-size: 85%;
+            font-size: 15px;
+            padding: 5px;
+        }
+        #cabecera a {
+            font-size: 15px;
+            font-weight: normal;
+        }
+        #cabecera strong {
+            font-size: 15px;
+            font-weight: bold;
+        }
+        #cabecera img {
+            height: 55px;
+            width: 55px;
         }
         #carrusel{
             display: flex;

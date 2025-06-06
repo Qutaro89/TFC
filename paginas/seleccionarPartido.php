@@ -6,7 +6,7 @@ session_start();
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Taquilla entradas</title>
+    <title>Listado de partidos | Rayo Vallecano</title>
     <style>
         a{
             outline: none;
@@ -23,11 +23,25 @@ session_start();
             top: 0%;
             left: 0%;
             font-size: 15px;
+            z-index: 1000;
         }
         #cabecera td{
             width: 9%;
             text-align: center;
-            font-size: 85%;
+            font-size: 15px;
+            padding: 5px;
+        }
+        #cabecera a {
+            font-size: 15px;
+            font-weight: normal;
+        }
+        #cabecera strong {
+            font-size: 15px;
+            font-weight: bold;
+        }
+        #cabecera img {
+            height: 55px;
+            width: 55px;
         }
         #partidos{
             margin:10%;
@@ -39,7 +53,7 @@ session_start();
             justify-content: center;
             text-align: center;
         }
-        .partidos-container {
+        .contenedor-partidos {
             margin: 10% auto 0 auto;
             max-width: 1000px;
             background: #fff;
@@ -68,14 +82,14 @@ session_start();
             margin: 0 auto 2.5em auto;
             border-radius: 3px;
         }
-        .partido-card {
+        .tarjeta-partido {
             display: flex;
             align-items: center;
             border-bottom: 1px solid #e0e0e0;
             padding: 25px 0 25px 0;
             background: transparent;
         }
-        .partido-card:last-child {
+        .tarjeta-partido:last-child {
             border-bottom: none;
         }
         .escudos {
@@ -109,7 +123,7 @@ session_start();
             font-size: 1em;
             margin-bottom: 2px;
         }
-        .seleccionar-btn {
+        .boton-seleccionar {
             background: #d32f2f;
             color: #fff;
             border: none;
@@ -121,13 +135,13 @@ session_start();
             font-weight: 500;
             margin-left: 30px;
         }
-        .seleccionar-btn:hover {
+        .boton-seleccionar:hover {
             background: #b71c1c;
         }
         @media (max-width: 700px) {
-            .partidos-container { padding: 10px; }
-            .partido-card { flex-direction: column; align-items: flex-start; }
-            .seleccionar-btn { margin-left: 0; margin-top: 10px; width: 100%; }
+            .contenedor-partidos { padding: 10px; }
+            .tarjeta-partido { flex-direction: column; align-items: flex-start; }
+            .boton-seleccionar { margin-left: 0; margin-top: 10px; width: 100%; }
             .escudos { margin-bottom: 10px; }
         }
     </style>
@@ -168,7 +182,7 @@ session_start();
     </header>
     <hr>
     <form method="POST" action="seleccionarTribuna.php">
-    <div class="partidos-container">
+    <div class="contenedor-partidos">
         <div class="titulo-partidos">PARTIDOS</div>
         <span class="subrayado-rojo"></span>
     <?php
@@ -191,14 +205,14 @@ session_start();
                 $escudo_visitante = $escudo_visitante3;
             }
 
-            preg_match('/J-(\\d+)/', $partido['ID_PARTIDO'], $matches);
-            $jornada = isset($matches[1]) ? $matches[1] : '';
+            preg_match('/J-(\\d+)/', $partido['ID_PARTIDO'], $coincidencias);
+            $jornada = isset($coincidencias[1]) ? $coincidencias[1] : '';
 
             $fechaHora = new DateTime($partido['FECHA_HORA_PARTIDO']);
             $fecha_es = $fechaHora->format('d/m/Y');
             $hora_es = $fechaHora->format('H:i');
 
-            echo "<div class='partido-card'>
+            echo "<div class='tarjeta-partido'>
                     <div class='escudos'>
                         <img src='".$escudo_local."' alt='".$partido['EQUIPO_LOCAL']."'>
                         <img src='".$escudo_visitante."' alt='".$partido['EQUIPO_VISITANTE']."'>
@@ -209,7 +223,7 @@ session_start();
                         <div class='detalle-partido'>".$fecha_es." - ".$hora_es."</div>
                     </div>
                     <div>
-                        <button class='seleccionar-btn' type='submit' name='id_partido' value='".$partido["ID_PARTIDO"]."'>Comprar entradas</button>
+                        <button class='boton-seleccionar' type='submit' name='id_partido' value='".$partido["ID_PARTIDO"]."'>Comprar entradas</button>
                     </div>
                 </div>";
         }

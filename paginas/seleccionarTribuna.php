@@ -6,7 +6,7 @@ session_start();
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Taquilla entradas</title>
+    <title>Taquilla entradas | Rayo Vallecano</title>
     <style>
         a{
             outline: none;
@@ -23,11 +23,25 @@ session_start();
             top: 0%;
             left: 0%;
             font-size: 15px;
+            z-index: 1000;
         }
         #cabecera td{
             width: 9%;
             text-align: center;
-            font-size: 85%;
+            font-size: 15px;
+            padding: 5px;
+        }
+        #cabecera a {
+            font-size: 15px;
+            font-weight: normal;
+        }
+        #cabecera strong {
+            font-size: 15px;
+            font-weight: bold;
+        }
+        #cabecera img {
+            height: 55px;
+            width: 55px;
         }
         #AL{
             position: absolute;
@@ -158,6 +172,7 @@ session_start();
                 if(!isset($_SESSION['login'])){
                     echo"<td><a href='login.php'>Iniciar sesión</a></td>";
                 }else{
+                    echo "<td><a href='area_personal.php'>Área personal</a></td>";
                     echo "<td><a href='cerrarsesion.php'>Cerrar sesión</a></td>";
                 }
                 ?>
