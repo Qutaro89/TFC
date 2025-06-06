@@ -131,7 +131,8 @@ session_start();
                 <td colspan="3"></td>
                 <?php
                 if(!isset($_SESSION['login'])){
-                    echo"<td><a href='login.php'>Iniciar sesión</a></td>";
+                    header('Location: login.php');
+                    exit();
                 }else{
                     echo "<td><a href='area_personal.php'>Área personal</a></td>";
                     echo "<td><a href='cerrarsesion.php'>Cerrar sesión</a></td>";
@@ -193,12 +194,14 @@ session_start();
                         echo"<td>".$butaca['PUERTA_BUTACA']."</td>";
                         echo"<td>".$butaca['PRECIO_BUTACA']."€</td></tr>";
                         $total=$total+$butaca['PRECIO_BUTACA'];
+                        $sql="INSERT INTO `tfc`.`BUTACA_PARTIDO`(`ID_BUTACA`, `ID_PARTIDO`, `ESTADO_BUTACA`) VALUES('".$butaca['ID_BUTACA']."','".$partido['ID_PARTIDO']."','RESERVADA')";
+                        $insertar=$bd->query($sql);
                         $entrada++;
                     }
                 }}}
                 echo"<tr class='total-row'><td colspan=5>TOTAL:</td><td>".$total."€</td></tr>";
-        ?>
-    </table>
+                ?>
+        </table>
     <div class="botones-navegacion">
         <form method="POST" action="butacas.php" style="display: inline;">
             <input type="hidden" name="id_partido" value="<?php echo $_POST['id_partido']; ?>">
@@ -228,5 +231,3 @@ session_start();
             <button type="submit" class="boton boton-pago">Proceder al pago →</button>
         </form>
     </div>
-</body>
-</html>

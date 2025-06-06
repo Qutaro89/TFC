@@ -12,8 +12,7 @@ session_start();
             outline: none;
             text-decoration: none;
             color: white;
-        }
-        #cabecera{
+        }#cabecera{
             position: fixed;
             background-color: red;
             color: white;
@@ -62,20 +61,22 @@ session_start();
         #ocupada{
             border:0.01px solid black;
             background-color:red;
-            height:0.1%;
-            width: auto;
+            height:1px;
+            width: 1px;
         }
         #reservada{
             border:0.01px solid black;
             background-color:yellow;
-            height:0.1%;
-            width: auto;
+            height:1px;
+            width: 1px;
+            
         }
         #libre{
             border:0.01px solid black;
             background-color:lightgreen;
-            height:0.1%;
-            width: auto;
+            height:1px;
+            width: 1px;
+            
         }
         #transformar{
             transform: rotateY(180deg);
@@ -132,10 +133,16 @@ session_start();
             $estado_butacas=$bd->prepare("SELECT ID_BUTACA, ESTADO_BUTACA, ID_PARTIDO FROM BUTACA_PARTIDO WHERE ID_PARTIDO = :partido");
             $estado_butacas->execute(array(':partido'=>$_POST['id_partido']));
             $limite=$butacas->rowCount();
+            $ocupadas=$estado_butacas->fetchAll();
+            $limite=$butacas->rowCount();
             $contador=0;
             $pedido=0;
-            $reserva=false;
-            $ocupada=false;
+            $estado=0;
+            /*
+                $estado==0 butaca disponible
+                $estado==1 butaca reservada
+                $estado==2 butaca ocupada
+                */
             $filas=$butacas->fetchAll();
             //tribunas ALTA LATERAL LATERAL CUBIERTA LATERAL BAJA GRADA DE PREFERENCIA Y ALTA PREFERENCIA
     if(($_POST['TRIBUNA']=='TRIBUNA ALTA LATERAL') OR ($_POST['TRIBUNA']=='TRIBUNA LATERAL CUBIERTA') OR ($_POST['TRIBUNA']=='TRIBUNA LATERAL BAJA') OR ($_POST['TRIBUNA']=='GRADA DE PREFERENCIA') OR ($_POST['TRIBUNA']=='TRIBUNA ALTA PREFERENCIA')){
@@ -143,35 +150,31 @@ session_start();
             for($i=0;$i<9;$i++){
             echo "<tr>";
                 for($b=0;$b<12;$b++){
-                    foreach($estado_butacas as $butac4){
-                        if($filas[$contador]['ID_BUTACA']== $butac4['ID_BUTACA']){
-                            if($butac4['ESTADO_BUTACA']=='RESERVADA'){
-                            $reserva = true;
-                            }
-                            if($butac4['ESTADO_BUTACA']=='OCUPADA'){
-                            $ocupada = true;
+                    foreach($ocupadas as $ocupada){
+                        if($filas[$contador]['ID_BUTACA']==$ocupada['ID_BUTACA']){
+                            
+                            if($ocupada['ESTADO_BUTACA']=='RESERVADA'){$estado=1;}
+                            if($ocupada['ESTADO_BUTACA']=='OCUPADA'){$estado=2;}
                         }
-                    if($reserva == true){
-                        $contador=$contador+1;
-                        $pedido++;
-                        $b++;
-                        echo "<td id='reservada'></td>";
-                        $reserva=false;
-                    }
-                    if($ocupada == true){
-                        echo "<td id='ocupada'></td>";
-                        $contador=$contador+1;
-                        $pedido++;
-                        $b++;
-                        $ocupada=false;
-                    }
-                    }
                     }
                     if($contador != ($limite-1)){
-                        $contador++;
-                        echo"<td id='libre'><input  type='checkbox' name='butaca".$pedido."' value='".$filas[$contador]['ID_BUTACA']."'></td>";
+                        if($estado==0){
                         $pedido++;
-                    }else{echo"</tr>";}
+                            echo"<td id='libre'><input  type='checkbox' name='butaca".$pedido."' value='".$filas[$contador]['ID_BUTACA']."'></td>";
+                        $estado=0;
+                        
+                        }else if($estado==1){
+                        $pedido++;
+                            echo"<td id='reservada'></td>";
+                        $estado=0;
+
+                        }else if($estado==2){
+                        $pedido++;
+                            echo"<td id='ocupada'></td>";
+                        $estado=0;
+
+                        }
+                    $contador++;}
                 }
             echo "</tr>";
             }
@@ -184,35 +187,31 @@ session_start();
                             echo"<td colspan=11 style=' background-color:black;'></td>";
                             $b=17;
                         }
-                    }foreach($estado_butacas as $butac4){
-                        if($filas[$contador]['ID_BUTACA']== $butac4['ID_BUTACA']){
-                            if($butac4['ESTADO_BUTACA']=='RESERVADA'){
-                            $reserva = true;
-                            }
-                            if($butac4['ESTADO_BUTACA']=='OCUPADA'){
-                            $ocupada = true;
+                    }foreach($ocupadas as $ocupada){
+                        if($filas[$contador]['ID_BUTACA']==$ocupada['ID_BUTACA']){
+                            
+                            if($ocupada['ESTADO_BUTACA']=='RESERVADA'){$estado=1;}
+                            if($ocupada['ESTADO_BUTACA']=='OCUPADA'){$estado=2;}
                         }
-                    if($reserva == true){
-                        $contador=$contador+1;
-                        $pedido++;
-                        $b++;
-                        echo "<td id='reservada'></td>";
-                        $reserva=false;
-                    }
-                    if($ocupada == true){
-                        echo "<td id='ocupada'></td>";
-                        $contador=$contador+1;
-                        $pedido++;
-                        $b++;
-                        $ocupada=false;
-                    }
-                    }
                     }
                     if($contador != ($limite-1)){
-                    $contador++;
-                    echo"<td id='libre'><input  type='checkbox' name='butaca".$pedido."' value='".$filas[$contador]['ID_BUTACA']."'></td>";
-                    $pedido++;
-                    }
+                        if($estado==0){
+                        $pedido++;
+                            echo"<td id='libre'><input  type='checkbox' name='butaca".($pedido+1)."' value='".$filas[$contador]['ID_BUTACA']."'></td>";
+                        $estado=0;
+                        
+                        }else if($estado==1){
+                        $pedido++;
+                            echo"<td id='reservada'></td>";
+                        $estado=0;
+
+                        }else if($estado==2){
+                        $pedido++;
+                            echo"<td id='ocupada'></td>";
+                        $estado=0;
+
+                        }
+                    $contador++;}
                 }
                 echo "</tr>";
             }
@@ -220,35 +219,31 @@ session_start();
             for($i=0;$i<9;$i++){
             echo"<tr>";
                 for($b=0; $b<26; $b++){
-                    foreach($estado_butacas as $butac4){
-                        if($filas[$contador]['ID_BUTACA']== $butac4['ID_BUTACA']){
-                            if($butac4['ESTADO_BUTACA']=='RESERVADA'){
-                            $reserva = true;
-                            }
-                            if($butac4['ESTADO_BUTACA']=='OCUPADA'){
-                            $ocupada = true;
+                    foreach($ocupadas as $ocupada){
+                        if($filas[$contador]['ID_BUTACA']==$ocupada['ID_BUTACA']){
+                            
+                            if($ocupada['ESTADO_BUTACA']=='RESERVADA'){$estado=1;}
+                            if($ocupada['ESTADO_BUTACA']=='OCUPADA'){$estado=2;}
                         }
-                    if($reserva == true){
-                        $contador=$contador+1;
-                        $pedido++;
-                        $b++;
-                        echo "<td id='reservada'></td>";
-                        $reserva=false;
-                    }
-                    if($ocupada == true){
-                        echo "<td id='ocupada'></td>";
-                        $contador=$contador+1;
-                        $pedido++;
-                        $b++;
-                        $ocupada=false;
-                    }
-                    }
                     }
                     if($contador != ($limite-1)){
-                    $contador++;
-                    echo"<td id='libre'><input  type='checkbox' name='butaca".$pedido."' value='".$filas[$contador]['ID_BUTACA']."'></td>";
-                    $pedido++;
-                    }
+                        if($estado==0){
+                        $pedido++;
+                            echo"<td id='libre'><input  type='checkbox' name='butaca".($pedido+1)."' value='".$filas[$contador]['ID_BUTACA']."'></td>";
+                        $estado=0;
+                        
+                        }else if($estado==1){
+                        $pedido++;
+                            echo"<td id='reservada'></td>";
+                        $estado=0;
+
+                        }else if($estado==2){
+                        $pedido++;
+                            echo"<td id='ocupada'></td>";
+                        $estado=0;
+
+                        }
+                    $contador++;}
                 }
             echo "</tr>";
             }
@@ -261,35 +256,31 @@ session_start();
                             echo"<td colspan=11 style=' background-color:black;'></td>";
                             $b=17;
                         }
-                    }foreach($estado_butacas as $butac4){
-                        if($filas[$contador]['ID_BUTACA']== $butac4['ID_BUTACA']){
-                            if($butac4['ESTADO_BUTACA']=='RESERVADA'){
-                            $reserva = true;
-                            }
-                            if($butac4['ESTADO_BUTACA']=='OCUPADA'){
-                            $ocupada = true;
+                    }foreach($ocupadas as $ocupada){
+                        if($filas[$contador]['ID_BUTACA']==$ocupada['ID_BUTACA']){
+                            
+                            if($ocupada['ESTADO_BUTACA']=='RESERVADA'){$estado=1;}
+                            if($ocupada['ESTADO_BUTACA']=='OCUPADA'){$estado=2;}
                         }
-                    if($reserva == true){
-                        $contador=$contador+1;
-                        $pedido++;
-                        $b++;
-                        echo "<td id='reservada'></td>";
-                        $reserva=false;
-                    }
-                    if($ocupada == true){
-                        echo "<td id='ocupada'></td>";
-                        $contador=$contador+1;
-                        $pedido++;
-                        $b++;
-                        $ocupada=false;
-                    }
-                    }
                     }
                     if($contador != ($limite-1)){
-                    $contador++;
-                    echo"<td id='libre'><input  type='checkbox' name='butaca".$pedido."' value='".$filas[$contador]['ID_BUTACA']."'></td>";
-                    $pedido++;
-                    }
+                        if($estado==0){
+                        $pedido++;
+                            echo"<td id='libre'><input  type='checkbox' name='butaca".($pedido+1)."' value='".$filas[$contador]['ID_BUTACA']."'></td>";
+                        $estado=0;
+                        
+                        }else if($estado==1){
+                        $pedido++;
+                            echo"<td id='reservada'></td>";
+                        $estado=0;
+
+                        }else if($estado==2){
+                        $pedido++;
+                            echo"<td id='ocupada'></td>";
+                        $estado=0;
+
+                        }
+                    $contador++;}
                 }
                 echo "</tr>";
             }
@@ -297,35 +288,31 @@ session_start();
             for($i=0;$i<9;$i++){
             echo"<tr>";
                 for($b=0; $b<26; $b++){
-                    foreach($estado_butacas as $butac4){
-                        if($filas[$contador]['ID_BUTACA']== $butac4['ID_BUTACA']){
-                            if($butac4['ESTADO_BUTACA']=='RESERVADA'){
-                            $reserva = true;
-                            }
-                            if($butac4['ESTADO_BUTACA']=='OCUPADA'){
-                            $ocupada = true;
+                    foreach($ocupadas as $ocupada){
+                        if($filas[$contador]['ID_BUTACA']==$ocupada['ID_BUTACA']){
+                            
+                            if($ocupada['ESTADO_BUTACA']=='RESERVADA'){$estado=1;}
+                            if($ocupada['ESTADO_BUTACA']=='OCUPADA'){$estado=2;}
                         }
-                    if($reserva == true){
-                        $contador=$contador+1;
-                        $pedido++;
-                        $b++;
-                        echo "<td id='reservada'></td>";
-                        $reserva=false;
-                    }
-                    if($ocupada == true){
-                        echo "<td id='ocupada'></td>";
-                        $contador=$contador+1;
-                        $pedido++;
-                        $b++;
-                        $ocupada=false;
-                    }
-                    }
                     }
                     if($contador != ($limite-1)){
-                    $contador++;
-                    echo"<td id='libre'><input  type='checkbox' name='butaca".$pedido."' value='".$filas[$contador]['ID_BUTACA']."'></td>";
-                    $pedido++;
-                    }
+                        if($estado==0){
+                        $pedido++;
+                            echo"<td id='libre'><input  type='checkbox' name='butaca".($pedido+1)."' value='".$filas[$contador]['ID_BUTACA']."'></td>";
+                        $estado=0;
+                        
+                        }else if($estado==1){
+                        $pedido++;
+                            echo"<td id='reservada'></td>";
+                        $estado=0;
+
+                        }else if($estado==2){
+                        $pedido++;
+                            echo"<td id='ocupada'></td>";
+                        $estado=0;
+
+                        }
+                    $contador++;}
                 }
             echo "</tr>";
             }
@@ -338,35 +325,31 @@ session_start();
                             echo"<td colspan=11 style=' background-color:black;'></td>";
                             $b=17;
                         }
-                    } foreach($estado_butacas as $butac4){
-                        if($filas[$contador]['ID_BUTACA']== $butac4['ID_BUTACA']){
-                            if($butac4['ESTADO_BUTACA']=='RESERVADA'){
-                            $reserva = true;
-                            }
-                            if($butac4['ESTADO_BUTACA']=='OCUPADA'){
-                            $ocupada = true;
+                    } foreach($ocupadas as $ocupada){
+                        if($filas[$contador]['ID_BUTACA']==$ocupada['ID_BUTACA']){
+                            
+                            if($ocupada['ESTADO_BUTACA']=='RESERVADA'){$estado=1;}
+                            if($ocupada['ESTADO_BUTACA']=='OCUPADA'){$estado=2;}
                         }
-                    if($reserva == true){
-                        $contador=$contador+1;
-                        $pedido++;
-                        $b++;
-                        echo "<td id='reservada'></td>";
-                        $reserva=false;
-                    }
-                    if($ocupada == true){
-                        echo "<td id='ocupada'></td>";
-                        $contador=$contador+1;
-                        $pedido++;
-                        $b++;
-                        $ocupada=false;
-                    }
-                    }
                     }
                     if($contador != ($limite-1)){
-                    $contador++;
-                    echo"<td id='libre'><input  type='checkbox' name='butaca".$pedido."' value='".$filas[$contador]['ID_BUTACA']."'></td>";
-                    $pedido++;
-                    }
+                        if($estado==0){
+                        $pedido++;
+                            echo"<td id='libre'><input  type='checkbox' name='butaca".($pedido+1)."' value='".$filas[$contador]['ID_BUTACA']."'></td>";
+                        $estado=0;
+                        
+                        }else if($estado==1){
+                        $pedido++;
+                            echo"<td id='reservada'></td>";
+                        $estado=0;
+
+                        }else if($estado==2){
+                        $pedido++;
+                            echo"<td id='ocupada'></td>";
+                        $estado=0;
+
+                        }
+                    $contador++;}
                 }
                 echo "</tr>";
             }
@@ -374,35 +357,31 @@ session_start();
             for($i=0;$i<9;$i++){
             echo"<tr>";
                 for($b=0; $b<26; $b++){
-                    foreach($estado_butacas as $butac4){
-                        if($filas[$contador]['ID_BUTACA']== $butac4['ID_BUTACA']){
-                            if($butac4['ESTADO_BUTACA']=='RESERVADA'){
-                            $reserva = true;
-                            }
-                            if($butac4['ESTADO_BUTACA']=='OCUPADA'){
-                            $ocupada = true;
+                    foreach($ocupadas as $ocupada){
+                        if($filas[$contador]['ID_BUTACA']==$ocupada['ID_BUTACA']){
+                            
+                            if($ocupada['ESTADO_BUTACA']=='RESERVADA'){$estado=1;}
+                            if($ocupada['ESTADO_BUTACA']=='OCUPADA'){$estado=2;}
                         }
-                    if($reserva == true){
-                        $contador=$contador+1;
-                        $pedido++;
-                        $b++;
-                        echo "<td id='reservada'></td>";
-                        $reserva=false;
-                    }
-                    if($ocupada == true){
-                        echo "<td id='ocupada'></td>";
-                        $contador=$contador+1;
-                        $pedido++;
-                        $b++;
-                        $ocupada=false;
-                    }
-                    }
                     }
                     if($contador != ($limite-1)){
-                    $contador++;
-                    echo"<td id='libre'><input  type='checkbox' name='butaca".$pedido."' value='".$filas[$contador]['ID_BUTACA']."'></td>";
-                    $pedido++;
-                    }
+                        if($estado==0){
+                        $pedido++;
+                            echo"<td id='libre'><input  type='checkbox' name='butaca".($pedido+1)."' value='".$filas[$contador]['ID_BUTACA']."'></td>";
+                        $estado=0;
+                        
+                        }else if($estado==1){
+                        $pedido++;
+                            echo"<td id='reservada'></td>";
+                        $estado=0;
+
+                        }else if($estado==2){
+                        $pedido++;
+                            echo"<td id='ocupada'></td>";
+                        $estado=0;
+
+                        }
+                    $contador++;}
                 }
             echo "</tr>";
             }
@@ -415,35 +394,31 @@ session_start();
                             echo"<td colspan=11 style=' background-color:black;'></td>";
                             $b=17;
                         }
-                    } foreach($estado_butacas as $butac4){
-                        if($filas[$contador]['ID_BUTACA']== $butac4['ID_BUTACA']){
-                            if($butac4['ESTADO_BUTACA']=='RESERVADA'){
-                            $reserva = true;
-                            }
-                            if($butac4['ESTADO_BUTACA']=='OCUPADA'){
-                            $ocupada = true;
+                    } foreach($ocupadas as $ocupada){
+                        if($filas[$contador]['ID_BUTACA']==$ocupada['ID_BUTACA']){
+                            
+                            if($ocupada['ESTADO_BUTACA']=='RESERVADA'){$estado=1;}
+                            if($ocupada['ESTADO_BUTACA']=='OCUPADA'){$estado=2;}
                         }
-                    if($reserva == true){
-                        $contador=$contador+1;
-                        $pedido++;
-                        $b++;
-                        echo "<td id='reservada'></td>";
-                        $reserva=false;
-                    }
-                    if($ocupada == true){
-                        echo "<td id='ocupada'></td>";
-                        $contador=$contador+1;
-                        $pedido++;
-                        $b++;
-                        $ocupada=false;
-                    }
-                    }
                     }
                     if($contador != ($limite-1)){
-                    $contador++;
-                    echo"<td id='libre'><input  type='checkbox' name='butaca".$pedido."' value='".$filas[$contador]['ID_BUTACA']."'></td>";
-                    $pedido++;
-                    }
+                        if($estado==0){
+                        $pedido++;
+                            echo"<td id='libre'><input  type='checkbox' name='butaca".($pedido+1)."' value='".$filas[$contador]['ID_BUTACA']."'></td>";
+                        $estado=0;
+                        
+                        }else if($estado==1){
+                        $pedido++;
+                            echo"<td id='reservada'></td>";
+                        $estado=0;
+
+                        }else if($estado==2){
+                        $pedido++;
+                            echo"<td id='ocupada'></td>";
+                        $estado=0;
+
+                        }
+                    $contador++;}
                 }
                 echo "</tr>";
             }
@@ -451,35 +426,31 @@ session_start();
             for($i=0;$i<9;$i++){
             echo "<tr>";
                 for($b=0;$b<12;$b++){
-                    foreach($estado_butacas as $butac4){
-                        if($filas[$contador]['ID_BUTACA']== $butac4['ID_BUTACA']){
-                            if($butac4['ESTADO_BUTACA']=='RESERVADA'){
-                            $reserva = true;
-                            }
-                            if($butac4['ESTADO_BUTACA']=='OCUPADA'){
-                            $ocupada = true;
+                    foreach($ocupadas as $ocupada){
+                        if($filas[$contador]['ID_BUTACA']==$ocupada['ID_BUTACA']){
+                            
+                            if($ocupada['ESTADO_BUTACA']=='RESERVADA'){$estado=1;}
+                            if($ocupada['ESTADO_BUTACA']=='OCUPADA'){$estado=2;}
                         }
-                    if($reserva == true){
-                        $contador=$contador+1;
-                        $pedido++;
-                        $b++;
-                        echo "<td id='reservada'></td>";
-                        $reserva=false;
-                    }
-                    if($ocupada == true){
-                        echo "<td id='ocupada'></td>";
-                        $contador=$contador+1;
-                        $pedido++;
-                        $b++;
-                        $ocupada=false;
-                    }
-                    }
                     }
                     if($contador != ($limite-1)){
-                    $contador++;
-                    echo"<td id='libre'><input  type='checkbox' name='butaca".$pedido."' value='".$filas[$contador]['ID_BUTACA']."'></td>";
-                    $pedido++;
-                    }
+                        if($estado==0){
+                        $pedido++;
+                            echo"<td id='libre'><input  type='checkbox' name='butaca".($pedido+1)."' value='".$filas[$contador]['ID_BUTACA']."'></td>";
+                        $estado=0;
+                        
+                        }else if($estado==1){
+                        $pedido++;
+                            echo"<td id='reservada'></td>";
+                        $estado=0;
+
+                        }else if($estado==2){
+                        $pedido++;
+                            echo"<td id='ocupada'></td>";
+                        $estado=0;
+
+                        }
+                    $contador++;}
                 }
             echo "</tr>";
             }
@@ -492,205 +463,181 @@ session_start();
                     if($i==0){
                         echo "<tr><td colspan=6></td>";
                         for($b=0;$b<5;$b++){
-                    foreach($estado_butacas as $butac4){
-                        if($filas[$contador]['ID_BUTACA']== $butac4['ID_BUTACA']){
-                            if($butac4['ESTADO_BUTACA']=='RESERVADA'){
-                            $reserva = true;
-                            }
-                            if($butac4['ESTADO_BUTACA']=='OCUPADA'){
-                            $ocupada = true;
+                    foreach($ocupadas as $ocupada){
+                        if($filas[$contador]['ID_BUTACA']==$ocupada['ID_BUTACA']){
+                            
+                            if($ocupada['ESTADO_BUTACA']=='RESERVADA'){$estado=1;}
+                            if($ocupada['ESTADO_BUTACA']=='OCUPADA'){$estado=2;}
                         }
-                    if($reserva == true){
-                        $contador=$contador+1;
-                        $pedido++;
-                        $b++;
-                        echo "<td id='reservada'></td>";
-                        $reserva=false;
-                    }
-                    if($ocupada == true){
-                        echo "<td id='ocupada'></td>";
-                        $contador=$contador+1;
-                        $pedido++;
-                        $b++;
-                        $ocupada=false;
-                    }
-                    }
                     }
                     if($contador != ($limite-1)){
-                    $contador++;
-                    echo"<td id='libre'><input  type='checkbox' name='butaca".$pedido."' value='".$filas[$contador]['ID_BUTACA']."'></td>";
-                    $pedido++;
-                    }
+                        if($estado==0){
+                        $pedido++;
+                            echo"<td id='libre'><input  type='checkbox' name='butaca".($pedido+1)."' value='".$filas[$contador]['ID_BUTACA']."'></td>";
+                        $estado=0;
+                        
+                        }else if($estado==1){
+                        $pedido++;
+                            echo"<td id='reservada'></td>";
+                        $estado=0;
+
+                        }else if($estado==2){
+                        $pedido++;
+                            echo"<td id='ocupada'></td>";
+                        $estado=0;
+
+                        }
+                    $contador++;}
                 }
             }
                     if($i==1){
                         echo "</tr><tr><td colspan=4></td>";
                         for($b=0;$b<7;$b++){
-                    foreach($estado_butacas as $butac4){
-                        if($filas[$contador]['ID_BUTACA']== $butac4['ID_BUTACA']){
-                            if($butac4['ESTADO_BUTACA']=='RESERVADA'){
-                            $reserva = true;
-                            }
-                            if($butac4['ESTADO_BUTACA']=='OCUPADA'){
-                            $ocupada = true;
+                    foreach($ocupadas as $ocupada){
+                        if($filas[$contador]['ID_BUTACA']==$ocupada['ID_BUTACA']){
+                            
+                            if($ocupada['ESTADO_BUTACA']=='RESERVADA'){$estado=1;}
+                            if($ocupada['ESTADO_BUTACA']=='OCUPADA'){$estado=2;}
                         }
-                    if($reserva == true){
-                        $contador=$contador+1;
-                        $pedido++;
-                        $b++;
-                        echo "<td id='reservada'></td>";
-                        $reserva=false;
-                    }
-                    if($ocupada == true){
-                        echo "<td id='ocupada'></td>";
-                        $contador=$contador+1;
-                        $pedido++;
-                        $b++;
-                        $ocupada=false;
-                    }
-                    }
                     }
                     if($contador != ($limite-1)){
-                    $contador++;
-                    echo"<td id='libre'><input  type='checkbox' name='butaca".$pedido."' value='".$filas[$contador]['ID_BUTACA']."'></td>";
-                    $pedido++;
-                    }
+                        if($estado==0){
+                        $pedido++;
+                            echo"<td id='libre'><input  type='checkbox' name='butaca".($pedido+1)."' value='".$filas[$contador]['ID_BUTACA']."'></td>";
+                        $estado=0;
+                        
+                        }else if($estado==1){
+                        $pedido++;
+                            echo"<td id='reservada'></td>";
+                        $estado=0;
+
+                        }else if($estado==2){
+                        $pedido++;
+                            echo"<td id='ocupada'></td>";
+                        $estado=0;
+
+                        }
+                    $contador++;}
                 }
             }
                     if($i==2){
                         echo "</tr><tr><td colspan='3'></td>";
                         for($b=0;$b<8;$b++){
-                    foreach($estado_butacas as $butac4){
-                        if($filas[$contador]['ID_BUTACA']== $butac4['ID_BUTACA']){
-                            if($butac4['ESTADO_BUTACA']=='RESERVADA'){
-                            $reserva = true;
-                            }
-                            if($butac4['ESTADO_BUTACA']=='OCUPADA'){
-                            $ocupada = true;
+                    foreach($ocupadas as $ocupada){
+                        if($filas[$contador]['ID_BUTACA']==$ocupada['ID_BUTACA']){
+                            
+                            if($ocupada['ESTADO_BUTACA']=='RESERVADA'){$estado=1;}
+                            if($ocupada['ESTADO_BUTACA']=='OCUPADA'){$estado=2;}
                         }
-                    if($reserva == true){
-                        $contador=$contador+1;
-                        $pedido++;
-                        $b++;
-                        echo "<td id='reservada'></td>";
-                        $reserva=false;
-                    }
-                    if($ocupada == true){
-                        echo "<td id='ocupada'></td>";
-                        $contador=$contador+1;
-                        $pedido++;
-                        $b++;
-                        $ocupada=false;
-                    }
-                    }
                     }
                     if($contador != ($limite-1)){
-                    $contador++;
-                    echo"<td id='libre'><input  type='checkbox' name='butaca".$pedido."' value='".$filas[$contador]['ID_BUTACA']."'></td>";
-                    $pedido++;
-                    }
+                        if($estado==0){
+                        $pedido++;
+                            echo"<td id='libre'><input  type='checkbox' name='butaca".($pedido+1)."' value='".$filas[$contador]['ID_BUTACA']."'></td>";
+                        $estado=0;
+                        
+                        }else if($estado==1){
+                        $pedido++;
+                            echo"<td id='reservada'></td>";
+                        $estado=0;
+
+                        }else if($estado==2){
+                        $pedido++;
+                            echo"<td id='ocupada'></td>";
+                        $estado=0;
+
+                        }
+                    $contador++;}
                 }
             }
                     if($i==3){
                         echo "</tr><tr><td colspan=2></td>";
                         for($b=0;$b<9;$b++){
-                    foreach($estado_butacas as $butac4){
-                        if($filas[$contador]['ID_BUTACA']== $butac4['ID_BUTACA']){
-                            if($butac4['ESTADO_BUTACA']=='RESERVADA'){
-                            $reserva = true;
-                            }
-                            if($butac4['ESTADO_BUTACA']=='OCUPADA'){
-                            $ocupada = true;
+                    foreach($ocupadas as $ocupada){
+                        if($filas[$contador]['ID_BUTACA']==$ocupada['ID_BUTACA']){
+                            
+                            if($ocupada['ESTADO_BUTACA']=='RESERVADA'){$estado=1;}
+                            if($ocupada['ESTADO_BUTACA']=='OCUPADA'){$estado=2;}
                         }
-                    if($reserva == true){
-                        $contador=$contador+1;
-                        $pedido++;
-                        $b++;
-                        echo "<td id='reservada'></td>";
-                        $reserva=false;
-                    }
-                    if($ocupada == true){
-                        echo "<td id='ocupada'></td>";
-                        $contador=$contador+1;
-                        $pedido++;
-                        $b++;
-                        $ocupada=false;
-                    }
-                    }
                     }
                     if($contador != ($limite-1)){
-                    $contador++;
-                    echo"<td id='libre'><input  type='checkbox' name='butaca".$pedido."' value='".$filas[$contador]['ID_BUTACA']."'></td>";
-                    $pedido++;
-                    }
+                        if($estado==0){
+                        $pedido++;
+                            echo"<td id='libre'><input  type='checkbox' name='butaca".($pedido+1)."' value='".$filas[$contador]['ID_BUTACA']."'></td>";
+                        $estado=0;
+                        
+                        }else if($estado==1){
+                        $pedido++;
+                            echo"<td id='reservada'></td>";
+                        $estado=0;
+
+                        }else if($estado==2){
+                        $pedido++;
+                            echo"<td id='ocupada'></td>";
+                        $estado=0;
+
+                        }
+                    $contador++;}
                 }
             }
                     if($i>=4 && $i <7){
                         echo "</tr><tr><td colspan=1></td>";
                         for($b=0;$b<10;$b++){
-                    foreach($estado_butacas as $butac4){
-                        if($filas[$contador]['ID_BUTACA']== $butac4['ID_BUTACA']){
-                            if($butac4['ESTADO_BUTACA']=='RESERVADA'){
-                            $reserva = true;
-                            }
-                            if($butac4['ESTADO_BUTACA']=='OCUPADA'){
-                            $ocupada = true;
+                    foreach($ocupadas as $ocupada){
+                        if($filas[$contador]['ID_BUTACA']==$ocupada['ID_BUTACA']){
+                            
+                            if($ocupada['ESTADO_BUTACA']=='RESERVADA'){$estado=1;}
+                            if($ocupada['ESTADO_BUTACA']=='OCUPADA'){$estado=2;}
                         }
-                    if($reserva == true){
-                        $contador=$contador+1;
-                        $pedido++;
-                        $b++;
-                        echo "<td id='reservada'></td>";
-                        $reserva=false;
-                    }
-                    if($ocupada == true){
-                        echo "<td id='ocupada'></td>";
-                        $contador=$contador+1;
-                        $pedido++;
-                        $b++;
-                        $ocupada=false;
-                    }
-                    }
                     }
                     if($contador != ($limite-1)){
-                    $contador++;
-                    echo"<td id='libre'><input  type='checkbox' name='butaca".$pedido."' value='".$filas[$contador]['ID_BUTACA']."'></td>";
-                    $pedido++;
-                    }
+                        if($estado==0){
+                        $pedido++;
+                            echo"<td id='libre'><input  type='checkbox' name='butaca".($pedido+1)."' value='".$filas[$contador]['ID_BUTACA']."'></td>";
+                        $estado=0;
+                        
+                        }else if($estado==1){
+                        $pedido++;
+                            echo"<td id='reservada'></td>";
+                        $estado=0;
+
+                        }else if($estado==2){
+                        $pedido++;
+                            echo"<td id='ocupada'></td>";
+                        $estado=0;
+
+                        }
+                    $contador++;}
                 }
             }
                     if($i>=7){
                         echo "</tr><tr><td></td>";
                         for($b=0;$b<10;$b++){
-                    foreach($estado_butacas as $butac4){
-                        if($filas[$contador]['ID_BUTACA']== $butac4['ID_BUTACA']){
-                            if($butac4['ESTADO_BUTACA']=='RESERVADA'){
-                            $reserva = true;
-                            }
-                            if($butac4['ESTADO_BUTACA']=='OCUPADA'){
-                            $ocupada = true;
+                    foreach($ocupadas as $ocupada){
+                        if($filas[$contador]['ID_BUTACA']==$ocupada['ID_BUTACA']){
+                            
+                            if($ocupada['ESTADO_BUTACA']=='RESERVADA'){$estado=1;}
+                            if($ocupada['ESTADO_BUTACA']=='OCUPADA'){$estado=2;}
                         }
-                    if($reserva == true){
-                        $contador=$contador+1;
-                        $pedido++;
-                        $b++;
-                        echo "<td id='reservada'></td>";
-                        $reserva=false;
-                    }
-                    if($ocupada == true){
-                        echo "<td id='ocupada'></td>";
-                        $contador=$contador+1;
-                        $pedido++;
-                        $b++;
-                        $ocupada=false;
-                    }
-                    }
                     }
                     if($contador != ($limite-1)){
-                    $contador++;
-                    echo"<td id='libre'><input  type='checkbox' name='butaca".$pedido."' value='".$filas[$contador]['ID_BUTACA']."'></td>";
-                    $pedido++;
-                    }
+                        if($estado==0){
+                        $pedido++;
+                            echo"<td id='libre'><input  type='checkbox' name='butaca".($pedido+1)."' value='".$filas[$contador]['ID_BUTACA']."'></td>";
+                        $estado=0;
+                        
+                        }else if($estado==1){
+                        $pedido++;
+                            echo"<td id='reservada'></td>";
+                        $estado=0;
+
+                        }else if($estado==2){
+                        $pedido++;
+                            echo"<td id='ocupada'></td>";
+                        $estado=0;
+
+                        }
+                    $contador++;}
                 }
             }
         }
@@ -698,35 +645,31 @@ session_start();
         for($i=0;$i<11;$i++){
             echo "<tr>";
                 for($b=0;$b<11;$b++){
-                    foreach($estado_butacas as $butac4){
-                        if($filas[$contador]['ID_BUTACA']== $butac4['ID_BUTACA']){
-                            if($butac4['ESTADO_BUTACA']=='RESERVADA'){
-                            $reserva = true;
-                            }
-                            if($butac4['ESTADO_BUTACA']=='OCUPADA'){
-                            $ocupada = true;
+                    foreach($ocupadas as $ocupada){
+                        if($filas[$contador]['ID_BUTACA']==$ocupada['ID_BUTACA']){
+                            
+                            if($ocupada['ESTADO_BUTACA']=='RESERVADA'){$estado=1;}
+                            if($ocupada['ESTADO_BUTACA']=='OCUPADA'){$estado=2;}
                         }
-                    if($reserva == true){
-                        $contador=$contador+1;
-                        $pedido++;
-                        $b++;
-                        echo "<td id='reservada'></td>";
-                        $reserva=false;
-                    }
-                    if($ocupada == true){
-                        echo "<td id='ocupada'></td>";
-                        $contador=$contador+1;
-                        $pedido++;
-                        $b++;
-                        $ocupada=false;
-                    }
-                    }
                     }
                     if($contador != ($limite-1)){
-                    $contador++;
-                    echo"<td id='libre'><input  type='checkbox' name='butaca".$pedido."' value='".$filas[$contador]['ID_BUTACA']."'></td>";
-                    $pedido++;
-                    }
+                        if($estado==0){
+                        $pedido++;
+                            echo"<td id='libre'><input  type='checkbox' name='butaca".($pedido+1)."' value='".$filas[$contador]['ID_BUTACA']."'></td>";
+                        $estado=0;
+                        
+                        }else if($estado==1){
+                        $pedido++;
+                            echo"<td id='reservada'></td>";
+                        $estado=0;
+
+                        }else if($estado==2){
+                        $pedido++;
+                            echo"<td id='ocupada'></td>";
+                        $estado=0;
+
+                        }
+                    $contador++;}
                 }
             echo "</tr>";
         }
@@ -734,35 +677,31 @@ session_start();
         for($i=0;$i<11;$i++){
             echo "<tr>";
                 for($b=0;$b<11;$b++){
-                    foreach($estado_butacas as $butac4){
-                        if($filas[$contador]['ID_BUTACA']== $butac4['ID_BUTACA']){
-                            if($butac4['ESTADO_BUTACA']=='RESERVADA'){
-                            $reserva = true;
-                            }
-                            if($butac4['ESTADO_BUTACA']=='OCUPADA'){
-                            $ocupada = true;
+                    foreach($ocupadas as $ocupada){
+                        if($filas[$contador]['ID_BUTACA']==$ocupada['ID_BUTACA']){
+                            
+                            if($ocupada['ESTADO_BUTACA']=='RESERVADA'){$estado=1;}
+                            if($ocupada['ESTADO_BUTACA']=='OCUPADA'){$estado=2;}
                         }
-                    if($reserva == true){
-                        $contador=$contador+1;
-                        $pedido++;
-                        $b++;
-                        echo "<td id='reservada'></td>";
-                        $reserva=false;
-                    }
-                    if($ocupada == true){
-                        echo "<td id='ocupada'></td>";
-                        $contador=$contador+1;
-                        $pedido++;
-                        $b++;
-                        $ocupada=false;
-                    }
-                    }
                     }
                     if($contador != ($limite-1)){
-                    $contador++;
-                    echo"<td id='libre'><input  type='checkbox' name='butaca".$pedido."' value='".$filas[$contador]['ID_BUTACA']."'></td>";
-                    $pedido++;
-                    }
+                        if($estado==0){
+                        $pedido++;
+                            echo"<td id='libre'><input  type='checkbox' name='butaca".($pedido+1)."' value='".$filas[$contador]['ID_BUTACA']."'></td>";
+                        $estado=0;
+                        
+                        }else if($estado==1){
+                        $pedido++;
+                            echo"<td id='reservada'></td>";
+                        $estado=0;
+
+                        }else if($estado==2){
+                        $pedido++;
+                            echo"<td id='ocupada'></td>";
+                        $estado=0;
+
+                        }
+                    $contador++;}
                 }
             echo "</tr>";
         }
@@ -771,69 +710,61 @@ session_start();
             if($i==10){
                 echo "<tr><td></td>";
                 for($b=0;$b<9;$b++){
-                    foreach($estado_butacas as $butac4){
-                        if($filas[$contador]['ID_BUTACA']== $butac4['ID_BUTACA']){
-                            if($butac4['ESTADO_BUTACA']=='RESERVADA'){
-                            $reserva = true;
-                            }
-                            if($butac4['ESTADO_BUTACA']=='OCUPADA'){
-                            $ocupada = true;
+                    foreach($ocupadas as $ocupada){
+                        if($filas[$contador]['ID_BUTACA']==$ocupada['ID_BUTACA']){
+                            
+                            if($ocupada['ESTADO_BUTACA']=='RESERVADA'){$estado=1;}
+                            if($ocupada['ESTADO_BUTACA']=='OCUPADA'){$estado=2;}
                         }
-                    if($reserva == true){
-                        $contador=$contador+1;
-                        $pedido++;
-                        $b++;
-                        echo "<td id='reservada'></td>";
-                        $reserva=false;
-                    }
-                    if($ocupada == true){
-                        echo "<td id='ocupada'></td>";
-                        $contador=$contador+1;
-                        $pedido++;
-                        $b++;
-                        $ocupada=false;
-                    }
-                    }
                     }
                     if($contador != ($limite-1)){
-                    $contador++;
-                    echo"<td id='libre'><input  type='checkbox' name='butaca".$pedido."' value='".$filas[$contador]['ID_BUTACA']."'></td>";
-                    $pedido++;
-                    }
+                        if($estado==0){
+                        $pedido++;
+                            echo"<td id='libre'><input  type='checkbox' name='butaca".($pedido+1)."' value='".$filas[$contador]['ID_BUTACA']."'></td>";
+                        $estado=0;
+                        
+                        }else if($estado==1){
+                        $pedido++;
+                            echo"<td id='reservada'></td>";
+                        $estado=0;
+
+                        }else if($estado==2){
+                        $pedido++;
+                            echo"<td id='ocupada'></td>";
+                        $estado=0;
+
+                        }
+                    $contador++;}
                 }
             echo "<td></td></tr>";
             }else{
             echo "<tr>";
                 for($b=0;$b<11;$b++){
-                    foreach($estado_butacas as $butac4){
-                        if($filas[$contador]['ID_BUTACA']== $butac4['ID_BUTACA']){
-                            if($butac4['ESTADO_BUTACA']=='RESERVADA'){
-                            $reserva = true;
-                            }
-                            if($butac4['ESTADO_BUTACA']=='OCUPADA'){
-                            $ocupada = true;
+                    foreach($ocupadas as $ocupada){
+                        if($filas[$contador]['ID_BUTACA']==$ocupada['ID_BUTACA']){
+                            
+                            if($ocupada['ESTADO_BUTACA']=='RESERVADA'){$estado=1;}
+                            if($ocupada['ESTADO_BUTACA']=='OCUPADA'){$estado=2;}
                         }
-                    if($reserva == true){
-                        $contador=$contador+1;
-                        $pedido++;
-                        $b++;
-                        echo "<td id='reservada'></td>";
-                        $reserva=false;
-                    }
-                    if($ocupada == true){
-                        echo "<td id='ocupada'></td>";
-                        $contador=$contador+1;
-                        $pedido++;
-                        $b++;
-                        $ocupada=false;
-                    }
-                    }
                     }
                     if($contador != ($limite-1)){
-                    $contador++;
-                    echo"<td id='libre'><input  type='checkbox' name='butaca".$pedido."' value='".$filas[$contador]['ID_BUTACA']."'></td>";
-                    $pedido++;
-                    }
+                        if($estado==0){
+                        $pedido++;
+                            echo"<td id='libre'><input  type='checkbox' name='butaca".($pedido+1)."' value='".$filas[$contador]['ID_BUTACA']."'></td>";
+                        $estado=0;
+                        
+                        }else if($estado==1){
+                        $pedido++;
+                            echo"<td id='reservada'></td>";
+                        $estado=0;
+
+                        }else if($estado==2){
+                        $pedido++;
+                            echo"<td id='ocupada'></td>";
+                        $estado=0;
+
+                        }
+                    $contador++;}
                 }
             echo "</tr>";
             }
@@ -843,69 +774,125 @@ session_start();
             if($i==10){
                 echo "<tr><td></td>";
                 for($b=0;$b<9;$b++){
-                    foreach($estado_butacas as $butac4){
-                        if($filas[$contador]['ID_BUTACA']== $butac4['ID_BUTACA']){
-                            if($butac4['ESTADO_BUTACA']=='RESERVADA'){
-                            $reserva = true;
-                            }
-                            if($butac4['ESTADO_BUTACA']=='OCUPADA'){
-                            $ocupada = true;
+                    foreach($ocupadas as $ocupada){
+                        if($filas[$contador]['ID_BUTACA']==$ocupada['ID_BUTACA']){
+                            
+                            if($ocupada['ESTADO_BUTACA']=='RESERVADA'){$estado=1;}
+                            if($ocupada['ESTADO_BUTACA']=='OCUPADA'){$estado=2;}
                         }
-                    if($reserva == true){
-                        $contador=$contador+1;
-                        $pedido++;
-                        $b++;
-                        echo "<td id='reservada'></td>";
-                        $reserva=false;
-                    }
-                    if($ocupada == true){
-                        echo "<td id='ocupada'></td>";
-                        $contador=$contador+1;
-                        $pedido++;
-                        $b++;
-                        $ocupada=false;
-                    }
-                    }
                     }
                     if($contador != ($limite-1)){
-                    $contador++;
-                    echo"<td id='libre'><input  type='checkbox' name='butaca".$pedido."' value='".$filas[$contador]['ID_BUTACA']."'></td>";
-                    $pedido++;
-                    }
+                        if($estado==0){
+                        $pedido++;
+                            echo"<td id='libre'><input  type='checkbox' name='butaca".($pedido+1)."' value='".$filas[$contador]['ID_BUTACA']."'></td>";
+                        $estado=0;
+                        
+                        }else if($estado==1){
+                        $pedido++;
+                            echo"<td id='reservada'></td>";
+                        $estado=0;
+
+                        }else if($estado==2){
+                        $pedido++;
+                            echo"<td id='ocupada'></td>";
+                        $estado=0;
+
+                        }
+                    $contador++;}
                 }
             echo "<td></td></tr>";
             }else{
             echo "<tr>";
                 for($b=0;$b<11;$b++){
-                    foreach($estado_butacas as $butac4){
-                        if($filas[$contador]['ID_BUTACA']== $butac4['ID_BUTACA']){
-                            if($butac4['ESTADO_BUTACA']=='RESERVADA'){
-                            $reserva = true;
-                            }
-                            if($butac4['ESTADO_BUTACA']=='OCUPADA'){
-                            $ocupada = true;
+                    foreach($ocupadas as $ocupada){
+                        if($filas[$contador]['ID_BUTACA']==$ocupada['ID_BUTACA']){
+                            
+                            if($ocupada['ESTADO_BUTACA']=='RESERVADA'){$estado=1;}
+                            if($ocupada['ESTADO_BUTACA']=='OCUPADA'){$estado=2;}
                         }
-                    if($reserva == true){
-                        $contador=$contador+1;
-                        $pedido++;
-                        $b++;
-                        echo "<td id='reservada'></td>";
-                        $reserva=false;
-                    }
-                    if($ocupada == true){
-                        echo "<td id='ocupada'></td>";
-                        $contador=$contador+1;
-                        $pedido++;
-                        $b++;
-                        $ocupada=false;
-                    }
-                    }
                     }
                     if($contador != ($limite-1)){
-                    $contador++;
-                    echo"<td id='libre'><input  type='checkbox' name='butaca".$pedido."' value='".$filas[$contador]['ID_BUTACA']."'></td>";
-                    $pedido++;
+                        if($estado==0){
+                        $pedido++;
+                            echo"<td id='libre'><input  type='checkbox' name='butaca".($pedido+1)."' value='".$filas[$contador]['ID_BUTACA']."'></td>";
+                        $estado=0;
+                        
+                        }else if($estado==1){
+                        $pedido++;
+                            echo"<td id='reservada'></td>";
+                        $estado=0;
+
+                        }else if($estado==2){
+                        $pedido++;
+                            echo"<td id='ocupada'></td>";
+                        $estado=0;
+
+                        }
+                    $contador++;}
+                }
+            echo "</tr>";
+            }
+        }
+        echo"</table></td><td><table id='D'>";
+        for($i=0;$i<11;$i++){
+            if($i==10){
+                echo "<tr><td></td>";
+                for($b=0;$b<9;$b++){
+                    foreach($ocupadas as $ocupada){
+                        if($filas[$contador]['ID_BUTACA']==$ocupada['ID_BUTACA']){
+                            
+                            if($ocupada['ESTADO_BUTACA']=='RESERVADA'){$estado=1;}
+                            if($ocupada['ESTADO_BUTACA']=='OCUPADA'){$estado=2;}
+                        }
                     }
+                    if($contador != ($limite-1)){
+                        if($estado==0){
+                        $pedido++;
+                            echo"<td id='libre'><input  type='checkbox' name='butaca".($pedido+1)."' value='".$filas[$contador]['ID_BUTACA']."'></td>";
+                        $estado=0;
+                        
+                        }else if($estado==1){
+                        $pedido++;
+                            echo"<td id='reservada'></td>";
+                        $estado=0;
+
+                        }else if($estado==2){
+                        $pedido++;
+                            echo"<td id='ocupada'></td>";
+                        $estado=0;
+
+                        }
+                    $contador++;}
+                }
+            echo "<td></td></tr>";
+            }else{
+            echo "<tr>";
+                for($b=0;$b<11;$b++){
+                    foreach($ocupadas as $ocupada){
+                        if($filas[$contador]['ID_BUTACA']==$ocupada['ID_BUTACA']){
+                            
+                            if($ocupada['ESTADO_BUTACA']=='RESERVADA'){$estado=1;}
+                            if($ocupada['ESTADO_BUTACA']=='OCUPADA'){$estado=2;}
+                        }
+                    }
+                    if($contador != ($limite-1)){
+                        if($estado==0){
+                        $pedido++;
+                            echo"<td id='libre'><input  type='checkbox' name='butaca".($pedido+1)."' value='".$filas[$contador]['ID_BUTACA']."'></td>";
+                        $estado=0;
+                        
+                        }else if($estado==1){
+                        $pedido++;
+                            echo"<td id='reservada'></td>";
+                        $estado=0;
+
+                        }else if($estado==2){
+                        $pedido++;
+                            echo"<td id='ocupada'></td>";
+                        $estado=0;
+
+                        }
+                    $contador++;}
                 }
             echo "</tr>";
             }
@@ -914,35 +901,31 @@ session_start();
         for($i=0;$i<11;$i++){
             echo "<tr>";
                 for($b=0;$b<11;$b++){
-                    foreach($estado_butacas as $butac4){
-                        if($filas[$contador]['ID_BUTACA']== $butac4['ID_BUTACA']){
-                            if($butac4['ESTADO_BUTACA']=='RESERVADA'){
-                            $reserva = true;
-                            }
-                            if($butac4['ESTADO_BUTACA']=='OCUPADA'){
-                            $ocupada = true;
+                    foreach($ocupadas as $ocupada){
+                        if($filas[$contador]['ID_BUTACA']==$ocupada['ID_BUTACA']){
+                            
+                            if($ocupada['ESTADO_BUTACA']=='RESERVADA'){$estado=1;}
+                            if($ocupada['ESTADO_BUTACA']=='OCUPADA'){$estado=2;}
                         }
-                    if($reserva == true){
-                        $contador=$contador+1;
-                        $pedido++;
-                        $b++;
-                        echo "<td id='reservada'></td>";
-                        $reserva=false;
-                    }
-                    if($ocupada == true){
-                        echo "<td id='ocupada'></td>";
-                        $contador=$contador+1;
-                        $pedido++;
-                        $b++;
-                        $ocupada=false;
-                    }
-                    }
                     }
                     if($contador != ($limite-1)){
-                    $contador++;
-                    echo"<td id='libre'><input  type='checkbox' name='butaca".$pedido."' value='".$filas[$contador]['ID_BUTACA']."'></td>";
-                    $pedido++;
-                    }
+                        if($estado==0){
+                        $pedido++;
+                            echo"<td id='libre'><input  type='checkbox' name='butaca".($pedido+1)."' value='".$filas[$contador]['ID_BUTACA']."'></td>";
+                        $estado=0;
+                        
+                        }else if($estado==1){
+                        $pedido++;
+                            echo"<td id='reservada'></td>";
+                        $estado=0;
+
+                        }else if($estado==2){
+                        $pedido++;
+                            echo"<td id='ocupada'></td>";
+                        $estado=0;
+
+                        }
+                    $contador++;}
                 }
             echo "</tr>";
         }
@@ -951,205 +934,181 @@ session_start();
                     if($i==0){
                         echo "<tr><td colspan=6></td>";
                         for($b=0;$b<5;$b++){
-                    foreach($estado_butacas as $butac4){
-                        if($filas[$contador]['ID_BUTACA']== $butac4['ID_BUTACA']){
-                            if($butac4['ESTADO_BUTACA']=='RESERVADA'){
-                            $reserva = true;
-                            }
-                            if($butac4['ESTADO_BUTACA']=='OCUPADA'){
-                            $ocupada = true;
+                    foreach($ocupadas as $ocupada){
+                        if($filas[$contador]['ID_BUTACA']==$ocupada['ID_BUTACA']){
+                            
+                            if($ocupada['ESTADO_BUTACA']=='RESERVADA'){$estado=1;}
+                            if($ocupada['ESTADO_BUTACA']=='OCUPADA'){$estado=2;}
                         }
-                    if($reserva == true){
-                        $contador=$contador+1;
-                        $pedido++;
-                        $b++;
-                        echo "<td id='reservada'></td>";
-                        $reserva=false;
-                    }
-                    if($ocupada == true){
-                        echo "<td id='ocupada'></td>";
-                        $contador=$contador+1;
-                        $pedido++;
-                        $b++;
-                        $ocupada=false;
-                    }
-                    }
                     }
                     if($contador != ($limite-1)){
-                    $contador++;
-                    echo"<td id='libre'><input  type='checkbox' name='butaca".$pedido."' value='".$filas[$contador]['ID_BUTACA']."'></td>";
-                    $pedido++;
-                    }
+                        if($estado==0){
+                        $pedido++;
+                            echo"<td id='libre'><input  type='checkbox' name='butaca".($pedido+1)."' value='".$filas[$contador]['ID_BUTACA']."'></td>";
+                        $estado=0;
+                        
+                        }else if($estado==1){
+                        $pedido++;
+                            echo"<td id='reservada'></td>";
+                        $estado=0;
+
+                        }else if($estado==2){
+                        $pedido++;
+                            echo"<td id='ocupada'></td>";
+                        $estado=0;
+
+                        }
+                    $contador++;}
                 }
             }
                     if($i==1){
                         echo "</tr><tr><td colspan=4></td>";
                         for($b=0;$b<7;$b++){
-                    foreach($estado_butacas as $butac4){
-                        if($filas[$contador]['ID_BUTACA']== $butac4['ID_BUTACA']){
-                            if($butac4['ESTADO_BUTACA']=='RESERVADA'){
-                            $reserva = true;
-                            }
-                            if($butac4['ESTADO_BUTACA']=='OCUPADA'){
-                            $ocupada = true;
+                    foreach($ocupadas as $ocupada){
+                        if($filas[$contador]['ID_BUTACA']==$ocupada['ID_BUTACA']){
+                            
+                            if($ocupada['ESTADO_BUTACA']=='RESERVADA'){$estado=1;}
+                            if($ocupada['ESTADO_BUTACA']=='OCUPADA'){$estado=2;}
                         }
-                    if($reserva == true){
-                        $contador=$contador+1;
-                        $pedido++;
-                        $b++;
-                        echo "<td id='reservada'></td>";
-                        $reserva=false;
-                    }
-                    if($ocupada == true){
-                        echo "<td id='ocupada'></td>";
-                        $contador=$contador+1;
-                        $pedido++;
-                        $b++;
-                        $ocupada=false;
-                    }
-                    }
                     }
                     if($contador != ($limite-1)){
-                    $contador++;
-                    echo"<td id='libre'><input  type='checkbox' name='butaca".$pedido."' value='".$filas[$contador]['ID_BUTACA']."'></td>";
-                    $pedido++;
-                    }
+                        if($estado==0){
+                        $pedido++;
+                            echo"<td id='libre'><input  type='checkbox' name='butaca".($pedido+1)."' value='".$filas[$contador]['ID_BUTACA']."'></td>";
+                        $estado=0;
+                        
+                        }else if($estado==1){
+                        $pedido++;
+                            echo"<td id='reservada'></td>";
+                        $estado=0;
+
+                        }else if($estado==2){
+                        $pedido++;
+                            echo"<td id='ocupada'></td>";
+                        $estado=0;
+
+                        }
+                    $contador++;}
                 }
             }
                     if($i==2){
                         echo "</tr><tr><td colspan='3'></td>";
                         for($b=0;$b<8;$b++){
-                    foreach($estado_butacas as $butac4){
-                        if($filas[$contador]['ID_BUTACA']== $butac4['ID_BUTACA']){
-                            if($butac4['ESTADO_BUTACA']=='RESERVADA'){
-                            $reserva = true;
-                            }
-                            if($butac4['ESTADO_BUTACA']=='OCUPADA'){
-                            $ocupada = true;
+                    foreach($ocupadas as $ocupada){
+                        if($filas[$contador]['ID_BUTACA']==$ocupada['ID_BUTACA']){
+                            
+                            if($ocupada['ESTADO_BUTACA']=='RESERVADA'){$estado=1;}
+                            if($ocupada['ESTADO_BUTACA']=='OCUPADA'){$estado=2;}
                         }
-                    if($reserva == true){
-                        $contador=$contador+1;
-                        $pedido++;
-                        $b++;
-                        echo "<td id='reservada'></td>";
-                        $reserva=false;
-                    }
-                    if($ocupada == true){
-                        echo "<td id='ocupada'></td>";
-                        $contador=$contador+1;
-                        $pedido++;
-                        $b++;
-                        $ocupada=false;
-                    }
-                    }
                     }
                     if($contador != ($limite-1)){
-                    $contador++;
-                    echo"<td id='libre'><input  type='checkbox' name='butaca".$pedido."' value='".$filas[$contador]['ID_BUTACA']."'></td>";
-                    $pedido++;
-                    }
+                        if($estado==0){
+                        $pedido++;
+                            echo"<td id='libre'><input  type='checkbox' name='butaca".($pedido+1)."' value='".$filas[$contador]['ID_BUTACA']."'></td>";
+                        $estado=0;
+                        
+                        }else if($estado==1){
+                        $pedido++;
+                            echo"<td id='reservada'></td>";
+                        $estado=0;
+
+                        }else if($estado==2){
+                        $pedido++;
+                            echo"<td id='ocupada'></td>";
+                        $estado=0;
+
+                        }
+                    $contador++;}
                 }
             }
                     if($i==3){
                         echo "</tr><tr><td colspan=2></td>";
                         for($b=0;$b<9;$b++){
-                    foreach($estado_butacas as $butac4){
-                        if($filas[$contador]['ID_BUTACA']== $butac4['ID_BUTACA']){
-                            if($butac4['ESTADO_BUTACA']=='RESERVADA'){
-                            $reserva = true;
-                            }
-                            if($butac4['ESTADO_BUTACA']=='OCUPADA'){
-                            $ocupada = true;
+                    foreach($ocupadas as $ocupada){
+                        if($filas[$contador]['ID_BUTACA']==$ocupada['ID_BUTACA']){
+                            
+                            if($ocupada['ESTADO_BUTACA']=='RESERVADA'){$estado=1;}
+                            if($ocupada['ESTADO_BUTACA']=='OCUPADA'){$estado=2;}
                         }
-                    if($reserva == true){
-                        $contador=$contador+1;
-                        $pedido++;
-                        $b++;
-                        echo "<td id='reservada'></td>";
-                        $reserva=false;
-                    }
-                    if($ocupada == true){
-                        echo "<td id='ocupada'></td>";
-                        $contador=$contador+1;
-                        $pedido++;
-                        $b++;
-                        $ocupada=false;
-                    }
-                    }
                     }
                     if($contador != ($limite-1)){
-                    $contador++;
-                    echo"<td id='libre'><input  type='checkbox' name='butaca".$pedido."' value='".$filas[$contador]['ID_BUTACA']."'></td>";
-                    $pedido++;
-                    }
+                        if($estado==0){
+                        $pedido++;
+                            echo"<td id='libre'><input  type='checkbox' name='butaca".($pedido+1)."' value='".$filas[$contador]['ID_BUTACA']."'></td>";
+                        $estado=0;
+                        
+                        }else if($estado==1){
+                        $pedido++;
+                            echo"<td id='reservada'></td>";
+                        $estado=0;
+
+                        }else if($estado==2){
+                        $pedido++;
+                            echo"<td id='ocupada'></td>";
+                        $estado=0;
+
+                        }
+                    $contador++;}
                 }
             }
                     if($i>=4 && $i <7){
                         echo "</tr><tr><td colspan=1></td>";
                         for($b=0;$b<10;$b++){
-                    foreach($estado_butacas as $butac4){
-                        if($filas[$contador]['ID_BUTACA']== $butac4['ID_BUTACA']){
-                            if($butac4['ESTADO_BUTACA']=='RESERVADA'){
-                            $reserva = true;
-                            }
-                            if($butac4['ESTADO_BUTACA']=='OCUPADA'){
-                            $ocupada = true;
+                    foreach($ocupadas as $ocupada){
+                        if($filas[$contador]['ID_BUTACA']==$ocupada['ID_BUTACA']){
+                            
+                            if($ocupada['ESTADO_BUTACA']=='RESERVADA'){$estado=1;}
+                            if($ocupada['ESTADO_BUTACA']=='OCUPADA'){$estado=2;}
                         }
-                    if($reserva == true){
-                        $contador=$contador+1;
-                        $pedido++;
-                        $b++;
-                        echo "<td id='reservada'></td>";
-                        $reserva=false;
-                    }
-                    if($ocupada == true){
-                        echo "<td id='ocupada'></td>";
-                        $contador=$contador+1;
-                        $pedido++;
-                        $b++;
-                        $ocupada=false;
-                    }
-                    }
                     }
                     if($contador != ($limite-1)){
-                    $contador++;
-                    echo"<td id='libre'><input  type='checkbox' name='butaca".$pedido."' value='".$filas[$contador]['ID_BUTACA']."'></td>";
-                    $pedido++;
-                    }
+                        if($estado==0){
+                        $pedido++;
+                            echo"<td id='libre'><input  type='checkbox' name='butaca".($pedido+1)."' value='".$filas[$contador]['ID_BUTACA']."'></td>";
+                        $estado=0;
+                        
+                        }else if($estado==1){
+                        $pedido++;
+                            echo"<td id='reservada'></td>";
+                        $estado=0;
+
+                        }else if($estado==2){
+                        $pedido++;
+                            echo"<td id='ocupada'></td>";
+                        $estado=0;
+
+                        }
+                    $contador++;}
                 }
             }
                     if($i>=7){
                         echo "</tr><tr><td></td>";
                         for($b=0;$b<10;$b++){
-                    foreach($estado_butacas as $butac4){
-                        if($filas[$contador]['ID_BUTACA']== $butac4['ID_BUTACA']){
-                            if($butac4['ESTADO_BUTACA']=='RESERVADA'){
-                            $reserva = true;
-                            }
-                            if($butac4['ESTADO_BUTACA']=='OCUPADA'){
-                            $ocupada = true;
+                    foreach($ocupadas as $ocupada){
+                        if($filas[$contador]['ID_BUTACA']==$ocupada['ID_BUTACA']){
+                            
+                            if($ocupada['ESTADO_BUTACA']=='RESERVADA'){$estado=1;}
+                            if($ocupada['ESTADO_BUTACA']=='OCUPADA'){$estado=2;}
                         }
-                    if($reserva == true){
-                        $contador=$contador+1;
-                        $pedido++;
-                        $b++;
-                        echo "<td id='reservada'></td>";
-                        $reserva=false;
-                    }
-                    if($ocupada == true){
-                        echo "<td id='ocupada'></td>";
-                        $contador=$contador+1;
-                        $pedido++;
-                        $b++;
-                        $ocupada=false;
-                    }
-                    }
                     }
                     if($contador != ($limite-1)){
-                    $contador++;
-                    echo"<td id='libre'><input  type='checkbox' name='butaca".$pedido."' value='".$filas[$contador]['ID_BUTACA']."'></td>";
-                    $pedido++;
-                    }
+                        if($estado==0){
+                        $pedido++;
+                            echo"<td id='libre'><input  type='checkbox' name='butaca".($pedido+1)."' value='".$filas[$contador]['ID_BUTACA']."'></td>";
+                        $estado=0;
+                        
+                        }else if($estado==1){
+                        $pedido++;
+                            echo"<td id='reservada'></td>";
+                        $estado=0;
+
+                        }else if($estado==2){
+                        $pedido++;
+                            echo"<td id='ocupada'></td>";
+                        $estado=0;
+
+                        }
+                    $contador++;}
                 }
             }
         }
@@ -1161,35 +1120,31 @@ session_start();
         for($i=0;$i<9;$i++){
             echo"<tr>";
                 for($b=0; $b<26; $b++){
-                    foreach($estado_butacas as $butac4){
-                        if($filas[$contador]['ID_BUTACA']== $butac4['ID_BUTACA']){
-                            if($butac4['ESTADO_BUTACA']=='RESERVADA'){
-                            $reserva = true;
-                            }
-                            if($butac4['ESTADO_BUTACA']=='OCUPADA'){
-                            $ocupada = true;
+                    foreach($ocupadas as $ocupada){
+                        if($filas[$contador]['ID_BUTACA']==$ocupada['ID_BUTACA']){
+                            
+                            if($ocupada['ESTADO_BUTACA']=='RESERVADA'){$estado=1;}
+                            if($ocupada['ESTADO_BUTACA']=='OCUPADA'){$estado=2;}
                         }
-                    if($reserva == true){
-                        $contador=$contador+1;
-                        $pedido++;
-                        $b++;
-                        echo "<td id='reservada'></td>";
-                        $reserva=false;
-                    }
-                    if($ocupada == true){
-                        echo "<td id='ocupada'></td>";
-                        $contador=$contador+1;
-                        $pedido++;
-                        $b++;
-                        $ocupada=false;
-                    }
-                    }
                     }
                     if($contador != ($limite-1)){
-                    $contador++;
-                    echo"<td id='libre'><input  type='checkbox' name='butaca".$pedido."' value='".$filas[$contador]['ID_BUTACA']."'></td>";
-                    $pedido++;
-                    }
+                        if($estado==0){
+                        $pedido++;
+                            echo"<td id='libre'><input  type='checkbox' name='butaca".($pedido+1)."' value='".$filas[$contador]['ID_BUTACA']."'></td>";
+                        $estado=0;
+                        
+                        }else if($estado==1){
+                        $pedido++;
+                            echo"<td id='reservada'></td>";
+                        $estado=0;
+
+                        }else if($estado==2){
+                        $pedido++;
+                            echo"<td id='ocupada'></td>";
+                        $estado=0;
+
+                        }
+                    $contador++;}
                 }
             echo "</tr>";
         }
@@ -1202,35 +1157,31 @@ session_start();
                             echo"<td colspan=11 style=' background-color:black;'></td>";
                             $b=17;
                         }
-                    }foreach($estado_butacas as $butac4){
-                        if($filas[$contador]['ID_BUTACA']== $butac4['ID_BUTACA']){
-                            if($butac4['ESTADO_BUTACA']=='RESERVADA'){
-                            $reserva = true;
-                            }
-                            if($butac4['ESTADO_BUTACA']=='OCUPADA'){
-                            $ocupada = true;
+                    }foreach($ocupadas as $ocupada){
+                        if($filas[$contador]['ID_BUTACA']==$ocupada['ID_BUTACA']){
+                            
+                            if($ocupada['ESTADO_BUTACA']=='RESERVADA'){$estado=1;}
+                            if($ocupada['ESTADO_BUTACA']=='OCUPADA'){$estado=2;}
                         }
-                    if($reserva == true){
-                        $contador=$contador+1;
-                        $pedido++;
-                        $b++;
-                        echo "<td id='reservada'></td>";
-                        $reserva=false;
-                    }
-                    if($ocupada == true){
-                        echo "<td id='ocupada'></td>";
-                        $contador=$contador+1;
-                        $pedido++;
-                        $b++;
-                        $ocupada=false;
-                    }
-                    }
                     }
                     if($contador != ($limite-1)){
-                    $contador++;
-                    echo"<td id='libre'><input  type='checkbox' name='butaca".$pedido."' value='".$filas[$contador]['ID_BUTACA']."'></td>";
-                    $pedido++;
-                    }
+                        if($estado==0){
+                        $pedido++;
+                            echo"<td id='libre'><input  type='checkbox' name='butaca".($pedido+1)."' value='".$filas[$contador]['ID_BUTACA']."'></td>";
+                        $estado=0;
+                        
+                        }else if($estado==1){
+                        $pedido++;
+                            echo"<td id='reservada'></td>";
+                        $estado=0;
+
+                        }else if($estado==2){
+                        $pedido++;
+                            echo"<td id='ocupada'></td>";
+                        $estado=0;
+
+                        }
+                    $contador++;}
                 }
                 echo "</tr>";
         }
@@ -1250,9 +1201,7 @@ session_start();
                     }
                     }
                     if($contador != ($limite-1)){
-                    $contador++;
-                    echo"<td id='libre'><input  type='checkbox' name='butaca".$pedido."' value='".$filas[$contador]['ID_BUTACA']."'></td>";
-                    $pedido++;
+                    echo"<td id='libre'><input  type='checkbox' name='butaca".($pedido+1)."' value='".$filas[$contador]['ID_BUTACA']."'></td>";
                     }
                 }
             echo "</tr>";
@@ -1268,35 +1217,31 @@ session_start();
         for($i=0;$i<9;$i++){
             echo"<tr>";
                 for($b=0; $b<26; $b++){
-                    foreach($estado_butacas as $butac4){
-                        if($filas[$contador]['ID_BUTACA']== $butac4['ID_BUTACA']){
-                            if($butac4['ESTADO_BUTACA']=='RESERVADA'){
-                            $reserva = true;
-                            }
-                            if($butac4['ESTADO_BUTACA']=='OCUPADA'){
-                            $ocupada = true;
+                    foreach($ocupadas as $ocupada){
+                        if($filas[$contador]['ID_BUTACA']==$ocupada['ID_BUTACA']){
+                            
+                            if($ocupada['ESTADO_BUTACA']=='RESERVADA'){$estado=1;}
+                            if($ocupada['ESTADO_BUTACA']=='OCUPADA'){$estado=2;}
                         }
-                    if($reserva == true){
-                        $contador=$contador+1;
-                        $pedido++;
-                        $b++;
-                        echo "<td id='reservada'></td>";
-                        $reserva=false;
-                    }
-                    if($ocupada == true){
-                        echo "<td id='ocupada'></td>";
-                        $contador=$contador+1;
-                        $pedido++;
-                        $b++;
-                        $ocupada=false;
-                    }
-                    }
                     }
                     if($contador != ($limite-1)){
-                    $contador++;
-                    echo"<td id='libre'><input  type='checkbox' name='butaca".$pedido."' value='".$filas[$contador]['ID_BUTACA']."'></td>";
-                    $pedido++;
-                    }
+                        if($estado==0){
+                        $pedido++;
+                            echo"<td id='libre'><input  type='checkbox' name='butaca".($pedido+1)."' value='".$filas[$contador]['ID_BUTACA']."'></td>";
+                        $estado=0;
+                        
+                        }else if($estado==1){
+                        $pedido++;
+                            echo"<td id='reservada'></td>";
+                        $estado=0;
+
+                        }else if($estado==2){
+                        $pedido++;
+                            echo"<td id='ocupada'></td>";
+                        $estado=0;
+
+                        }
+                    $contador++;}
                 }
             echo "</tr>";
         }
@@ -1309,35 +1254,31 @@ session_start();
                             echo"<td colspan=11 style=' background-color:black;'></td>";
                             $b=17;
                         }
-                    }foreach($estado_butacas as $butac4){
-                        if($filas[$contador]['ID_BUTACA']== $butac4['ID_BUTACA']){
-                            if($butac4['ESTADO_BUTACA']=='RESERVADA'){
-                            $reserva = true;
-                            }
-                            if($butac4['ESTADO_BUTACA']=='OCUPADA'){
-                            $ocupada = true;
+                    }foreach($ocupadas as $ocupada){
+                        if($filas[$contador]['ID_BUTACA']==$ocupada['ID_BUTACA']){
+                            
+                            if($ocupada['ESTADO_BUTACA']=='RESERVADA'){$estado=1;}
+                            if($ocupada['ESTADO_BUTACA']=='OCUPADA'){$estado=2;}
                         }
-                    if($reserva == true){
-                        $contador=$contador+1;
-                        $pedido++;
-                        $b++;
-                        echo "<td id='reservada'></td>";
-                        $reserva=false;
-                    }
-                    if($ocupada == true){
-                        echo "<td id='ocupada'></td>";
-                        $contador=$contador+1;
-                        $pedido++;
-                        $b++;
-                        $ocupada=false;
-                    }
-                    }
                     }
                     if($contador != ($limite-1)){
-                    $contador++;
-                    echo"<td id='libre'><input  type='checkbox' name='butaca".$pedido."' value='".$filas[$contador]['ID_BUTACA']."'></td>";
-                    $pedido++;
-                    }
+                        if($estado==0){
+                        $pedido++;
+                            echo"<td id='libre'><input  type='checkbox' name='butaca".($pedido+1)."' value='".$filas[$contador]['ID_BUTACA']."'></td>";
+                        $estado=0;
+                        
+                        }else if($estado==1){
+                        $pedido++;
+                            echo"<td id='reservada'></td>";
+                        $estado=0;
+
+                        }else if($estado==2){
+                        $pedido++;
+                            echo"<td id='ocupada'></td>";
+                        $estado=0;
+
+                        }
+                    $contador++;}
                 }
                 echo "</tr>";
         }
@@ -1345,35 +1286,31 @@ session_start();
         for($i=0;$i<9;$i++){
             echo"<tr>";
                 for($b=0; $b<26; $b++){
-                    foreach($estado_butacas as $butac4){
-                        if($filas[$contador]['ID_BUTACA']== $butac4['ID_BUTACA']){
-                            if($butac4['ESTADO_BUTACA']=='RESERVADA'){
-                            $reserva = true;
-                            }
-                            if($butac4['ESTADO_BUTACA']=='OCUPADA'){
-                            $ocupada = true;
+                    foreach($ocupadas as $ocupada){
+                        if($filas[$contador]['ID_BUTACA']==$ocupada['ID_BUTACA']){
+                            
+                            if($ocupada['ESTADO_BUTACA']=='RESERVADA'){$estado=1;}
+                            if($ocupada['ESTADO_BUTACA']=='OCUPADA'){$estado=2;}
                         }
-                    if($reserva == true){
-                        $contador=$contador+1;
-                        $pedido++;
-                        $b++;
-                        echo "<td id='reservada'></td>";
-                        $reserva=false;
-                    }
-                    if($ocupada == true){
-                        echo "<td id='ocupada'></td>";
-                        $contador=$contador+1;
-                        $pedido++;
-                        $b++;
-                        $ocupada=false;
-                    }
-                    }
                     }
                     if($contador != ($limite-1)){
-                    $contador++;
-                    echo"<td id='libre'><input  type='checkbox' name='butaca".$pedido."' value='".$filas[$contador]['ID_BUTACA']."'></td>";
-                    $pedido++;
-                    }
+                        if($estado==0){
+                        $pedido++;
+                            echo"<td id='libre'><input  type='checkbox' name='butaca".($pedido+1)."' value='".$filas[$contador]['ID_BUTACA']."'></td>";
+                        $estado=0;
+                        
+                        }else if($estado==1){
+                        $pedido++;
+                            echo"<td id='reservada'></td>";
+                        $estado=0;
+
+                        }else if($estado==2){
+                        $pedido++;
+                            echo"<td id='ocupada'></td>";
+                        $estado=0;
+
+                        }
+                    $contador++;}
                 }
             echo "</tr>";
         }
@@ -1385,35 +1322,31 @@ session_start();
         for($i=0;$i<6;$i++){
             echo "<tr>";
                 for($b=0; $b<3; $b++){
-                    foreach($estado_butacas as $butac4){
-                        if($filas[$contador]['ID_BUTACA']== $butac4['ID_BUTACA']){
-                            if($butac4['ESTADO_BUTACA']=='RESERVADA'){
-                            $reserva = true;
-                            }
-                            if($butac4['ESTADO_BUTACA']=='OCUPADA'){
-                            $ocupada = true;
+                    foreach($ocupadas as $ocupada){
+                        if($filas[$contador]['ID_BUTACA']==$ocupada['ID_BUTACA']){
+                            
+                            if($ocupada['ESTADO_BUTACA']=='RESERVADA'){$estado=1;}
+                            if($ocupada['ESTADO_BUTACA']=='OCUPADA'){$estado=2;}
                         }
-                    if($reserva == true){
-                        $contador=$contador+1;
-                        $pedido++;
-                        $b++;
-                        echo "<td id='reservada'></td>";
-                        $reserva=false;
-                    }
-                    if($ocupada == true){
-                        echo "<td id='ocupada'></td>";
-                        $contador=$contador+1;
-                        $pedido++;
-                        $b++;
-                        $ocupada=false;
-                    }
-                    }
                     }
                     if($contador != ($limite-1)){
-                    $contador++;
-                    echo"<td id='libre'><input  type='checkbox' name='butaca".$pedido."' value='".$filas[$contador]['ID_BUTACA']."'></td>";
-                    $pedido++;
-                    }
+                        if($estado==0){
+                        $pedido++;
+                            echo"<td id='libre'><input  type='checkbox' name='butaca".($pedido+1)."' value='".$filas[$contador]['ID_BUTACA']."'></td>";
+                        $estado=0;
+                        
+                        }else if($estado==1){
+                        $pedido++;
+                            echo"<td id='reservada'></td>";
+                        $estado=0;
+
+                        }else if($estado==2){
+                        $pedido++;
+                            echo"<td id='ocupada'></td>";
+                        $estado=0;
+
+                        }
+                    $contador++;}
                 }
             echo "</tr>";
         }
@@ -1423,267 +1356,235 @@ session_start();
                 if($i==0){
                     echo"<td></td>";
                     for($b=0; $b<4; $b++){
-                    foreach($estado_butacas as $butac4){
-                        if($filas[$contador]['ID_BUTACA']== $butac4['ID_BUTACA']){
-                            if($butac4['ESTADO_BUTACA']=='RESERVADA'){
-                            $reserva = true;
-                            }
-                            if($butac4['ESTADO_BUTACA']=='OCUPADA'){
-                            $ocupada = true;
+                    foreach($ocupadas as $ocupada){
+                        if($filas[$contador]['ID_BUTACA']==$ocupada['ID_BUTACA']){
+                            
+                            if($ocupada['ESTADO_BUTACA']=='RESERVADA'){$estado=1;}
+                            if($ocupada['ESTADO_BUTACA']=='OCUPADA'){$estado=2;}
                         }
-                    if($reserva == true){
-                        $contador=$contador+1;
-                        $pedido++;
-                        $b++;
-                        echo "<td id='reservada'></td>";
-                        $reserva=false;
-                    }
-                    if($ocupada == true){
-                        echo "<td id='ocupada'></td>";
-                        $contador=$contador+1;
-                        $pedido++;
-                        $b++;
-                        $ocupada=false;
-                    }
-                    }
                     }
                     if($contador != ($limite-1)){
-                    $contador++;
-                    echo"<td id='libre'><input  type='checkbox' name='butaca".$pedido."' value='".$filas[$contador]['ID_BUTACA']."'></td>";
-                    $pedido++;
-                    }
+                        if($estado==0){
+                        $pedido++;
+                            echo"<td id='libre'><input  type='checkbox' name='butaca".($pedido+1)."' value='".$filas[$contador]['ID_BUTACA']."'></td>";
+                        $estado=0;
+                        
+                        }else if($estado==1){
+                        $pedido++;
+                            echo"<td id='reservada'></td>";
+                        $estado=0;
+
+                        }else if($estado==2){
+                        $pedido++;
+                            echo"<td id='ocupada'></td>";
+                        $estado=0;
+
+                        }
+                    $contador++;}
                 }
                 echo"<td></td>";
                 for($b=0; $b<2; $b++){
-                    foreach($estado_butacas as $butac4){
-                        if($filas[$contador]['ID_BUTACA']== $butac4['ID_BUTACA']){
-                            if($butac4['ESTADO_BUTACA']=='RESERVADA'){
-                            $reserva = true;
-                            }
-                            if($butac4['ESTADO_BUTACA']=='OCUPADA'){
-                            $ocupada = true;
+                    foreach($ocupadas as $ocupada){
+                        if($filas[$contador]['ID_BUTACA']==$ocupada['ID_BUTACA']){
+                            
+                            if($ocupada['ESTADO_BUTACA']=='RESERVADA'){$estado=1;}
+                            if($ocupada['ESTADO_BUTACA']=='OCUPADA'){$estado=2;}
                         }
-                    if($reserva == true){
-                        $contador=$contador+1;
-                        $pedido++;
-                        $b++;
-                        echo "<td id='reservada'></td>";
-                        $reserva=false;
-                    }
-                    if($ocupada == true){
-                        echo "<td id='ocupada'></td>";
-                        $contador=$contador+1;
-                        $pedido++;
-                        $b++;
-                        $ocupada=false;
-                    }
-                    }
                     }
                     if($contador != ($limite-1)){
-                    $contador++;
-                    echo"<td id='libre'><input  type='checkbox' name='butaca".$pedido."' value='".$filas[$contador]['ID_BUTACA']."'></td>";
-                    $pedido++;
-                    }
+                        if($estado==0){
+                        $pedido++;
+                            echo"<td id='libre'><input  type='checkbox' name='butaca".($pedido+1)."' value='".$filas[$contador]['ID_BUTACA']."'></td>";
+                        $estado=0;
+                        
+                        }else if($estado==1){
+                        $pedido++;
+                            echo"<td id='reservada'></td>";
+                        $estado=0;
+
+                        }else if($estado==2){
+                        $pedido++;
+                            echo"<td id='ocupada'></td>";
+                        $estado=0;
+
+                        }
+                    $contador++;}
                 }
                 echo"<td></td>";
                 for($b=0; $b<4; $b++){
-                    foreach($estado_butacas as $butac4){
-                        if($filas[$contador]['ID_BUTACA']== $butac4['ID_BUTACA']){
-                            if($butac4['ESTADO_BUTACA']=='RESERVADA'){
-                            $reserva = true;
-                            }
-                            if($butac4['ESTADO_BUTACA']=='OCUPADA'){
-                            $ocupada = true;
+                    foreach($ocupadas as $ocupada){
+                        if($filas[$contador]['ID_BUTACA']==$ocupada['ID_BUTACA']){
+                            
+                            if($ocupada['ESTADO_BUTACA']=='RESERVADA'){$estado=1;}
+                            if($ocupada['ESTADO_BUTACA']=='OCUPADA'){$estado=2;}
                         }
-                    if($reserva == true){
-                        $contador=$contador+1;
-                        $pedido++;
-                        $b++;
-                        echo "<td id='reservada'></td>";
-                        $reserva=false;
-                    }
-                    if($ocupada == true){
-                        echo "<td id='ocupada'></td>";
-                        $contador=$contador+1;
-                        $pedido++;
-                        $b++;
-                        $ocupada=false;
-                    }
-                    }
                     }
                     if($contador != ($limite-1)){
-                    $contador++;
-                    echo"<td id='libre'><input  type='checkbox' name='butaca".$pedido."' value='".$filas[$contador]['ID_BUTACA']."'></td>";
-                    $pedido++;
-                    }
+                        if($estado==0){
+                        $pedido++;
+                            echo"<td id='libre'><input  type='checkbox' name='butaca".($pedido+1)."' value='".$filas[$contador]['ID_BUTACA']."'></td>";
+                        $estado=0;
+                        
+                        }else if($estado==1){
+                        $pedido++;
+                            echo"<td id='reservada'></td>";
+                        $estado=0;
+
+                        }else if($estado==2){
+                        $pedido++;
+                            echo"<td id='ocupada'></td>";
+                        $estado=0;
+
+                        }
+                    $contador++;}
                 }echo "</tr>";
                 }
                 if($i==1){
                     echo "<td></td>";
                     for($b=0; $b<3; $b++){
-                    foreach($estado_butacas as $butac4){
-                        if($filas[$contador]['ID_BUTACA']== $butac4['ID_BUTACA']){
-                            if($butac4['ESTADO_BUTACA']=='RESERVADA'){
-                            $reserva = true;
-                            }
-                            if($butac4['ESTADO_BUTACA']=='OCUPADA'){
-                            $ocupada = true;
+                    foreach($ocupadas as $ocupada){
+                        if($filas[$contador]['ID_BUTACA']==$ocupada['ID_BUTACA']){
+                            
+                            if($ocupada['ESTADO_BUTACA']=='RESERVADA'){$estado=1;}
+                            if($ocupada['ESTADO_BUTACA']=='OCUPADA'){$estado=2;}
                         }
-                    if($reserva == true){
-                        $contador=$contador+1;
-                        $pedido++;
-                        $b++;
-                        echo "<td id='reservada'></td>";
-                        $reserva=false;
-                    }
-                    if($ocupada == true){
-                        echo "<td id='ocupada'></td>";
-                        $contador=$contador+1;
-                        $pedido++;
-                        $b++;
-                        $ocupada=false;
-                    }
-                    }
                     }
                     if($contador != ($limite-1)){
-                    $contador++;
-                    echo"<td id='libre'><input  type='checkbox' name='butaca".$pedido."' value='".$filas[$contador]['ID_BUTACA']."'></td>";
-                    $pedido++;
-                    }
+                        if($estado==0){
+                        $pedido++;
+                            echo"<td id='libre'><input  type='checkbox' name='butaca".($pedido+1)."' value='".$filas[$contador]['ID_BUTACA']."'></td>";
+                        $estado=0;
+                        
+                        }else if($estado==1){
+                        $pedido++;
+                            echo"<td id='reservada'></td>";
+                        $estado=0;
+
+                        }else if($estado==2){
+                        $pedido++;
+                            echo"<td id='ocupada'></td>";
+                        $estado=0;
+
+                        }
+                    $contador++;}
                 }
                 echo "<td colspan=6></td>";
                 for($b=0; $b<3; $b++){
-                    foreach($estado_butacas as $butac4){
-                        if($filas[$contador]['ID_BUTACA']== $butac4['ID_BUTACA']){
-                            if($butac4['ESTADO_BUTACA']=='RESERVADA'){
-                            $reserva = true;
-                            }
-                            if($butac4['ESTADO_BUTACA']=='OCUPADA'){
-                            $ocupada = true;
+                    foreach($ocupadas as $ocupada){
+                        if($filas[$contador]['ID_BUTACA']==$ocupada['ID_BUTACA']){
+                            
+                            if($ocupada['ESTADO_BUTACA']=='RESERVADA'){$estado=1;}
+                            if($ocupada['ESTADO_BUTACA']=='OCUPADA'){$estado=2;}
                         }
-                    if($reserva == true){
-                        $contador=$contador+1;
-                        $pedido++;
-                        $b++;
-                        echo "<td id='reservada'></td>";
-                        $reserva=false;
-                    }
-                    if($ocupada == true){
-                        echo "<td id='ocupada'></td>";
-                        $contador=$contador+1;
-                        $pedido++;
-                        $b++;
-                        $ocupada=false;
-                    }
-                    }
                     }
                     if($contador != ($limite-1)){
-                    $contador++;
-                    echo"<td id='libre'><input  type='checkbox' name='butaca".$pedido."' value='".$filas[$contador]['ID_BUTACA']."'></td>";
-                    $pedido++;
-                    }
+                        if($estado==0){
+                        $pedido++;
+                            echo"<td id='libre'><input  type='checkbox' name='butaca".($pedido+1)."' value='".$filas[$contador]['ID_BUTACA']."'></td>";
+                        $estado=0;
+                        
+                        }else if($estado==1){
+                        $pedido++;
+                            echo"<td id='reservada'></td>";
+                        $estado=0;
+
+                        }else if($estado==2){
+                        $pedido++;
+                            echo"<td id='ocupada'></td>";
+                        $estado=0;
+
+                        }
+                    $contador++;}
                 }
                 echo "<td></td></tr>";
                 }
                 if($i==2){
                     echo "<td></td>";
                     for($b=0; $b<3; $b++){
-                    foreach($estado_butacas as $butac4){
-                        if($filas[$contador]['ID_BUTACA']== $butac4['ID_BUTACA']){
-                            if($butac4['ESTADO_BUTACA']=='RESERVADA'){
-                            $reserva = true;
-                            }
-                            if($butac4['ESTADO_BUTACA']=='OCUPADA'){
-                            $ocupada = true;
+                    foreach($ocupadas as $ocupada){
+                        if($filas[$contador]['ID_BUTACA']==$ocupada['ID_BUTACA']){
+                            
+                            if($ocupada['ESTADO_BUTACA']=='RESERVADA'){$estado=1;}
+                            if($ocupada['ESTADO_BUTACA']=='OCUPADA'){$estado=2;}
                         }
-                    if($reserva == true){
-                        $contador=$contador+1;
-                        $pedido++;
-                        $b++;
-                        echo "<td id='reservada'></td>";
-                        $reserva=false;
-                    }
-                    if($ocupada == true){
-                        echo "<td id='ocupada'></td>";
-                        $contador=$contador+1;
-                        $pedido++;
-                        $b++;
-                        $ocupada=false;
-                    }
-                    }
                     }
                     if($contador != ($limite-1)){
-                    $contador++;
-                    echo"<td id='libre'><input  type='checkbox' name='butaca".$pedido."' value='".$filas[$contador]['ID_BUTACA']."'></td>";
-                    $pedido++;
-                    }
+                        if($estado==0){
+                        $pedido++;
+                            echo"<td id='libre'><input  type='checkbox' name='butaca".($pedido+1)."' value='".$filas[$contador]['ID_BUTACA']."'></td>";
+                        $estado=0;
+                        
+                        }else if($estado==1){
+                        $pedido++;
+                            echo"<td id='reservada'></td>";
+                        $estado=0;
+
+                        }else if($estado==2){
+                        $pedido++;
+                            echo"<td id='ocupada'></td>";
+                        $estado=0;
+
+                        }
+                    $contador++;}
                 }
                 echo "<td colspan=6></td>";
                 for($b=0; $b<3; $b++){
-                    foreach($estado_butacas as $butac4){
-                        if($filas[$contador]['ID_BUTACA']== $butac4['ID_BUTACA']){
-                            if($butac4['ESTADO_BUTACA']=='RESERVADA'){
-                            $reserva = true;
-                            }
-                            if($butac4['ESTADO_BUTACA']=='OCUPADA'){
-                            $ocupada = true;
+                    foreach($ocupadas as $ocupada){
+                        if($filas[$contador]['ID_BUTACA']==$ocupada['ID_BUTACA']){
+                            
+                            if($ocupada['ESTADO_BUTACA']=='RESERVADA'){$estado=1;}
+                            if($ocupada['ESTADO_BUTACA']=='OCUPADA'){$estado=2;}
                         }
-                    if($reserva == true){
-                        $contador=$contador+1;
-                        $pedido++;
-                        $b++;
-                        echo "<td id='reservada'></td>";
-                        $reserva=false;
-                    }
-                    if($ocupada == true){
-                        echo "<td id='ocupada'></td>";
-                        $contador=$contador+1;
-                        $pedido++;
-                        $b++;
-                        $ocupada=false;
-                    }
-                    }
                     }
                     if($contador != ($limite-1)){
-                    $contador++;
-                    echo"<td id='libre'><input  type='checkbox' name='butaca".$pedido."' value='".$filas[$contador]['ID_BUTACA']."'></td>";
-                    $pedido++;
-                    }
+                        if($estado==0){
+                        $pedido++;
+                            echo"<td id='libre'><input  type='checkbox' name='butaca".($pedido+1)."' value='".$filas[$contador]['ID_BUTACA']."'></td>";
+                        $estado=0;
+                        
+                        }else if($estado==1){
+                        $pedido++;
+                            echo"<td id='reservada'></td>";
+                        $estado=0;
+
+                        }else if($estado==2){
+                        $pedido++;
+                            echo"<td id='ocupada'></td>";
+                        $estado=0;
+
+                        }
+                    $contador++;}
                 }
                 echo "<td></td></tr>";
                 }
                 if($i==3){
                 echo "<td></td>";
                 for($b=0; $b<12; $b++){
-                    foreach($estado_butacas as $butac4){
-                        if($filas[$contador]['ID_BUTACA']== $butac4['ID_BUTACA']){
-                            if($butac4['ESTADO_BUTACA']=='RESERVADA'){
-                            $reserva = true;
-                            }
-                            if($butac4['ESTADO_BUTACA']=='OCUPADA'){
-                            $ocupada = true;
+                    foreach($ocupadas as $ocupada){
+                        if($filas[$contador]['ID_BUTACA']==$ocupada['ID_BUTACA']){
+                            
+                            if($ocupada['ESTADO_BUTACA']=='RESERVADA'){$estado=1;}
+                            if($ocupada['ESTADO_BUTACA']=='OCUPADA'){$estado=2;}
                         }
-                    if($reserva == true){
-                        $contador=$contador+1;
-                        $pedido++;
-                        $b++;
-                        echo "<td id='reservada'></td>";
-                        $reserva=false;
-                    }
-                    if($ocupada == true){
-                        echo "<td id='ocupada'></td>";
-                        $contador=$contador+1;
-                        $pedido++;
-                        $b++;
-                        $ocupada=false;
-                    }
-                    }
                     }
                     if($contador != ($limite-1)){
-                    $contador++;
-                    echo"<td id='libre'><input  type='checkbox' name='butaca".$pedido."' value='".$filas[$contador]['ID_BUTACA']."'></td>";
-                    $pedido++;
-                    }
+                        if($estado==0){
+                        $pedido++;
+                            echo"<td id='libre'><input  type='checkbox' name='butaca".($pedido+1)."' value='".$filas[$contador]['ID_BUTACA']."'></td>";
+                        $estado=0;
+                        
+                        }else if($estado==1){
+                        $pedido++;
+                            echo"<td id='reservada'></td>";
+                        $estado=0;
+
+                        }else if($estado==2){
+                        $pedido++;
+                            echo"<td id='ocupada'></td>";
+                        $estado=0;
+
+                        }
+                    $contador++;}
                 }
                 echo "</td></tr>";
                 }
@@ -1692,35 +1593,31 @@ session_start();
         for($i=0;$i<6;$i++){
             echo "<tr>";
                 for($b=0; $b<3; $b++){
-                    foreach($estado_butacas as $butac4){
-                        if($filas[$contador]['ID_BUTACA']== $butac4['ID_BUTACA']){
-                            if($butac4['ESTADO_BUTACA']=='RESERVADA'){
-                            $reserva = true;
-                            }
-                            if($butac4['ESTADO_BUTACA']=='OCUPADA'){
-                            $ocupada = true;
+                    foreach($ocupadas as $ocupada){
+                        if($filas[$contador]['ID_BUTACA']==$ocupada['ID_BUTACA']){
+                            
+                            if($ocupada['ESTADO_BUTACA']=='RESERVADA'){$estado=1;}
+                            if($ocupada['ESTADO_BUTACA']=='OCUPADA'){$estado=2;}
                         }
-                    if($reserva == true){
-                        $contador=$contador+1;
-                        $pedido++;
-                        $b++;
-                        echo "<td id='reservada'></td>";
-                        $reserva=false;
-                    }
-                    if($ocupada == true){
-                        echo "<td id='ocupada'></td>";
-                        $contador=$contador+1;
-                        $pedido++;
-                        $b++;
-                        $ocupada=false;
-                    }
-                    }
                     }
                     if($contador != ($limite-1)){
-                    $contador++;
-                    echo"<td id='libre'><input  type='checkbox' name='butaca".$pedido."' value='".$filas[$contador]['ID_BUTACA']."'></td>";
-                    $pedido++;
-                    }
+                        if($estado==0){
+                        $pedido++;
+                            echo"<td id='libre'><input  type='checkbox' name='butaca".($pedido+1)."' value='".$filas[$contador]['ID_BUTACA']."'></td>";
+                        $estado=0;
+                        
+                        }else if($estado==1){
+                        $pedido++;
+                            echo"<td id='reservada'></td>";
+                        $estado=0;
+
+                        }else if($estado==2){
+                        $pedido++;
+                            echo"<td id='ocupada'></td>";
+                        $estado=0;
+
+                        }
+                    $contador++;}
                 }
             echo "</tr>";
         }
@@ -1732,35 +1629,31 @@ session_start();
         for($i=0;$i<8;$i++){
             echo "<tr>";
                 for($b=0; $b<3; $b++){
-                    foreach($estado_butacas as $butac4){
-                        if($filas[$contador]['ID_BUTACA']== $butac4['ID_BUTACA']){
-                            if($butac4['ESTADO_BUTACA']=='RESERVADA'){
-                            $reserva = true;
-                            }
-                            if($butac4['ESTADO_BUTACA']=='OCUPADA'){
-                            $ocupada = true;
+                    foreach($ocupadas as $ocupada){
+                        if($filas[$contador]['ID_BUTACA']==$ocupada['ID_BUTACA']){
+                            
+                            if($ocupada['ESTADO_BUTACA']=='RESERVADA'){$estado=1;}
+                            if($ocupada['ESTADO_BUTACA']=='OCUPADA'){$estado=2;}
                         }
-                    if($reserva == true){
-                        $contador=$contador+1;
-                        $pedido++;
-                        $b++;
-                        echo "<td id='reservada'></td>";
-                        $reserva=false;
-                    }
-                    if($ocupada == true){
-                        echo "<td id='ocupada'></td>";
-                        $contador=$contador+1;
-                        $pedido++;
-                        $b++;
-                        $ocupada=false;
-                    }
-                    }
                     }
                     if($contador != ($limite-1)){
-                    $contador++;
-                    echo"<td id='libre'><input  type='checkbox' name='butaca".$pedido."' value='".$filas[$contador]['ID_BUTACA']."'></td>";
-                    $pedido++;
-                    }
+                        if($estado==0){
+                        $pedido++;
+                            echo"<td id='libre'><input  type='checkbox' name='butaca".($pedido+1)."' value='".$filas[$contador]['ID_BUTACA']."'></td>";
+                        $estado=0;
+                        
+                        }else if($estado==1){
+                        $pedido++;
+                            echo"<td id='reservada'></td>";
+                        $estado=0;
+
+                        }else if($estado==2){
+                        $pedido++;
+                            echo"<td id='ocupada'></td>";
+                        $estado=0;
+
+                        }
+                    $contador++;}
                 }
             echo "</tr>";
         }
@@ -1768,35 +1661,31 @@ session_start();
         for($i=0;$i<8;$i++){
             echo "<tr>";
                 for($b=0; $b<12; $b++){
-                    foreach($estado_butacas as $butac4){
-                        if($filas[$contador]['ID_BUTACA']== $butac4['ID_BUTACA']){
-                            if($butac4['ESTADO_BUTACA']=='RESERVADA'){
-                            $reserva = true;
-                            }
-                            if($butac4['ESTADO_BUTACA']=='OCUPADA'){
-                            $ocupada = true;
+                    foreach($ocupadas as $ocupada){
+                        if($filas[$contador]['ID_BUTACA']==$ocupada['ID_BUTACA']){
+                            
+                            if($ocupada['ESTADO_BUTACA']=='RESERVADA'){$estado=1;}
+                            if($ocupada['ESTADO_BUTACA']=='OCUPADA'){$estado=2;}
                         }
-                    if($reserva == true){
-                        $contador=$contador+1;
-                        $pedido++;
-                        $b++;
-                        echo "<td id='reservada'></td>";
-                        $reserva=false;
-                    }
-                    if($ocupada == true){
-                        echo "<td id='ocupada'></td>";
-                        $contador=$contador+1;
-                        $pedido++;
-                        $b++;
-                        $ocupada=false;
-                    }
-                    }
                     }
                     if($contador != ($limite-1)){
-                    $contador++;
-                    echo"<td id='libre'><input  type='checkbox' name='butaca".$pedido."' value='".$filas[$contador]['ID_BUTACA']."'></td>";
-                    $pedido++;
-                    }
+                        if($estado==0){
+                        $pedido++;
+                            echo"<td id='libre'><input  type='checkbox' name='butaca".($pedido+1)."' value='".$filas[$contador]['ID_BUTACA']."'></td>";
+                        $estado=0;
+                        
+                        }else if($estado==1){
+                        $pedido++;
+                            echo"<td id='reservada'></td>";
+                        $estado=0;
+
+                        }else if($estado==2){
+                        $pedido++;
+                            echo"<td id='ocupada'></td>";
+                        $estado=0;
+
+                        }
+                    $contador++;}
                 }
                 echo "</td></tr>";
                 
@@ -1805,35 +1694,31 @@ session_start();
         for($i=0;$i<8;$i++){
             echo "<tr>";
                 for($b=0; $b<3; $b++){
-                    foreach($estado_butacas as $butac4){
-                        if($filas[$contador]['ID_BUTACA']== $butac4['ID_BUTACA']){
-                            if($butac4['ESTADO_BUTACA']=='RESERVADA'){
-                            $reserva = true;
-                            }
-                            if($butac4['ESTADO_BUTACA']=='OCUPADA'){
-                            $ocupada = true;
+                    foreach($ocupadas as $ocupada){
+                        if($filas[$contador]['ID_BUTACA']==$ocupada['ID_BUTACA']){
+                            
+                            if($ocupada['ESTADO_BUTACA']=='RESERVADA'){$estado=1;}
+                            if($ocupada['ESTADO_BUTACA']=='OCUPADA'){$estado=2;}
                         }
-                    if($reserva == true){
-                        $contador=$contador+1;
-                        $pedido++;
-                        $b++;
-                        echo "<td id='reservada'></td>";
-                        $reserva=false;
-                    }
-                    if($ocupada == true){
-                        echo "<td id='ocupada'></td>";
-                        $contador=$contador+1;
-                        $pedido++;
-                        $b++;
-                        $ocupada=false;
-                    }
-                    }
                     }
                     if($contador != ($limite-1)){
-                    $contador++;
-                    echo"<td id='libre'><input  type='checkbox' name='butaca".$pedido."' value='".$filas[$contador]['ID_BUTACA']."'></td>";
-                    $pedido++;
-                    }
+                        if($estado==0){
+                        $pedido++;
+                            echo"<td id='libre'><input  type='checkbox' name='butaca".($pedido+1)."' value='".$filas[$contador]['ID_BUTACA']."'></td>";
+                        $estado=0;
+                        
+                        }else if($estado==1){
+                        $pedido++;
+                            echo"<td id='reservada'></td>";
+                        $estado=0;
+
+                        }else if($estado==2){
+                        $pedido++;
+                            echo"<td id='ocupada'></td>";
+                        $estado=0;
+
+                        }
+                    $contador++;}
                 }
             echo "</tr>";
         }
