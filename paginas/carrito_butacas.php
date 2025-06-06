@@ -23,11 +23,25 @@ session_start();
             top: 0%;
             left: 0%;
             font-size: 15px;
+            z-index: 1000;
         }
         #cabecera td{
             width: 9%;
             text-align: center;
-            font-size: 85%;
+            font-size: 15px;
+            padding: 5px;
+        }
+        #cabecera a {
+            font-size: 15px;
+            font-weight: normal;
+        }
+        #cabecera strong {
+            font-size: 15px;
+            font-weight: bold;
+        }
+        #cabecera img {
+            height: 55px;
+            width: 55px;
         }
         #partido{visibility: hidden;}
         #tribuna{visibility: hidden;}
@@ -69,6 +83,40 @@ session_start();
             font-size: 1.2em;
             color: #E21921;
         }
+        .botones-navegacion {
+            position: absolute;
+            top: 85%;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100%;
+            text-align: center;
+            padding: 20px;
+            background-color: white;
+        }
+        .boton {
+            padding: 15px 30px;
+            margin: 0 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1.2em;
+            transition: background-color 0.3s;
+            font-weight: bold;
+        }
+        .boton-atras {
+            background-color: #666;
+            color: white;
+        }
+        .boton-atras:hover {
+            background-color: #555;
+        }
+        .boton-pago {
+            background-color: #E21921;
+            color: white;
+        }
+        .boton-pago:hover {
+            background-color: #c41820;
+        }
     </style>
 </head>
 <body>
@@ -83,8 +131,7 @@ session_start();
                 <td colspan="3"></td>
                 <?php
                 if(!isset($_SESSION['login'])){
-                    header('Location: login.php');
-                    exit();
+                    echo"<td><a href='login.php'>Iniciar sesión</a></td>";
                 }else{
                     echo "<td><a href='area_personal.php'>Área personal</a></td>";
                     echo "<td><a href='cerrarsesion.php'>Cerrar sesión</a></td>";
@@ -146,10 +193,40 @@ session_start();
                         echo"<td>".$butaca['PUERTA_BUTACA']."</td>";
                         echo"<td>".$butaca['PRECIO_BUTACA']."€</td></tr>";
                         $total=$total+$butaca['PRECIO_BUTACA'];
-                        $sql="INSERT INTO `tfc`.`BUTACA_PARTIDO`(`ID_BUTACA`, `ID_PARTIDO`, `ESTADO_BUTACA`) VALUES('".$butaca['ID_BUTACA']."','".$partido['ID_PARTIDO']."','RESERVADA')";
-                        $insertar=$bd->query($sql);
                         $entrada++;
                     }
                 }}}
                 echo"<tr class='total-row'><td colspan=5>TOTAL:</td><td>".$total."€</td></tr>";
         ?>
+    </table>
+    <div class="botones-navegacion">
+        <form method="POST" action="butacas.php" style="display: inline;">
+            <input type="hidden" name="id_partido" value="<?php echo $_POST['id_partido']; ?>">
+            <input type="hidden" name="TRIBUNA" value="<?php echo $_POST['TRIBUNA']; ?>">
+            <?php
+            // Mantener las butacas seleccionadas
+            foreach($_POST as $key => $value) {
+                if(strpos($key, 'butaca') === 0) {
+                    echo '<input type="hidden" name="'.$key.'" value="'.$value.'">';
+                }
+            }
+            ?>
+            <button type="submit" class="boton boton-atras">← Volver a selección de butacas</button>
+        </form>
+        <form method="POST" action="pago.php" style="display: inline;">
+            <input type="hidden" name="id_partido" value="<?php echo $_POST['id_partido']; ?>">
+            <input type="hidden" name="TRIBUNA" value="<?php echo $_POST['TRIBUNA']; ?>">
+            <input type="hidden" name="total" value="<?php echo $total; ?>">
+            <?php
+            // Mantener las butacas seleccionadas
+            foreach($_POST as $key => $value) {
+                if(strpos($key, 'butaca') === 0) {
+                    echo '<input type="hidden" name="'.$key.'" value="'.$value.'">';
+                }
+            }
+            ?>
+            <button type="submit" class="boton boton-pago">Proceder al pago →</button>
+        </form>
+    </div>
+</body>
+</html>
