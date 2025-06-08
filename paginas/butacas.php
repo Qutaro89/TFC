@@ -82,6 +82,63 @@ session_start();
             transform: rotateY(180deg);
         }
         
+        .submit-btn {
+            background-color: #e31e24;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            margin: 20px;
+            transition: background-color 0.3s;
+            font-weight: bold;
+        }
+
+        .submit-btn:hover {
+            background-color: #b3151b;
+        }
+
+        .leyenda {
+            margin: 20px;
+            padding: 15px;
+            background-color: #f5f5f5;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .leyenda-item {
+            display: inline-block;
+            margin-right: 20px;
+            font-size: 14px;
+        }
+
+        .leyenda-color {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            margin-right: 5px;
+            border: 1px solid black;
+            vertical-align: middle;
+        }
+
+        .cesped-indicador {
+            text-align: center;
+            margin: 20px;
+            font-weight: bold;
+            color: #2e7d32;
+            background-color: #f8f8f8;
+            padding: 10px;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .cesped-flecha {
+            font-size: 32px;
+            color: #2e7d32;
+            margin-bottom: 5px;
+        }
+        
     </style>
 </head>
 <body>
@@ -128,6 +185,19 @@ session_start();
             $bd=conectar();
             echo "<input id='partido' name='id_partido' type='text' value='".$_POST["id_partido"]."'>";
             echo "<input id='tribuna' name='TRIBUNA' type='text' value='".$_POST["TRIBUNA"]."'>";
+
+            // Determinar el valor de colspan según el tipo de tribuna
+            $colspan_value = 1; // Valor por defecto
+            if(($_POST['TRIBUNA']=='TRIBUNA ALTA LATERAL') OR ($_POST['TRIBUNA']=='TRIBUNA LATERAL CUBIERTA') OR ($_POST['TRIBUNA']=='TRIBUNA LATERAL BAJA') OR ($_POST['TRIBUNA']=='GRADA DE PREFERENCIA') OR ($_POST['TRIBUNA']=='TRIBUNA ALTA PREFERENCIA')){
+                $colspan_value = 9;
+            } else if(($_POST['TRIBUNA']=='FONDO SUR')){
+                $colspan_value = 8;
+            } else if(($_POST['TRIBUNA']=='TRIBUNA CENTRAL')){
+                $colspan_value = 7;
+            } else if(($_POST['TRIBUNA']=='PALCO DE HONOR') OR ($_POST['TRIBUNA']=='PALCO CENTRAL')){
+                $colspan_value = 3;
+            }
+
             $butacas=$bd->prepare("SELECT ID_BUTACA, ZONA_BUTACA, PUERTA_BUTACA, PRECIO_BUTACA FROM BUTACAS WHERE ZONA_BUTACA = :zona");
             $butacas->execute(array(':zona'=>$_POST['TRIBUNA']));
             $estado_butacas=$bd->prepare("SELECT ID_BUTACA, ESTADO_BUTACA, ID_PARTIDO FROM BUTACA_PARTIDO WHERE ID_PARTIDO = :partido");
@@ -704,70 +774,6 @@ session_start();
                     $contador++;}
                 }
             echo "</tr>";
-        }
-        echo"</table></td><td><table id='D'>";
-        for($i=0;$i<11;$i++){
-            if($i==10){
-                echo "<tr><td></td>";
-                for($b=0;$b<9;$b++){
-                    foreach($ocupadas as $ocupada){
-                        if($filas[$contador]['ID_BUTACA']==$ocupada['ID_BUTACA']){
-                            
-                            if($ocupada['ESTADO_BUTACA']=='RESERVADA'){$estado=1;}
-                            if($ocupada['ESTADO_BUTACA']=='OCUPADA'){$estado=2;}
-                        }
-                    }
-                    if($contador != ($limite-1)){
-                        if($estado==0){
-                        $pedido++;
-                            echo"<td id='libre'><input  type='checkbox' name='butaca".($pedido+1)."' value='".$filas[$contador]['ID_BUTACA']."'></td>";
-                        $estado=0;
-                        
-                        }else if($estado==1){
-                        $pedido++;
-                            echo"<td id='reservada'></td>";
-                        $estado=0;
-
-                        }else if($estado==2){
-                        $pedido++;
-                            echo"<td id='ocupada'></td>";
-                        $estado=0;
-
-                        }
-                    $contador++;}
-                }
-            echo "<td></td></tr>";
-            }else{
-            echo "<tr>";
-                for($b=0;$b<11;$b++){
-                    foreach($ocupadas as $ocupada){
-                        if($filas[$contador]['ID_BUTACA']==$ocupada['ID_BUTACA']){
-                            
-                            if($ocupada['ESTADO_BUTACA']=='RESERVADA'){$estado=1;}
-                            if($ocupada['ESTADO_BUTACA']=='OCUPADA'){$estado=2;}
-                        }
-                    }
-                    if($contador != ($limite-1)){
-                        if($estado==0){
-                        $pedido++;
-                            echo"<td id='libre'><input  type='checkbox' name='butaca".($pedido+1)."' value='".$filas[$contador]['ID_BUTACA']."'></td>";
-                        $estado=0;
-                        
-                        }else if($estado==1){
-                        $pedido++;
-                            echo"<td id='reservada'></td>";
-                        $estado=0;
-
-                        }else if($estado==2){
-                        $pedido++;
-                            echo"<td id='ocupada'></td>";
-                        $estado=0;
-
-                        }
-                    $contador++;}
-                }
-            echo "</tr>";
-            }
         }
         echo"</table></td><td><table id='D'>";
         for($i=0;$i<11;$i++){
@@ -1725,7 +1731,29 @@ session_start();
         echo "</table></td>";
     }
         ?>
-        <tr><td><input type='submit'></td></tr>
+        <tr>
+            <td colspan="<?php echo $colspan_value; ?>">
+                <div class="cesped-indicador">
+                    <div class="cesped-flecha">↓</div>
+                    <div>Dirección del Campo</div>
+                </div>
+                <div class="leyenda">
+                    <div class="leyenda-item">
+                        <span class="leyenda-color" style="background-color: lightgreen;"></span>
+                        Disponible
+                    </div>
+                    <div class="leyenda-item">
+                        <span class="leyenda-color" style="background-color: yellow;"></span>
+                        Reservada
+                    </div>
+                    <div class="leyenda-item">
+                        <span class="leyenda-color" style="background-color: red;"></span>
+                        Ocupada
+                    </div>
+                </div>
+            </td>
+        </tr>
+        <tr><td colspan="<?php echo $colspan_value; ?>" style="text-align: center;"><input type='submit' class="submit-btn" value="Seleccionar Butacas"></td></tr>
     </table>
     </form>
 </body>
