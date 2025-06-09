@@ -177,7 +177,6 @@ session_start();
             $insertar=$bd->prepare("SELECT ID_BUTACA,ID_PARTIDO, ESTADO_BUTACA FROM BUTACA_PARTIDO");
             foreach ($partidos as $partido){
             foreach ($butacas as $butaca){
-                $continuar==false;
                 if(empty($_POST["butaca".$entrada.""])){
                     $entrada++;
                 }else{
