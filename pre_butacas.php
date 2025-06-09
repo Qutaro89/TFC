@@ -85,7 +85,7 @@ session_start();
         }
         .botones-navegacion {
             position: absolute;
-            top: 85%;
+            top: 20%;
             left: 50%;
             transform: translateX(-50%);
             width: 100%;
@@ -155,16 +155,13 @@ session_start();
         </table>
     </header>
     <hr>
-    <table id='contenedor'>
-        <tr>
-            <td>Partido</td>
-            <td>Fecha y Hora</td>
-            <td>Butaca</td>
-            <td>Tribuna</td>
-            <td>Puerta</td>
-            <td>Precio</td>
-        </tr>
-        <?php
+    <div class="botones-navegacion">
+        <form method="POST" action="butacas.php" style="display: inline;">
+            <input type="hidden" name="id_partido" value="<?php echo $_POST['id_partido']; ?>">
+            <input type="hidden" name="TRIBUNA" value="<?php echo $_POST['TRIBUNA']; ?>">
+            <h1>AVISO</h1>
+            <h2>al volver a seleccionar las butacas se pierde automáticamente la reserva de las butacas que se han seleccionado. Por lo que pueden que ya no se encuentren disponibles las butacas que se han seleccionado</h2>
+            <?php
             $total=0;
             $entrada=0;
             error_reporting (E_ALL);
@@ -183,51 +180,11 @@ session_start();
                     if($butaca["ID_BUTACA"]==$_POST['butaca'.$entrada.'']){
                     $entrada++;
                     }else{
-                        $fechaHora = new DateTime($partido['FECHA_HORA_PARTIDO']);
-                        $fecha_es = $fechaHora->format('d/m/Y');
-                        $hora_es = $fechaHora->format('H:i');
-                        echo"<tr>";
-                        echo"<td>".$partido['EQUIPO_LOCAL']." VS ".$partido['EQUIPO_VISITANTE']."</td>";
-                        echo"<td>".$fecha_es." - ".$hora_es."</td>";
-                        echo"<td>".$_POST['butaca'.$entrada.'']."</td>";
-                        echo"<td>".$butaca['ZONA_BUTACA']."</td>";
-                        echo"<td>".$butaca['PUERTA_BUTACA']."</td>";
-                        echo"<td>".$butaca['PRECIO_BUTACA']."€</td></tr>";
-                        $total=$total+$butaca['PRECIO_BUTACA'];
-                        $sql="INSERT INTO `tfc`.`BUTACA_PARTIDO`(`ID_BUTACA`, `ID_PARTIDO`, `ESTADO_BUTACA`) VALUES('".$_POST['butaca'.$entrada.'']."','".$partido['ID_PARTIDO']."','RESERVADA')";
+                        $sql="DELETE FROM `butaca_partido` WHERE `butaca_partido`.`ID_BUTACA` = '".$_POST['butaca'.$entrada.'']."' AND `butaca_partido`.`ID_PARTIDO` = '".$_POST['id_partido']."'";
                         $insertar=$bd->query($sql);
                         $entrada++;
                     }
                 }}}
-                echo"<tr class='total-row'><td colspan=5>TOTAL:</td><td>".$total."€</td></tr>";
                 ?>
-        </table>
-    <div class="botones-navegacion">
-        <form method="POST" action="pre_butacas.php" style="display: inline;">
-            <input type="hidden" name="id_partido" value="<?php echo $_POST['id_partido']; ?>">
-            <input type="hidden" name="TRIBUNA" value="<?php echo $_POST['TRIBUNA']; ?>">
-            <?php
-            // Mantener las butacas seleccionadas
-            foreach($_POST as $key => $value) {
-                if(strpos($key, 'butaca') === 0) {
-                    echo '<input type="hidden" name="'.$key.'" value="'.$value.'">';
-                }
-            }
-            ?>
-            <button type="submit" class="boton boton-atras">← Volver a selección de butacas</button>
-        </form>
-        <form method="POST" action="pago.php" style="display: inline;">
-            <input type="hidden" name="id_partido" value="<?php echo $_POST['id_partido']; ?>">
-            <input type="hidden" name="TRIBUNA" value="<?php echo $_POST['TRIBUNA']; ?>">
-            <input type="hidden" name="total" value="<?php echo $total; ?>">
-            <?php
-            // Mantener las butacas seleccionadas
-            foreach($_POST as $key => $value) {
-                if(strpos($key, 'butaca') === 0) {
-                    echo '<input type="hidden" name="'.$key.'" value="'.$value.'">';
-                }
-            }
-            ?>
-            <button type="submit" class="boton boton-pago">Proceder al pago →</button>
-        </form>
+        <button type="submit" class="boton boton-pago">volver a seleccionar las butacas</button>
     </div>
