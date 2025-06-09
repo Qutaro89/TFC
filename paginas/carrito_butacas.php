@@ -177,6 +177,7 @@ session_start();
             $insertar=$bd->prepare("SELECT ID_BUTACA,ID_PARTIDO, ESTADO_BUTACA FROM BUTACA_PARTIDO");
             foreach ($partidos as $partido){
             foreach ($butacas as $butaca){
+                $continuar==false;
                 if(empty($_POST["butaca".$entrada.""])){
                     $entrada++;
                 }else{
@@ -189,12 +190,12 @@ session_start();
                         echo"<tr>";
                         echo"<td>".$partido['EQUIPO_LOCAL']." VS ".$partido['EQUIPO_VISITANTE']."</td>";
                         echo"<td>".$fecha_es." - ".$hora_es."</td>";
-                        echo"<td>".$butaca['ID_BUTACA']."</td>";
+                        echo"<td>".$_POST['butaca'.$entrada.'']."</td>";
                         echo"<td>".$butaca['ZONA_BUTACA']."</td>";
                         echo"<td>".$butaca['PUERTA_BUTACA']."</td>";
                         echo"<td>".$butaca['PRECIO_BUTACA']."€</td></tr>";
                         $total=$total+$butaca['PRECIO_BUTACA'];
-                        $sql="INSERT INTO `tfc`.`BUTACA_PARTIDO`(`ID_BUTACA`, `ID_PARTIDO`, `ESTADO_BUTACA`) VALUES('".$butaca['ID_BUTACA']."','".$partido['ID_PARTIDO']."','RESERVADA')";
+                        $sql="INSERT INTO `tfc`.`BUTACA_PARTIDO`(`ID_BUTACA`, `ID_PARTIDO`, `ESTADO_BUTACA`) VALUES('".$_POST['butaca'.$entrada.'']."','".$partido['ID_PARTIDO']."','RESERVADA')";
                         $insertar=$bd->query($sql);
                         $entrada++;
                     }
