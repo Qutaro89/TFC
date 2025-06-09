@@ -11,12 +11,13 @@ if (!isset($_POST['total']) || !isset($_POST['id_partido'])) {
 $total = $_POST['total'];
 $id_partido = $_POST['id_partido'];
 
+
 // Obtener información del partido
 $bd = conectar();
 $partido = $bd->prepare("SELECT * FROM PARTIDOS WHERE ID_PARTIDO = :id");
 $partido->execute(array(':id' => $id_partido));
 $datos_partido = $partido->fetch();
-
+$insertar=$bd->prepare("SELECT ID_BUTACA,ID_PARTIDO, ESTADO_BUTACA FROM BUTACA_PARTIDO");
 // Obtener las butacas seleccionadas
 $butacas_seleccionadas = array();
 foreach ($_POST as $key => $value) {
@@ -255,6 +256,12 @@ $hora_es = $fechaHora->format('H:i');
                             <strong class="negrita"><?php echo number_format($butaca['PRECIO_BUTACA'], 2); ?>€</strong>
                         </div>
                     </div>
+                    <?php
+                    $sql="DELETE FROM `butaca_partido` WHERE `butaca_partido`.`ID_BUTACA` = '".$butaca['ID_BUTACA']."' AND `butaca_partido`.`ID_PARTIDO` = '".$id_partido."'";
+                    $insertar=$bd->query($sql);
+                    $sql="INSERT INTO `tfc`.`BUTACA_PARTIDO`(`ID_BUTACA`, `ID_PARTIDO`, `ESTADO_BUTACA`) VALUES('".$butaca['ID_BUTACA']."','".$id_partido."','OCUPADA')";
+                    $insertar=$bd->query($sql);
+                    ?>
                     <?php endforeach; ?>
                 </div>
                 <div class="total">
