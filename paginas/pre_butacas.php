@@ -159,8 +159,8 @@ session_start();
         <form method="POST" action="butacas.php" style="display: inline;">
             <input type="hidden" name="id_partido" value="<?php echo $_POST['id_partido']; ?>">
             <input type="hidden" name="TRIBUNA" value="<?php echo $_POST['TRIBUNA']; ?>">
-            <h1>AVISO</h1>
-            <h2>al volver a seleccionar las butacas se pierde automáticamente la reserva de las butacas que se han seleccionado. Por lo que pueden que ya no se encuentren disponibles las butacas que se han seleccionado</h2>
+            <h1>¡AVISO!</h1>
+            <h2>Al volver a seleccionar las butacas se pierde automáticamente la reserva de las butacas que se han seleccionado.<br> Puede que ya no se encuentren disponibles las butacas que se han seleccionado.</h2>
             <?php
             $total=0;
             $entrada=0;
