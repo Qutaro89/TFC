@@ -11,13 +11,12 @@ if (!isset($_POST['total']) || !isset($_POST['id_partido'])) {
 $total = $_POST['total'];
 $id_partido = $_POST['id_partido'];
 
-
 // Obtener información del partido
 $bd = conectar();
 $partido = $bd->prepare("SELECT * FROM PARTIDOS WHERE ID_PARTIDO = :id");
 $partido->execute(array(':id' => $id_partido));
 $datos_partido = $partido->fetch();
-$insertar=$bd->prepare("SELECT ID_BUTACA,ID_PARTIDO, ESTADO_BUTACA FROM BUTACA_PARTIDO");
+
 // Obtener las butacas seleccionadas
 $butacas_seleccionadas = array();
 foreach ($_POST as $key => $value) {
@@ -27,6 +26,11 @@ foreach ($_POST as $key => $value) {
         $butacas_seleccionadas[] = $butaca->fetch();
     }
 }
+
+// Guardar datos relevantes en la sesión para la generación del PDF
+$_SESSION['compra_datos_partido'] = $datos_partido;
+$_SESSION['compra_total'] = $total;
+$_SESSION['nombre_tarjeta'] = $_POST['nombre_tarjeta'];
 
 // Formatear fecha y hora del partido
 $fechaHora = new DateTime($datos_partido['FECHA_HORA_PARTIDO']);
@@ -256,12 +260,6 @@ $hora_es = $fechaHora->format('H:i');
                             <strong class="negrita"><?php echo number_format($butaca['PRECIO_BUTACA'], 2); ?>€</strong>
                         </div>
                     </div>
-                    <?php
-                    $sql="DELETE FROM `butaca_partido` WHERE `butaca_partido`.`ID_BUTACA` = '".$butaca['ID_BUTACA']."' AND `butaca_partido`.`ID_PARTIDO` = '".$id_partido."'";
-                    $insertar=$bd->query($sql);
-                    $sql="INSERT INTO `tfc`.`BUTACA_PARTIDO`(`ID_BUTACA`, `ID_PARTIDO`, `ESTADO_BUTACA`) VALUES('".$butaca['ID_BUTACA']."','".$id_partido."','OCUPADA')";
-                    $insertar=$bd->query($sql);
-                    ?>
                     <?php endforeach; ?>
                 </div>
                 <div class="total">
@@ -270,10 +268,12 @@ $hora_es = $fechaHora->format('H:i');
             </div>
         </div>
 
-        <p class="mensaje">Recibirás un correo electrónico con los detalles de tu compra y las entradas.</p>
+        <p class="mensaje">Recibirás un correo electrónico con los detalles de la compra de entradas.</p>
         
         <div class="botones">
-            <a href="area_personal.php" class="boton">Ver mis entradas</a>
+            <?php foreach ($butacas_seleccionadas as $butaca): ?>
+                <a href="generar_entrada.php?id_partido=<?php echo $datos_partido['ID_PARTIDO']; ?>&id_butaca=<?php echo $butaca['ID_BUTACA']; ?>" class="boton" style="margin-bottom: 10px;">Descargar Entrada Butaca <?php echo $butaca['ID_BUTACA']; ?></a>
+            <?php endforeach; ?>
             <a href="inicio.php" class="boton">Volver al inicio</a>
         </div>
     </div>
