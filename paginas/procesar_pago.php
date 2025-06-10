@@ -260,6 +260,12 @@ $hora_es = $fechaHora->format('H:i');
                             <strong class="negrita"><?php echo number_format($butaca['PRECIO_BUTACA'], 2); ?>€</strong>
                         </div>
                     </div>
+                    <?php
+                    $sql="DELETE FROM `butaca_partido` WHERE `butaca_partido`.`ID_BUTACA` = '".$butaca['ID_BUTACA']."' AND `butaca_partido`.`ID_PARTIDO` = '".$id_partido."'";
+                    $insertar=$bd->query($sql);
+                    $sql="INSERT INTO `tfc`.`BUTACA_PARTIDO`(`ID_BUTACA`, `ID_PARTIDO`, `ESTADO_BUTACA`) VALUES('".$butaca['ID_BUTACA']."','".$id_partido."','OCUPADA')";
+                    $insertar=$bd->query($sql);
+                    ?>
                     <?php endforeach; ?>
                 </div>
                 <div class="total">
