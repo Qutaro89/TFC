@@ -99,32 +99,33 @@
     
     <table>
         <tr>
-        <td><label for="nombre">nombre de usuario</label></td>
-        <td><input name="nombre" type="text" id="nombre"></td>
+        <td><label for="nombre">Nombre de usuario:</label></td>
+        <td><input name="nombre" type="text" id="nombre" placeholder="Introduce un nombre" required></td>
         </tr>
         <tr>
-            <td><label for="correo">Correo electrónico</label></td>
-            <td><input name="correo" type="text" id="correo"></td>
+            <td><label for="correo">Correo electrónico:</label></td>
+            <td><input name="correo" type="email" id="correo" placeholder="ejemplo@correo.com" required></td>
         </tr>
         <tr>
-            <td><label for="pw">Contraseña</label></td>
-            <td><input name="pw" type="password" id="pw"></td>
+            <td><label for="pw">Contraseña:</label></td>
+            <td><input name="pw" type="password" id="pw" placeholder="Introduce una contraseña" required></td>
         </tr>
         <tr>
-            <td><label for ="DNI">DNI</label></td>
-            <td><input name="DNI" type="text" id="DNI" pattern="[0-9]{8}[A-Z]" ></td>
+            <td><label for ="DNI">DNI:</label></td>
+            <td><input name="DNI" type="text" id="DNI" pattern="[0-9]{8}[A-Z]" placeholder="12345678A" required></td>
         </tr>
         <tr>
-            <td><label for ="tlfn">nº tlfn</label></td>
-            <td><input name="tlfn" type="tel" id="tlfn" pattern="[+][0-9]{2}[ ][0-9]{9}"></td>
+            <td><label for ="tlfn">Número de teléfono:</label></td>
+            <td><input name="tlfn" type="tel" id="tlfn" pattern="[+][0-9]{2}[0-9]{9}" placeholder="+34123456789" required></td>
         </tr>
     </table>
-    <input name="registrarse" type="submit" id="registrarse" value="Regristar Cuenta">
+    <input name="registrarse" type="submit" id="registrarse" value="Registrar Cuenta">
 </form>
 <?php
-    if(isset($_GET['vacio']) && ($_GET['vacio']==1)){echo "<h1> complete todos los datos del formulario </h1>";}
-    if(isset($_GET['correoexistente']) && ($_GET['correoexistente']==1)){echo "<h1> este correo electrónico ya ha sido registrado </h1>";}
-    if(isset($_GET['dni']) && ($_GET['dni']==1)){echo "<h1> este dni esta en uso por otro usuario </h1>";}
+    if(isset($_GET['vacio']) && ($_GET['vacio']==1)){echo "<h1> Complete todos los datos del formulario </h1>";}
+    if(isset($_GET['correoexistente']) && ($_GET['correoexistente']==1)){echo "<h1> Este correo electrónico ya ha sido registrado </h1>";}
+    if(isset($_GET['dni']) && ($_GET['dni']==1)){echo "<h1> Este dni esta en uso por otro usuario </h1>";}
+    if(isset($_GET['formato_dni']) && ($_GET['formato_dni']==1)){echo "<h1> El formato del DNI debe ser 8 números seguidos de una letra mayúscula </h1>";}
 
     ?>
 </div>
