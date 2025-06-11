@@ -2,6 +2,8 @@
 session_start();
 error_reporting(E_ALL);
 require("conexion.php");
+require_once __DIR__ . "/vendor/autoload.php";
+require_once("correo.php");
 
 if (!isset($_POST['total']) || !isset($_POST['id_partido'])) {
     header('Location: carrito_butacas.php');
@@ -274,6 +276,20 @@ $hora_es = $fechaHora->format('H:i');
                 </div>
             </div>
         </div>
+
+        <?php
+            $usuario_correo = $_SESSION['correo'];
+            $carrito_para_email = [];
+            foreach ($butacas_seleccionadas as $butaca) {
+                $carrito_para_email[] = [
+                    'id_butaca' => $butaca['ID_BUTACA'],
+                    'zona' => $butaca['ZONA_BUTACA'],
+                    'puerta' => $butaca['PUERTA_BUTACA'],
+                    'precio_unitario' => $butaca['PRECIO_BUTACA']
+                ];
+            }
+            enviarCorreo($usuario_correo, $carrito_para_email, $total, $datos_partido);
+        ?>
 
         <p class="mensaje">Recibirás un correo electrónico con los detalles de la compra de entradas.</p>
         
