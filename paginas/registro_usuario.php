@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Registro</title>
+    <link rel="icon" type="image/x-icon" href="recursos/img/RAYO.png">
+    <title>Registro de usuario | Rayo Vallecano</title>
 </head>
 <body>
 <?php
@@ -15,7 +16,6 @@ $vacio=false;
         if(empty($_POST['nombre']) OR empty($_POST['correo']) OR empty($_POST['pw']) OR empty($_POST['DNI']) OR empty($_POST['tlfn'])){
             $vacio = true;
             header("location: registro.php?vacio=1");
-            exit;
         }
         $correos=$bd->prepare("SELECT * FROM USUARIOS");
         $correos->execute();
@@ -39,8 +39,4 @@ $sql="INSERT INTO `tfc`.`USUARIOS`(`NUM_USUARIO`, `NOMBRE_USUARIO`, `PS_USUARIO`
                     $_SESSION['correo']= $_POST["correo"];
                     $_SESSION['id']="id";
                 header("location: inicio.php");
-    }
-    else{
-        $vacio = true;
-            header("location: registro.php?vacio=1");
     }

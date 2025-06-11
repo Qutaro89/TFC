@@ -65,9 +65,11 @@ $dompdf->setOptions($options);
 // 2. Definir el contenido HTML que se convertirá en PDF
 $html = '
 <!DOCTYPE html>
-<html>
+<html lang="es">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/x-icon" href="recursos/img/RAYO.png">
     <title>Entrada Rayo Vallecano - Butaca ' . $butaca_unica['ID_BUTACA'] . '</title>
     <style>
         @page { margin: 0; }

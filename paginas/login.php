@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login</title>
+    <link rel="icon" type="image/x-icon" href="recursos/img/RAYO.png">
+    <title>Inicio de sesión | Rayo Vallecano</title>
     <style>
         img{
             width: 10%;

@@ -6,6 +6,7 @@ session_start();
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/x-icon" href="recursos/img/RAYO.png">
     <title>Listado de partidos | Rayo Vallecano</title>
     <style>
         a{
@@ -151,7 +152,7 @@ session_start();
         <table id="cabecera">
             <tr>
                 <td style="background-color: black;"></td>
-                <td>Tienda Online</td>
+                <td>Tienda Online | Rayo Vallecano</td>
                 <td><a href="https://www.rayovallecano.es/tienda-oficial"> Tienda Oficial</a></td>
                 <td><a href="https://www.digimobil.es/fibra-movil?fibra=1320&movil=1326&utm_source=">Contrata Digi</a></td>
                 <td><a href="https://www.ffluzon.org/colabora/">Colabora con la Fundación Luzón</a></td>

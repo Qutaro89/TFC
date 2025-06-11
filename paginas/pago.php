@@ -17,9 +17,9 @@ $bd = conectar();
 foreach ($_POST as $clave => $valor) {
     if (strpos($clave, 'butaca') === 0) {
         // Verificar si la butaca ya está reservada
-        $verificar = $bd->prepare("SELECT COUNT(*) FROM BUTACA_PARTIDO
-                                 WHERE ID_BUTACA = :butaca
-                                 AND ID_PARTIDO = :partido
+        $verificar = $bd->prepare("SELECT COUNT(*) FROM BUTACA_PARTIDO 
+                                 WHERE ID_BUTACA = :butaca 
+                                 AND ID_PARTIDO = :partido 
                                  AND ESTADO_BUTACA = 'RESERVADA'");
         $verificar->execute(array(
             ':butaca' => $valor,
@@ -50,7 +50,8 @@ $hora_es = $fechaHora->format('H:i');
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pago de Entradas</title>
+    <link rel="icon" type="image/x-icon" href="recursos/img/RAYO.png">
+    <title>Pago de Entradas | Rayo Vallecano</title>
     <style>
         a{
             outline: none;
